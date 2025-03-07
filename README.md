@@ -20,8 +20,8 @@ Health App is a mobile application built with Expo and React Native, deployed us
 ## Setup & Installation
 1. Clone the repository:
    ```sh
-   git clone https://github.com/ryanschwartz88/nura_frontend.git
-   cd nura_frontend
+   git clone https://github.com/ryanschwartz88/health-app.git
+   cd health_app
    ```
 2. Install dependencies:
    ```sh
