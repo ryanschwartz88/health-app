@@ -1,50 +1,62 @@
-# Welcome to your Expo app 👋
+# Health App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Overview
+Health App is a mobile application built with Expo and React Native, deployed using Expo Application Services (EAS). The app allows users to log their food intake, receive a breakdown of their nutritional health, and get personalized suggestions to improve their diet. Initially, we are using Supabase as our backend for the MVP, but we plan to transition to AWS after launch.
 
-## Get started
+## Features
+- **Food Logging**: Users can enter their meals manually.
+- **Health Breakdown**: Analyzes nutritional intake and provides insights.
+- **Personalized Suggestions**: AI-driven recommendations based on dietary habits.
+- **Subscription Model**: Integrated with Superwall for managing premium features.
+- **Device-Based Authentication**: No user accounts, authentication is based on device identifiers.
 
-1. Install dependencies
+## Tech Stack
+- **Frontend**: React Native (Expo)
+- **Backend (MVP)**: Supabase
+- **Backend (Future)**: AWS
+- **Subscriptions**: Superwall
+- **Deployment**: EAS (Expo Application Services)
 
-   ```bash
+## Setup & Installation
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/ryanschwartz88/nura_frontend.git
+   cd nura_frontend
+   ```
+2. Install dependencies:
+   ```sh
    npm install
    ```
-
-2. Start the app
-
-   ```bash
-    npx expo start
+3. Configure environment variables:
+   - Create a `.env` file in the root directory and add:
+     ```sh
+     SUPABASE_URL=your-supabase-url
+     SUPABASE_ANON_KEY=your-supabase-anon-key
+     SUPERWALL_API_KEY=your-superwall-api-key
+     ```
+4. Start the development server:
+   ```sh
+   npx expo start
    ```
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+## Deployment
+To deploy with EAS:
+```sh
+npx eas build --platform ios/android
+npx eas submit --platform ios/android
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Roadmap
+- [ ] Implement food logging
+- [ ] Develop health breakdown and insights
+- [ ] Integrate Superwall for subscriptions
+- [ ] Migrate backend from Supabase to AWS
+- [ ] Implement AI-driven recommendations
 
-## Learn more
+## Contributing
+1. Fork the repository.
+2. Create a feature branch (`git checkout -b feature-name`).
+3. Commit your changes (`git commit -m 'Add new feature'`).
+4. Push to the branch (`git push origin feature-name`).
+5. Open a pull request.
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
