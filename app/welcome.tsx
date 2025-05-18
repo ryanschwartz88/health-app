@@ -1,3 +1,4 @@
+import { initializeUser } from '@/utils/userManager';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
@@ -8,8 +9,9 @@ export default function Welcome() {
   const handleGetStarted = async () => {
     setLoading(true);
     try {  
-      // Navigate to the onboarding flow
-      router.replace('/onboarding/gender');
+      // create user id and navigate to app
+      await initializeUser();
+      router.replace('/');
     } catch (error) {
       console.error('Error during onboarding:', error);
     } finally {

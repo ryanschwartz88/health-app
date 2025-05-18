@@ -17,7 +17,6 @@ function useProtectedRoute(isUserIdPresent: boolean | null) {
 
     // Determine which part of the app the user is in
     const isInWelcome = segments[0] === 'welcome';
-    const isInOnboarding = segments[0] === 'onboarding';
     const isInApp = segments[0] === '(app)';
     
     // User has no ID but is trying to access protected areas
