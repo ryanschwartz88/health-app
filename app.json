@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Health App",
-    "slug": "health-app",
+    "name": "Nura",
+    "slug": "nura",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",

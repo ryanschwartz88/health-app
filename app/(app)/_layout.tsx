@@ -6,9 +6,8 @@ export default function AppLayout() {
   useEffect(() => {
     // Register the Superwall placement for subscription check
     Superwall.shared.register({
-      placement: 'onboarding',
+      placement: 'b',
       feature: () => {
-        console.log("App is unlocked");
         // Place any global feature logic here if needed
       }
     });

@@ -1,7 +1,7 @@
 import { updateSupabaseHeaders } from '@/data/supabaseClient';
 import { createUserId } from '@/utils/secureStorage';
 import Superwall from '@superwall/react-native-superwall';
-import { router } from 'expo-router';
+import { authEvents, AUTH_STATE_CHANGE_EVENT } from '@/app/_layout';
 
 /**
  * Initialize a new user in the system
@@ -23,6 +23,9 @@ export async function initializeUser(): Promise<string> {
 
     // Update Supabase headers with the new user ID
     await updateSupabaseHeaders();
+
+    // Emit auth state change event
+    authEvents.emit(AUTH_STATE_CHANGE_EVENT);
 
     return userId;
   } catch (error) {
@@ -52,10 +55,9 @@ export async function resetUser(): Promise<boolean> {
 
     // Update Supabase headers with an empty user ID
     await updateSupabaseHeaders();
-
-    // Reroute to welcome page
-    router.replace('/welcome');
     
+    // Emit auth state change event
+    authEvents.emit(AUTH_STATE_CHANGE_EVENT);
     
     return true;
   } catch (error) {
