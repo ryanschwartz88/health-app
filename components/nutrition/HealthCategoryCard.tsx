@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Text, View } from 'react-native';
+import GlassPanel from '../ui/GlassPanel';
 
 interface HealthCategoryCardProps {
   category: string;
@@ -37,12 +38,17 @@ export const HealthCategoryCard: React.FC<HealthCategoryCardProps> = ({
   ));
 
   return (
-    <View className="bg-white bg-opacity-40 border border-white rounded-3xl p-4 shadow-sm m-2" style={{shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 10}}>
+    <GlassPanel 
+      rounded="xl" 
+      hasBorder={true}
+      className="p-4 m-2" 
+      style={{shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 10}}
+    >
       {/* First row with icon, category name and percentage */}
       <View className="flex-row items-center justify-between mb-4">
         <View className="flex-row items-center">
           {/* Icon in circle */}
-          <View className="h-12 w-12 rounded-full bg-gray-200 items-center justify-center mr-3">
+          <View className="h-12 w-12 rounded-full bg-black/10 items-center justify-center mr-3">
             <Ionicons name={icon} size={24} color="black" />
           </View>
           
@@ -58,7 +64,7 @@ export const HealthCategoryCard: React.FC<HealthCategoryCardProps> = ({
       <View className="flex-row">
         {progressOvals}
       </View>
-    </View>
+    </GlassPanel>
   );
 };
 

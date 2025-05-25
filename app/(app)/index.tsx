@@ -17,7 +17,6 @@ export default function Index() {
     ["10:00 AM", 20, 25],
     ["12:00 PM", 35, 30],
     ["2:00 PM", 45, 50],
-    ["4:00 PM", 55, 60],
     ["6:00 PM", 65, 67],
   ];
 
@@ -39,7 +38,7 @@ export default function Index() {
 
   if (loading) {
     return (
-      <View style={styles.container}>
+      <View style={styles.content}>
         <ActivityIndicator size="large" color="#4CAF50" />
       </View>
     );
@@ -63,10 +62,8 @@ export default function Index() {
   }
 
   return (
-    <View style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.welcomeText}>Welcome to Health App</Text>
-        <Text style={styles.userIdText}>User ID: {userId}</Text>
         <HomeGraph data={nutritionData} />
         
         <View className="mt-4" />
@@ -83,19 +80,12 @@ export default function Index() {
           completionRate={60}
           icon="flame"
         />
-        
-        <Text style={styles.buttonText}>You are a premium user</Text>
         <Button title="Delete Account" onPress={deleteAccount} />
       </View>
-    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
   content: {
     flex: 1,
     justifyContent: 'center',

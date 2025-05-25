@@ -1,22 +1,15 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
-import { LineChart } from 'react-native-gifted-charts';
+import React from 'react';
+import { Text, View } from 'react-native';
+import { CurveType, LineChart } from 'react-native-gifted-charts';
+import GlassPanel from '@/components/ui/GlassPanel';
 
-type DataPoint = [string, number, number]; // [time, calories_percent, nutrition_percent]
+type DataPoint = [string, number, number]; 
 
 type HomeGraphProps = {
   data: DataPoint[];
 };
 
 const HomeGraph: React.FC<HomeGraphProps> = ({ data }) => {
-  const [selectedPoint, setSelectedPoint] = useState<{
-    time: string;
-    calories: number;
-    nutrition: number;
-    x: number;
-    y: number;
-  } | null>(null);
-
   // Calculate the current nutrition percentage (using the last value from data)
   const currentNutrition = data.length > 0 ? data[data.length - 1][2] : 0;
 
@@ -26,31 +19,14 @@ const HomeGraph: React.FC<HomeGraphProps> = ({ data }) => {
     return [
       {
         value: calories,
-        dataPointText: '',
+        dataPointText: "",
         time: time,
-        onPress: (x: number, y: number) => {
-          setSelectedPoint({
-            time,
-            calories,
-            nutrition,
-            x,
-            y,
-          });
-        },
       },
       {
         value: nutrition,
-        dataPointText: '',
+        dataPointText: "",
         time: time,
-        onPress: (x: number, y: number) => {
-          setSelectedPoint({
-            time,
-            calories,
-            nutrition,
-            x,
-            y,
-          });
-        },
+        
       },
     ];
   }).flat();
@@ -60,82 +36,83 @@ const HomeGraph: React.FC<HomeGraphProps> = ({ data }) => {
   const nutritionData = formattedData.filter((_, i) => i % 2 === 1);
 
   return (
-    <View className="bg-gray-100 rounded-3xl p-6 w-full">
+    <GlassPanel rounded="xl" style={{ padding: 16 }}>
       <View className="flex-row">
-        {/* Left Column */}
-        <View className="flex-1 justify-between">
+        {/* Left Column - 1/3 width */}
+        <View className="flex justify-between">
           <Text className="text-2xl font-bold">All Nutrition</Text>
-          <View className="mb-4">
+          <View>
             <Text className="text-6xl font-bold">{currentNutrition}%</Text>
             <Text className="text-gray-400 text-lg">of all nutrition</Text>
           </View>
         </View>
 
-        {/* Right Column - Chart */}
-        <View className="flex-1">
+        {/* Right Column */}
+        <View className="ml-3 items-center">
           <LineChart
-            thickness={3}
-            data={nutritionData}
-            data2={caloriesData}
-            height={180}
-            spacing={10}
-            initialSpacing={0}
-            color1="#333" // Dark grey for nutrition
+            isAnimated
+            thickness={2}
+            curveType={CurveType.QUADRATIC}
+            spacing={180 / (caloriesData.length)}
+            
+            curved
+            curvature={0.4}
+            data={caloriesData}
+            data2={nutritionData}
+            color="#333" // Dark grey for nutrition
             color2="#AAA" // Light grey for calories
-            dataPointsColor1="#333"
-            dataPointsColor2="#AAA"
-            dataPointsRadius={5}
-            showFractionalValues
+            dataPointsColor1='#333'
+            dataPointsColor2='#333'
+            dataPointsRadius={2}
+            rulesColor="lightgray"
+            rulesType="solid"
             showVerticalLines
-            showXAxisIndices
-            xAxisIndicesHeight={3}
-            xAxisIndicesColor="lightgray"
-            yAxisColor="lightgray"
-            yAxisThickness={1}
-            horizontalRulesStyle={{
-              strokeDashArray: [4, 4],
-              color: 'lightgray',
-            }}
-            verticalLinesUptoDataPoint
-            hideDataPoints1={selectedPoint !== null}
-            hideDataPoints2={selectedPoint !== null}
-          />
+            verticalLinesColor="lightgray"
+            verticalLinesStrokeDashArray={[0]}
+            height={180}
+            width={180}
+            xAxisColor={"lightgray"}
+            maxValue={100}
+            stepValue={10}
+            stepHeight={18}
+            noOfSections={10}
 
+            noOfVerticalLines={10}
+            verticalLinesSpacing={18}
+            hideYAxisText
+            yAxisThickness={0}
+            disableScroll
+            focusEnabled
+            dataPointLabelWidth={60}
+            delayBeforeUnFocus={1000}
+            focusedDataPointColor={'#333'}
+            showDataPointLabelOnFocus={true}
+            /* focusedDataPointLabelComponent={
+                (selectedPoint: { time: string; nutrition: string; calories: string; }) => (
+                    <View 
+                        className="bg-gray-800 rounded-lg"
+                        >
+                        <Text className="text-white">Nutrition: {selectedPoint.nutrition}%</Text>
+                        <Text className="text-white">Calories: {selectedPoint.calories}%</Text>
+                    </View>
+                )
+            } */
+          />
+          
           {/* Legend */}
-          <View className="flex-row justify-center mt-2">
-            <View className="flex-row items-center mr-4">
-              <View className="h-3 w-3 rounded-full bg-gray-800 mr-1" />
+          <View className="flex-row items-center justify-center ml-4">
+            <View className="flex-row items-center mr-4 bg-white rounded-full pt-1 pb-1 pl-3 pr-3">
+              <View className="h-3 w-3 rounded-full bg-gray-400 mr-2" />
               <Text>Nutrition</Text>
             </View>
-            <View className="flex-row items-center">
-              <View className="h-3 w-3 rounded-full bg-gray-400 mr-1" />
+            <View className="flex-row items-center bg-white rounded-full pt-1 pb-1 pl-3 pr-3">
+              <View className="h-3 w-3 rounded-full bg-gray-800 mr-2" />
               <Text>Calories</Text>
             </View>
           </View>
         </View>
       </View>
-
-      {/* Overlay for selected point */}
-      {selectedPoint && (
-        <View 
-          className="absolute bg-gray-800 px-4 py-2 rounded-lg"
-          style={{
-            top: selectedPoint.y - 70,
-            left: selectedPoint.x - 50,
-          }}
-        >
-          <TouchableOpacity 
-            className="absolute right-1 top-1" 
-            onPress={() => setSelectedPoint(null)}
-          >
-            <Text className="text-white">×</Text>
-          </TouchableOpacity>
-          <Text className="text-white">{selectedPoint.time}</Text>
-          <Text className="text-white">Nutrition: {selectedPoint.nutrition}%</Text>
-          <Text className="text-white">Calories: {selectedPoint.calories}%</Text>
-        </View>
-      )}
-    </View>
+    </GlassPanel>
   );
 };
 
