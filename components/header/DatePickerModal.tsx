@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 type DatePickerModalProps = {
@@ -26,19 +26,73 @@ const DatePickerModal: React.FC<DatePickerModalProps> = ({
   
   // Day names
   const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+  // useEffect to update the selected date when the modal is opened
+  useEffect(() => {
+    setSelectedDate(initialDate);
+  }, [initialDate]);
   
-  // Navigate to previous month
+  // Get the minimum selectable date (1 year ago from today)
+  const getMinDate = () => {
+    const minDate = new Date();
+    minDate.setFullYear(minDate.getFullYear() - 1);
+    return minDate;
+  };
+
+  // Get the maximum selectable date (today)
+  const getMaxDate = () => {
+    return new Date();
+  };
+
+  // Check if a month is within the valid range
+  const isMonthInRange = (date: Date, direction: 'prev' | 'next') => {
+    const minDate = getMinDate();
+    const maxDate = getMaxDate();
+    
+    if (direction === 'prev') {
+      // For previous, check if the first day of the month is after or equal to the min date's month
+      const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+      const firstDayOfMinMonth = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
+      return firstDayOfMonth >= firstDayOfMinMonth;
+    } else {
+      // For next, check if the first day of the month is before or equal to the max date's month
+      const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+      const firstDayOfMaxMonth = new Date(maxDate.getFullYear(), maxDate.getMonth(), 1);
+      return firstDayOfMonth <= firstDayOfMaxMonth;
+    }
+  };
+  
+  // Navigate to previous month if within range
   const goToPreviousMonth = () => {
     const previousMonth = new Date(currentMonth);
     previousMonth.setMonth(previousMonth.getMonth() - 1);
-    setCurrentMonth(previousMonth);
+    
+    if (isMonthInRange(previousMonth, 'prev')) {
+      setCurrentMonth(previousMonth);
+    }
   };
   
-  // Navigate to next month
+  // Navigate to next month if within range
   const goToNextMonth = () => {
     const nextMonth = new Date(currentMonth);
     nextMonth.setMonth(nextMonth.getMonth() + 1);
-    setCurrentMonth(nextMonth);
+    
+    if (isMonthInRange(nextMonth, 'next')) {
+      setCurrentMonth(nextMonth);
+    }
+  };
+  
+  // Check if a date is selectable (between min and max dates)
+  const isDateSelectable = (date: Date) => {
+    const minDate = getMinDate();
+    const maxDate = getMaxDate();
+    
+    // Set time to midnight for accurate date comparison
+    const dateToCheck = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const minDateMidnight = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+    const maxDateMidnight = new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate());
+    
+    return dateToCheck >= minDateMidnight && dateToCheck <= maxDateMidnight;
   };
   
   // Generate days for the current month view
@@ -97,6 +151,10 @@ const DatePickerModal: React.FC<DatePickerModalProps> = ({
   
   const days = generateDays();
   
+  // Check if we can navigate to previous or next month
+  const canGoToPreviousMonth = isMonthInRange(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1), 'prev');
+  const canGoToNextMonth = isMonthInRange(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1), 'next');
+  
   return (
     <Modal
       visible={isVisible}
@@ -117,16 +175,24 @@ const DatePickerModal: React.FC<DatePickerModalProps> = ({
             
             {/* Month navigation */}
             <View style={styles.monthNavigation}>
-              <TouchableOpacity onPress={goToPreviousMonth} style={styles.navButton}>
-                <Ionicons name="chevron-back" size={24} color="#000" />
+              <TouchableOpacity 
+                onPress={canGoToPreviousMonth ? goToPreviousMonth : undefined} 
+                style={styles.navButton}
+                disabled={!canGoToPreviousMonth}
+              >
+                <Ionicons name="chevron-back" size={24} color={canGoToPreviousMonth ? "#000" : "#ccc"} />
               </TouchableOpacity>
               
               <Text style={styles.monthYearText}>
                 {`${monthNames[currentMonth.getMonth()]} ${currentMonth.getFullYear()}`}
               </Text>
               
-              <TouchableOpacity onPress={goToNextMonth} style={styles.navButton}>
-                <Ionicons name="chevron-forward" size={24} color="#000" />
+              <TouchableOpacity 
+                onPress={canGoToNextMonth ? goToNextMonth : undefined} 
+                style={styles.navButton}
+                disabled={!canGoToNextMonth}
+              >
+                <Ionicons name="chevron-forward" size={24} color={canGoToNextMonth ? "#000" : "#ccc"} />
               </TouchableOpacity>
             </View>
             
@@ -139,26 +205,33 @@ const DatePickerModal: React.FC<DatePickerModalProps> = ({
             
             {/* Calendar grid */}
             <View style={styles.calendarGrid}>
-              {days.map((day, index) => (
-                <TouchableOpacity
-                  key={index}
-                  style={[
-                    styles.dayCell,
-                    day !== null && isSelectedDay(day) && styles.selectedDayCell
-                  ]}
-                  onPress={() => day && handleDayPress(day)}
-                  disabled={day === null}
-                >
-                  {day && (
-                    <Text style={[
-                      styles.dayText,
-                      isSelectedDay(day) && styles.selectedDayText
-                    ]}>
-                      {day}
-                    </Text>
-                  )}
-                </TouchableOpacity>
-              ))}
+              {days.map((day, index) => {
+                // Determine if this date is selectable (if it's in the valid range)
+                const isDateInRange = day !== null ? isDateSelectable(new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day)) : false;
+                
+                return (
+                  <TouchableOpacity
+                    key={index}
+                    style={[
+                      styles.dayCell,
+                      day !== null && isSelectedDay(day) && styles.selectedDayCell,
+                      day !== null && !isDateInRange && styles.disabledDayCell
+                    ]}
+                    onPress={() => day && isDateInRange && handleDayPress(day)}
+                    disabled={day === null || !isDateInRange}
+                  >
+                    {day && (
+                      <Text style={[
+                        styles.dayText,
+                        isSelectedDay(day) && styles.selectedDayText,
+                        !isDateInRange && styles.disabledDayText
+                      ]}>
+                        {day}
+                      </Text>
+                    )}
+                  </TouchableOpacity>
+                );
+              })}
             </View>
             
             {/* Action buttons */}
@@ -290,6 +363,12 @@ const styles = StyleSheet.create({
   },
   confirmButtonText: {
     color: '#fff',
+  },
+  disabledDayCell: {
+    opacity: 0.5,
+  },
+  disabledDayText: {
+    color: '#ccc',
   },
 });
 
