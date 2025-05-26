@@ -47,11 +47,12 @@ const Header: React.FC<HeaderProps> = ({
   
   // Generate appropriate title based on path or name
   const getTitle = () => {
-    if (name) return `Hi, ${name}`;
+
+    if (name && (pathname == '/' || pathname == '/index')) return `Hi, ${name}`;
     
     if (pathname === '/' || pathname === '/index') return 'Home';
     const routeName = pathname.split('/').pop();
-    if (!routeName) return 'Health App';
+    if (!routeName) return 'Nura';
     
     // Convert route name to title case (e.g., 'nutrition' -> 'Nutrition')
     return routeName.charAt(0).toUpperCase() + routeName.slice(1);

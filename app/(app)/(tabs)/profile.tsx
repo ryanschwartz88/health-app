@@ -1,7 +1,6 @@
 import AppText from '@/components/ui/AppText';
 import BottomSpacer from '@/components/ui/BottomSpacer';
 import GlassPanel from '@/components/ui/GlassPanel';
-import Header from '@/components/ui/Header';
 import { resetUser } from '@/utils/userManager';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -83,8 +82,6 @@ export default function ProfileScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-      {/* Add Header without calendar */}
-      <Header showCalendar={false} />
       
       {/* Health Stats Summary */}
       <GlassPanel rounded="lg" style={styles.statsPanel}>

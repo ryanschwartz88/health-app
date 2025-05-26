@@ -1,5 +1,4 @@
 import BottomSpacer from '@/components/ui/BottomSpacer';
-import Header from '@/components/ui/Header';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -73,8 +72,6 @@ export default function LogsScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-      {/* Include Header in the ScrollView */}
-      <Header showCalendar={true} />
 
       {/* Add New Log Button */}
       <GlassPanel 

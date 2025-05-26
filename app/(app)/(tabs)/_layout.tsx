@@ -1,7 +1,8 @@
 import BottomNav from '@/components/ui/BottomNav';
-import { Slot } from 'expo-router';
+import Header from '@/components/ui/Header';
+import { Slot, usePathname } from 'expo-router';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 export default function TabsLayout() {
   // Handle the plus button press
@@ -11,11 +12,23 @@ export default function TabsLayout() {
     console.log('Plus button pressed');
   };
 
+  let showCalendar = true;
+  const pathname = usePathname();
+  if (pathname === '/profile') {
+    showCalendar = false;
+  }
+
   return (
     <View style={styles.container}>
+
+      {/* Header */}
+      <ScrollView style={styles.container}>
+        <Header name="Ryan" showCalendar={showCalendar} />
       
-      {/* Main content area */}
-      <Slot />
+        {/* Main content area */}
+        <Slot />
+      </ScrollView>
+      
       
       {/* Custom bottom navigation */}
       <BottomNav onPlusButtonPress={handlePlusButtonPress} />

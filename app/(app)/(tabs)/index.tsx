@@ -2,7 +2,6 @@ import AdditiveItem from "@/components/bad_additives/AdditiveItem";
 import HealthCategoryCard from "@/components/nutrition/HealthCategoryCard";
 import HomeGraph from "@/components/nutrition/HomeGraph";
 import BottomSpacer from "@/components/ui/BottomSpacer";
-import Header from "@/components/ui/Header";
 import { getUserId } from "@/utils/secureStorage";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
@@ -47,8 +46,6 @@ export default function Index() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-      {/* Include Header with personalized greeting and calendar */}
-      <Header name="Ryan" showCalendar={true} />
       
       <View style={styles.content}>
         <HomeGraph data={nutritionData} />

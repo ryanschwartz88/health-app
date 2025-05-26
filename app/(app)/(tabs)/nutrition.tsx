@@ -1,5 +1,4 @@
 import BottomSpacer from '@/components/ui/BottomSpacer';
-import Header from '@/components/ui/Header';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
@@ -9,9 +8,7 @@ import GlassPanel from '../../../components/ui/GlassPanel';
 
 export default function NutritionScreen() {
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-      {/* Include the Header component at the top of the ScrollView */}
-      <Header showCalendar={true} />
+    <ScrollView style={styles.container}>
       
       {/* No need for the separate page title since it's in the Header */}
 
