@@ -1,9 +1,16 @@
+import {
+  Outfit_300Light,
+  Outfit_400Regular,
+  Outfit_500Medium,
+  Outfit_600SemiBold,
+  Outfit_700Bold,
+  useFonts
+} from '@expo-google-fonts/outfit';
 import Superwall from "@superwall/react-native-superwall";
 import { LinearGradient } from "expo-linear-gradient";
-import { Stack, usePathname } from "expo-router";
+import { Slot, SplashScreen } from "expo-router";
 import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
-import Header from "../../components/ui/Header";
 
 const styles = StyleSheet.create({
   container: {
@@ -14,13 +21,21 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  headerContainer: {
-    paddingTop: 10,
-    zIndex: 10, // Ensure header stays above other content
-  },
 });
 
+// Prevent the splash screen from auto-hiding before asset loading is complete
+SplashScreen.preventAutoHideAsync();
+
 export default function AppLayout() {
+  // Load the Outfit font weights
+  const [fontsLoaded, fontError] = useFonts({
+    'Outfit-Light': Outfit_300Light,
+    'Outfit-Regular': Outfit_400Regular,
+    'Outfit-Medium': Outfit_500Medium,
+    'Outfit-SemiBold': Outfit_600SemiBold,
+    'Outfit-Bold': Outfit_700Bold,
+  });
+
   useEffect(() => {
     // Register the Superwall placement for subscription check
     Superwall.shared.register({
@@ -31,10 +46,19 @@ export default function AppLayout() {
     });
   }, []);
 
-  const pathname = usePathname();
+  // This effect will hide the splash screen once fonts are loaded or if there's an error
+  useEffect(() => {
+    if (fontsLoaded || fontError) {
+      // Hide the splash screen once fonts are loaded
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, fontError]);
+
   
-  // Determine if we should show back button based on route
-  const shouldShowBackButton = pathname !== '/';
+  // If fonts aren't loaded yet, don't render anything
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
   
   return (
     <View style={styles.container}>
@@ -44,17 +68,8 @@ export default function AppLayout() {
         end={{ x: .75, y: .5 }}
         style={styles.background}
       >
-        {/* Global Header */}
-        <View style={styles.headerContainer}>
-          <Header />
-        </View>
         
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            contentStyle: { backgroundColor: 'transparent' }
-          }}
-        />
+        <Slot />
       </LinearGradient>
     </View>
   );

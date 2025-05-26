@@ -1,11 +1,12 @@
 import AdditiveItem from "@/components/bad_additives/AdditiveItem";
 import HealthCategoryCard from "@/components/nutrition/HealthCategoryCard";
 import HomeGraph from "@/components/nutrition/HomeGraph";
+import BottomSpacer from "@/components/ui/BottomSpacer";
+import Header from "@/components/ui/Header";
 import { getUserId } from "@/utils/secureStorage";
-import { resetUser } from "@/utils/userManager";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Button, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, ScrollView, StyleSheet, View } from "react-native";
 
 export default function Index() {
   const [userId, setUserId] = useState<string>("");
@@ -44,29 +45,15 @@ export default function Index() {
     );
   }
 
-  const deleteAccount = async () => {
-    try {
-      // Reset user data and update auth state
-      const success = await resetUser();
-      
-      if (success) {
-        // Navigation will be handled by the _layout.tsx component
-        // after the auth state changes
-        console.log('Account deleted successfully');
-      } else {
-        console.error('Failed to delete account');
-      }
-    } catch (error) {
-      console.error('Error deleting account:', error);
-    }
-  }
-
   return (
+    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+      {/* Include Header with personalized greeting and calendar */}
+      <Header name="Ryan" showCalendar={true} />
+      
       <View style={styles.content}>
-        <Text style={styles.welcomeText}>Welcome to Health App</Text>
         <HomeGraph data={nutritionData} />
         
-        <View className="mt-4" />
+        <View style={styles.spacing} />
         
         <AdditiveItem 
           icon={<MaterialCommunityIcons name="candy" size={24} color="black" />}
@@ -80,17 +67,28 @@ export default function Index() {
           completionRate={60}
           icon="flame"
         />
-        <Button title="Delete Account" onPress={deleteAccount} />
       </View>
+      
+      <BottomSpacer />
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  contentContainer: {
+    padding: 16,
+    paddingBottom: 40,
+  },
   content: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
+  },
+  spacing: {
+    height: 16,
   },
   welcomeText: {
     fontSize: 24,

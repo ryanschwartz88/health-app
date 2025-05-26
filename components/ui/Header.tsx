@@ -1,83 +1,167 @@
-import { usePathname, useRouter } from 'expo-router';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import GlassPanel from './GlassPanel';
+import {
+  LibreCaslonText_400Regular,
+  LibreCaslonText_700Bold,
+  useFonts
+} from '@expo-google-fonts/libre-caslon-text';
+import { Ionicons } from '@expo/vector-icons';
+import { usePathname } from 'expo-router';
+import React, { useState } from 'react';
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+// Import from same directory
+import DatePickerModal from '@/components/header/DatePickerModal';
+import WeekSlider from '@/components/header/WeekSlider';
 
 type HeaderProps = {
-  title?: string;
-  rightAction?: React.ReactNode;
+  name?: string;
+  showCalendar?: boolean;
 };
 
 /**
  * Header component that appears on all screens in the app
  */
 const Header: React.FC<HeaderProps> = ({
-  title,
-  rightAction,
+  name,
+  showCalendar = true,
 }) => {
-  const router = useRouter();
   const pathname = usePathname();
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [isDatePickerVisible, setDatePickerVisible] = useState<boolean>(false);
   
-  // Generate default title based on current route if no title provided
-  const getDefaultTitle = () => {
-    if (pathname === '/') return 'Home';
-    return pathname.split('/').pop()?.replace(/^\w/, c => c.toUpperCase()) || 'Health App';
+  // Mock completion data - in a real app, this would come from your data source
+  const [completionData] = useState<{[key: string]: number}>({
+    // Some sample data for the current week
+    '2025-05-19': 110,
+    '2025-05-20': 50,
+    '2025-05-21': 75,
+    '2025-05-22': 100,
+    '2025-05-23': 200,
+    '2025-05-24': 0,
+    '2025-05-25': 45,
+  });
+  
+  // Load Libre Caslon Text font
+  const [fontsLoaded] = useFonts({
+    LibreCaslonText_400Regular,
+    LibreCaslonText_700Bold,
+  });
+  
+  // Generate appropriate title based on path or name
+  const getTitle = () => {
+    if (name) return `Hi, ${name}`;
+    
+    if (pathname === '/' || pathname === '/index') return 'Home';
+    const routeName = pathname.split('/').pop();
+    if (!routeName) return 'Health App';
+    
+    // Convert route name to title case (e.g., 'nutrition' -> 'Nutrition')
+    return routeName.charAt(0).toUpperCase() + routeName.slice(1);
   };
   
+  // Format the month and year
+  const getFormattedMonthYear = () => {
+    const month = selectedDate.toLocaleString('default', { month: 'short' });
+    return `${month} ${selectedDate.getFullYear()}`;
+  };
+  
+  // Handle date change from WeekSlider
+  const handleDateChange = (date: Date) => {
+    setSelectedDate(date);
+  };
+  
+  // Show date picker modal
+  const showDatePicker = () => {
+    setDatePickerVisible(true);
+  };
+  
+  // Hide date picker modal
+  const hideDatePicker = () => {
+    setDatePickerVisible(false);
+  };
+  
+  // Handle date selection from the picker
+  const handleDateSelection = (date: Date) => {
+    setSelectedDate(date);
+    hideDatePicker();
+  };
+  
+  if (!fontsLoaded) {
+    return null; // Or return a loading placeholder
+  }
+  
   return (
-    <GlassPanel
-      rounded="lg"
-      hasBorder={false}
-      style={styles.header}
-    >
+    <SafeAreaView style={styles.container}>
       <View style={styles.headerContent}>
-        
-        {/* Title section */}
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>{title || getDefaultTitle()}</Text>
-        </View>
-        
-        {/* Right section for optional actions */}
-        <View style={styles.rightSection}>
-          {rightAction}
+        {/* Title and Calendar row */}
+        <View style={[styles.titleContainer, showCalendar && styles.titleContainerWithCalendar]}>
+          <Text style={styles.title}>{getTitle()}</Text>
+          
+          {showCalendar && (
+            <View style={styles.dateContainer}>
+              <Text style={styles.dateText}>{getFormattedMonthYear()}</Text>
+              <TouchableOpacity onPress={showDatePicker} style={styles.calendarButton}>
+                <Ionicons name="calendar-outline" size={24} color="#000" />
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
       </View>
-    </GlassPanel>
+      
+      {/* Week slider (only show on screens that need the calendar) */}
+      {showCalendar && (
+        <WeekSlider
+          selectedDate={selectedDate}
+          onDateChange={handleDateChange}
+          completionData={completionData}
+        />
+      )}
+      
+      {/* Date picker modal */}
+      <DatePickerModal
+        isVisible={isDatePickerVisible}
+        onClose={hideDatePicker}
+        onDateSelected={handleDateSelection}
+        initialDate={selectedDate}
+      />
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  header: {
-    marginTop: 50, // For status bar
-    marginBottom: 16,
-    marginHorizontal: 16,
+  container: {
+    width: '100%',
   },
   headerContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+    flexDirection: 'column',
     justifyContent: 'space-between',
-    paddingVertical: 12,
-    paddingHorizontal: 8,
-  },
-  leftSection: {
-    flex: 1,
-    alignItems: 'flex-start',
-  },
-  backButton: {
-    padding: 4,
   },
   titleContainer: {
-    flex: 2,
+    marginTop: 8,
+  },
+  titleContainerWithCalendar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   title: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#333',
+    fontSize: 40,
+    color: '#000',
+    fontFamily: 'LibreCaslonText_700Bold',
+    letterSpacing: -0.5,
   },
-  rightSection: {
-    flex: 1,
+  dateContainer: {
+    flexDirection: 'column',
     alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+  },
+  dateText: {
+    fontSize: 16,
+    fontWeight: '800',
+    color: '#000',
+  },
+  calendarButton: {
+    marginTop: 12,
   },
 });
 
