@@ -131,7 +131,8 @@ const styles = StyleSheet.create({
   },
   tabItem: {
     alignItems: 'center',
-    paddingHorizontal: 2,
+    padding: 8,
+
   },
   plusButton: {
     width: 56,
