@@ -27,9 +27,11 @@ const DatePickerModal: React.FC<DatePickerModalProps> = ({
   // Day names
   const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-  // useEffect to update the selected date when the modal is opened
+  // useEffect to update the selected date and current month view when the initialDate changes
   useEffect(() => {
     setSelectedDate(initialDate);
+    // Also update the current month view to match the initialDate's month
+    setCurrentMonth(new Date(initialDate.getFullYear(), initialDate.getMonth(), 1));
   }, [initialDate]);
   
   // Get the minimum selectable date (1 year ago from today)

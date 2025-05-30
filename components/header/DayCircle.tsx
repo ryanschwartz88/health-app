@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 4,
-    height: 85, // Fixed height for all day circles
+    height: 80, // Fixed height for all day circles
   },
   selectedContainer: {
     backgroundColor: '#000',
@@ -114,9 +114,9 @@ const styles = StyleSheet.create({
   dayOfWeek: {
     fontSize: 14,
     fontWeight: '500',
-    marginBottom: 4,
     color: '#000',
-    height: 20, // Fixed height for the day text
+    height: 20,
+    marginBottom: 1,
   },
   selectedText: {
     color: '#FFFFFF',
@@ -128,8 +128,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 12,
-    height: 48, // Fixed height matching chosenSize default
-    width: 48, // Fixed width matching chosenSize default
+    height: 46, // Fixed height matching chosenSize default
+    width: 46, // Fixed width matching chosenSize default
   },
   svg: {
     position: 'absolute',
