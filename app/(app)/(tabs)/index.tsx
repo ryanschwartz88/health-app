@@ -1,5 +1,6 @@
+import SummaryCard from "@/components/ai/SummaryCard";
 import AdditiveItem from "@/components/bad_additives/AdditiveItem";
-import HealthCategoryCard from "@/components/nutrition/HealthCategoryCard";
+import HealthCategoryCard from "@/components/nutrition/CategoryHomeCard";
 import HomeGraph from "@/components/nutrition/HomeGraph";
 import BottomSpacer from "@/components/ui/BottomSpacer";
 import { getUserId } from "@/utils/secureStorage";
@@ -48,9 +49,14 @@ export default function Index() {
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
       
       <View style={styles.content}>
+        <SummaryCard
+          title="Summary"
+          body="This is a summary of your health data for the week."
+          tags={['Health', 'Nutrition', 'Exercise']}
+          rounded="lg"
+          style={{ width: '100%' }}
+        />
         <HomeGraph data={nutritionData} />
-        
-        <View style={styles.spacing} />
         
         <AdditiveItem 
           icon={<MaterialCommunityIcons name="candy" size={24} color="black" />}
@@ -59,6 +65,7 @@ export default function Index() {
           unit="g"
           color="#F0686F"
         />
+
         <HealthCategoryCard 
           category="Calories"
           completionRate={60}
@@ -82,10 +89,6 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     alignItems: 'center',
-    padding: 20,
-  },
-  spacing: {
-    height: 16,
   },
   welcomeText: {
     fontSize: 24,

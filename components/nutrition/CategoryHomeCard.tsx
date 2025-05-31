@@ -53,11 +53,11 @@ export const HealthCategoryCard: React.FC<HealthCategoryCardProps> = ({
           </View>
           
           {/* Category name */}
-          <Text className="text-lg font-semibold">{category}</Text>
+          <Text className="text-2xl font-regular">{category}</Text>
         </View>
         
         {/* Completion percentage */}
-        <Text className="text-3xl font-bold">{Math.round(normalizedRate)}%</Text>
+        <Text className="text-3xl font-regular">{Math.round(normalizedRate)}%</Text>
       </View>
       
       {/* Progress bar row */}

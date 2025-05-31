@@ -22,17 +22,19 @@ const DayCircle: React.FC<DayCircleProps> = ({
   isSelected,
   onPress,
   chosenWidth = deviceWidth / 7,
-  chosenSize = 42,
   disabled = false,
 }) => {
-  // Calculate circle parameters
-  const size = chosenSize;
-  const strokeWidth = 5;
-  const radius = (size - strokeWidth) / 2;
+  // Calculate SVG properties based on chosenWidth
+  const circleSize = chosenWidth * 0.75;
+  const size = circleSize; // SVG size
+  const radius = (size / 2) * 0.8; // 80% of half the size
   const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = circumference - (completionPercentage / 100) * circumference;
+  const strokeWidth = 5; // Scale stroke width with container
   
+  // Calculate stroke-dashoffset for progress circle
   const isComplete = completionPercentage >= 100;
+  const strokeDashoffset = isComplete ? 0 : circumference - (completionPercentage / 100) * circumference;
+  
   const circleColor = isComplete ? '#62DB43' : '#BBBBBB';
   
   // Handle touchable press when not disabled
@@ -48,7 +50,7 @@ const DayCircle: React.FC<DayCircleProps> = ({
         styles.container, 
         isSelected && !disabled && styles.selectedContainer,
         disabled && styles.disabledContainer,
-        { width: chosenWidth},
+        { width: chosenWidth, height: chosenWidth * 1.45 },
       ]} 
       onPress={handlePress}
       activeOpacity={disabled ? 1 : 0.8}
@@ -64,14 +66,14 @@ const DayCircle: React.FC<DayCircleProps> = ({
       </Text>
       
       {/* Day of Month with Progress Circle */}
-      <View style={[styles.circleContainer, isSelected && { backgroundColor: 'rgb(217, 217, 217)' }]}>
+      <View style={[styles.circleContainer, isSelected && { backgroundColor: 'rgb(217, 217, 217)' }, { width: chosenWidth * 0.75, height: chosenWidth * 0.75 }]}>
         {/* Only render SVG if not disabled */}
         {!disabled && (
-          <Svg width={size} height={size} style={styles.svg}>
+          <Svg width={circleSize} height={circleSize} style={styles.svg}>
             {/* Progress Circle */}
             <Circle
-              cx={size / 2}
-              cy={size / 2}
+              cx={circleSize / 2}
+              cy={circleSize / 2}
               r={radius}
               stroke={circleColor}
               strokeWidth={strokeWidth}
@@ -79,7 +81,7 @@ const DayCircle: React.FC<DayCircleProps> = ({
               strokeDasharray={circumference}
               strokeDashoffset={strokeDashoffset}
               strokeLinecap="round"
-              transform={`rotate(-90, ${size / 2}, ${size / 2})`}
+              transform={`rotate(-90, ${circleSize / 2}, ${circleSize / 2})`}
             />
           </Svg>
         )}
@@ -100,9 +102,8 @@ const DayCircle: React.FC<DayCircleProps> = ({
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: 4,
-    height: 80, // Fixed height for all day circles
+    justifyContent: 'space-between',
+    paddingVertical: 8,
   },
   selectedContainer: {
     backgroundColor: '#000',
@@ -113,10 +114,8 @@ const styles = StyleSheet.create({
   },
   dayOfWeek: {
     fontSize: 14,
-    fontWeight: '500',
-    color: '#000',
-    height: 20,
-    marginBottom: 1,
+    fontWeight: 'bold',
+    marginBottom: 4,
   },
   selectedText: {
     color: '#FFFFFF',
@@ -128,8 +127,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 12,
-    height: 46, // Fixed height matching chosenSize default
-    width: 46, // Fixed width matching chosenSize default
   },
   svg: {
     position: 'absolute',
@@ -144,8 +141,8 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   dayNumber: {
-    fontSize: 18,
-    fontWeight: '500',
+    fontSize: 16,
+    fontWeight: 'bold',
     color: '#000',
   }
 });

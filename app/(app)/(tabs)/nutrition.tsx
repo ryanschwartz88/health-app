@@ -2,15 +2,13 @@ import BottomSpacer from '@/components/ui/BottomSpacer';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import HealthCategoryCard from '../../../components/nutrition/HealthCategoryCard';
+import HealthCategoryCard from '../../../components/nutrition/CategoryHomeCard';
 import AppText from '../../../components/ui/AppText';
 import GlassPanel from '../../../components/ui/GlassPanel';
 
 export default function NutritionScreen() {
   return (
     <ScrollView style={styles.container}>
-      
-      {/* No need for the separate page title since it's in the Header */}
 
       {/* Nutritional Categories Section */}
       <View style={styles.section}>

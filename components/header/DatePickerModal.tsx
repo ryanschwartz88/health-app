@@ -1,12 +1,14 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Modal, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import Svg, { Circle } from 'react-native-svg';
 
 type DatePickerModalProps = {
   isVisible: boolean;
   onClose: () => void;
   onDateSelected: (date: Date) => void;
   initialDate?: Date;
+  completionData?: {[key: string]: number}; // Format: 'YYYY-MM-DD' => percentage
 };
 
 const DatePickerModal: React.FC<DatePickerModalProps> = ({
@@ -14,6 +16,7 @@ const DatePickerModal: React.FC<DatePickerModalProps> = ({
   onClose,
   onDateSelected,
   initialDate = new Date(),
+  completionData = {},
 }) => {
   const [selectedDate, setSelectedDate] = useState<Date>(initialDate);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date(initialDate.getFullYear(), initialDate.getMonth(), 1));
@@ -164,97 +167,154 @@ const DatePickerModal: React.FC<DatePickerModalProps> = ({
       transparent
       onRequestClose={onClose}
     >
-      <View style={styles.modalContainer}>
-        <View style={styles.modalContent}>
-          <View style={styles.panel}>
-            {/* Header */}
-            <View style={styles.header}>
-              <Text style={styles.title}>Select Date</Text>
-              <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-                <Ionicons name="close" size={24} color="#000" />
-              </TouchableOpacity>
-            </View>
-            
-            {/* Month navigation */}
-            <View style={styles.monthNavigation}>
-              <TouchableOpacity 
-                onPress={canGoToPreviousMonth ? goToPreviousMonth : undefined} 
-                style={styles.navButton}
-                disabled={!canGoToPreviousMonth}
-              >
-                <Ionicons name="chevron-back" size={24} color={canGoToPreviousMonth ? "#000" : "#ccc"} />
-              </TouchableOpacity>
-              
-              <Text style={styles.monthYearText}>
-                {`${monthNames[currentMonth.getMonth()]} ${currentMonth.getFullYear()}`}
-              </Text>
-              
-              <TouchableOpacity 
-                onPress={canGoToNextMonth ? goToNextMonth : undefined} 
-                style={styles.navButton}
-                disabled={!canGoToNextMonth}
-              >
-                <Ionicons name="chevron-forward" size={24} color={canGoToNextMonth ? "#000" : "#ccc"} />
-              </TouchableOpacity>
-            </View>
-            
-            {/* Day names */}
-            <View style={styles.dayNamesContainer}>
-              {dayNames.map(day => (
-                <Text key={day} style={styles.dayName}>{day}</Text>
-              ))}
-            </View>
-            
-            {/* Calendar grid */}
-            <View style={styles.calendarGrid}>
-              {days.map((day, index) => {
-                // Determine if this date is selectable (if it's in the valid range)
-                const isDateInRange = day !== null ? isDateSelectable(new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day)) : false;
-                
-                return (
-                  <TouchableOpacity
-                    key={index}
-                    style={[
-                      styles.dayCell,
-                      day !== null && isSelectedDay(day) && styles.selectedDayCell,
-                      day !== null && !isDateInRange && styles.disabledDayCell
-                    ]}
-                    onPress={() => day && isDateInRange && handleDayPress(day)}
-                    disabled={day === null || !isDateInRange}
-                  >
-                    {day && (
-                      <Text style={[
-                        styles.dayText,
-                        isSelectedDay(day) && styles.selectedDayText,
-                        !isDateInRange && styles.disabledDayText
-                      ]}>
-                        {day}
-                      </Text>
-                    )}
+      <TouchableWithoutFeedback onPress={onClose}>
+        <View style={styles.modalContainer}>
+          <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
+            <View style={styles.modalContent}>
+              <View style={styles.panel}>
+                {/* Header */}
+                <View style={styles.header}>
+                  <Text style={styles.title}>Select Date</Text>
+                  <TouchableOpacity onPress={onClose} style={styles.closeButton}>
+                    <Ionicons name="close" size={24} color="#000" />
                   </TouchableOpacity>
-                );
-              })}
+                </View>
+                
+                {/* Month navigation */}
+                <View style={styles.monthNavigation}>
+                  <TouchableOpacity 
+                    onPress={canGoToPreviousMonth ? goToPreviousMonth : undefined} 
+                    style={styles.navButton}
+                    disabled={!canGoToPreviousMonth}
+                  >
+                    <Ionicons name="chevron-back" size={24} color={canGoToPreviousMonth ? "#000" : "#ccc"} />
+                  </TouchableOpacity>
+                  
+                  <Text style={styles.monthYearText}>
+                    {`${monthNames[currentMonth.getMonth()]} ${currentMonth.getFullYear()}`}
+                  </Text>
+                  
+                  <TouchableOpacity 
+                    onPress={canGoToNextMonth ? goToNextMonth : undefined} 
+                    style={styles.navButton}
+                    disabled={!canGoToNextMonth}
+                  >
+                    <Ionicons name="chevron-forward" size={24} color={canGoToNextMonth ? "#000" : "#ccc"} />
+                  </TouchableOpacity>
+                </View>
+                
+                {/* Day names */}
+                <View style={styles.dayNamesContainer}>
+                  {dayNames.map(day => (
+                    <Text key={day} style={styles.dayName}>{day}</Text>
+                  ))}
+                </View>
+                
+                {/* Calendar grid */}
+                <View style={styles.calendarGrid}>
+                  {days.map((day, index) => {
+                    // Determine if this date is selectable (if it's in the valid range)
+                    const isDateInRange = day !== null ? isDateSelectable(new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day)) : false;
+                    
+                    return (
+                      <TouchableOpacity
+                        key={index}
+                        style={[
+                          styles.dayCell,
+                          day !== null && isDateInRange && styles.dayCellWithCircle,
+                          day !== null && isSelectedDay(day) && styles.selectedDayCell,
+                          day !== null && !isDateInRange && styles.disabledDayCell
+                        ]}
+                        onPress={() => day && isDateInRange && handleDayPress(day)}
+                        disabled={day === null || !isDateInRange}
+                      >
+                        {day && (
+                          <View style={styles.dayCircleContainer}>
+                            {/* Only render SVG progress circle if the date is in range */}
+                            {isDateInRange && (
+                              <Svg width={40} height={40} style={styles.svg}>
+                                {/* Progress Circle */}
+                                {(() => {
+                                  // Calculate circle parameters
+                                  const size = 40;
+                                  const strokeWidth = 5; // Thicker circle
+                                  const radius = (size - strokeWidth) / 2;
+                                  const circumference = 2 * Math.PI * radius;
+                                  
+                                  // Get completion percentage for this date
+                                  const dateKey = day ? new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day).toISOString().split('T')[0] : '';
+                                  const completionPercentage = completionData[dateKey] || 0;
+                                  const strokeDashoffset = circumference - (completionPercentage / 100) * circumference;
+                                  
+                                  // Determine circle color based on completion and selection
+                                  const isComplete = completionPercentage >= 100;
+                                  const circleColor = isComplete ? '#62DB43' : '#BBBBBB';
+                                  
+                                  // Just draw the progress circle if needed
+                                  return (
+                                    <>
+                                      {/* Progress circle (only shown if there's completion data) */}
+                                      {completionPercentage > 0 && (
+                                        <Circle
+                                          cx={size / 2}
+                                          cy={size / 2}
+                                          r={radius}
+                                          stroke={circleColor}
+                                          strokeWidth={strokeWidth}
+                                          fill="transparent"
+                                          strokeDasharray={circumference}
+                                          // If 100% or more, show full circle without offset
+                                          strokeDashoffset={completionPercentage >= 100 ? 0 : strokeDashoffset}
+                                          strokeLinecap="round"
+                                          transform={`rotate(-90, ${size / 2}, ${size / 2})`}
+                                        />
+                                      )}
+                                    </>
+                                  );
+                                })()}
+                              </Svg>
+                            )}
+                            
+                            <View style={[
+                              styles.dayCircle,
+                              isSelectedDay(day) && styles.selectedDayCircle,
+                              !isDateInRange && styles.disabledDayCircle
+                            ]}>
+                              <Text style={[
+                                styles.dayText,
+                                !isDateInRange && styles.disabledDayText
+                              ]}>
+                                {day}
+                              </Text>
+                            </View>
+                          </View>
+                        )}
+                      </TouchableOpacity>
+                    );
+                  })}
+                </View>
+                
+                {/* Action buttons */}
+                <View style={styles.actionButtons}>
+                  <TouchableOpacity 
+                    style={[styles.button, styles.cancelButton]} 
+                    onPress={onClose}
+                  >
+                    <Text style={styles.buttonText}>Cancel</Text>
+                  </TouchableOpacity>
+                  
+                  <TouchableOpacity 
+                    style={[styles.button, styles.confirmButton]} 
+                    onPress={confirmSelection}
+                  >
+                    <Text style={[styles.buttonText, styles.confirmButtonText]}>Confirm</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
-            
-            {/* Action buttons */}
-            <View style={styles.actionButtons}>
-              <TouchableOpacity 
-                style={[styles.button, styles.cancelButton]} 
-                onPress={onClose}
-              >
-                <Text style={styles.buttonText}>Cancel</Text>
-              </TouchableOpacity>
-              
-              <TouchableOpacity 
-                style={[styles.button, styles.confirmButton]} 
-                onPress={confirmSelection}
-              >
-                <Text style={[styles.buttonText, styles.confirmButtonText]}>Confirm</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+          </TouchableWithoutFeedback>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 };
@@ -332,13 +392,41 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     margin: 2,
-    borderRadius: 20,
+  },
+  dayCellWithCircle: {
+    // No specific styling needed here, just a marker for cells with days
   },
   selectedDayCell: {
-    backgroundColor: '#000',
+    // Cell background color removed, now using circle
+  },
+  dayCircleContainer: {
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+  },
+  svg: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
+  dayCircle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: -1,
+    backgroundColor: 'transparent',
+  },
+  selectedDayCircle: {
+    borderBottomWidth: 2,
+    borderBottomColor: '#000',
+  },
+  disabledDayCircle: {
+    opacity: 0.5,
   },
   dayText: {
     fontSize: 16,
+    zIndex: 3,
   },
   selectedDayText: {
     color: '#fff',

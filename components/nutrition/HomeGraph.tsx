@@ -1,7 +1,7 @@
+import GlassPanel from '@/components/ui/GlassPanel';
 import React from 'react';
 import { Text, View } from 'react-native';
 import { CurveType, LineChart } from 'react-native-gifted-charts';
-import GlassPanel from '@/components/ui/GlassPanel';
 
 type DataPoint = [string, number, number]; 
 
@@ -36,13 +36,13 @@ const HomeGraph: React.FC<HomeGraphProps> = ({ data }) => {
   const nutritionData = formattedData.filter((_, i) => i % 2 === 1);
 
   return (
-    <GlassPanel rounded="xl" style={{ padding: 16 }}>
+    <GlassPanel rounded="lg" style={{ padding: 16 }}>
       <View className="flex-row">
         {/* Left Column - 1/3 width */}
         <View className="flex justify-between">
-          <Text className="text-2xl font-bold">All Nutrition</Text>
+          <Text className="text-2xl font-medium">All Nutrition</Text>
           <View>
-            <Text className="text-6xl font-bold">{currentNutrition}%</Text>
+            <Text className="text-6xl font-medium">{currentNutrition}%</Text>
             <Text className="text-gray-400 text-lg">of all nutrition</Text>
           </View>
         </View>

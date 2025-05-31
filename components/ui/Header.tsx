@@ -6,7 +6,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { usePathname } from 'expo-router';
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 // Import from same directory
 import DatePickerModal from '@/components/header/DatePickerModal';
 import WeekSlider from '@/components/header/WeekSlider';
@@ -30,10 +30,10 @@ const Header: React.FC<HeaderProps> = ({
   // Mock completion data - in a real app, this would come from your data source
   const [completionData] = useState<{[key: string]: number}>({
     // Some sample data for the current week
-    '2025-05-19': 110,
-    '2025-05-20': 50,
-    '2025-05-21': 75,
-    '2025-05-22': 100,
+    '2025-05-26': 110,
+    '2025-05-27': 50,
+    '2025-05-28': 75,
+    '2025-05-29': 100,
     '2025-05-23': 200,
     '2025-05-24': 0,
     '2025-05-25': 45,
@@ -97,12 +97,12 @@ const Header: React.FC<HeaderProps> = ({
           <Text style={styles.title}>{getTitle()}</Text>
           
           {showCalendar && (
-            <View style={styles.dateContainer}>
+            <Pressable onPress={showDatePicker} style={styles.dateContainer}>
               <Text style={styles.dateText}>{getFormattedMonthYear()}</Text>
-              <TouchableOpacity onPress={showDatePicker} style={styles.calendarButton}>
+              <View style={styles.calendarButton}>
                 <Ionicons name="calendar-outline" size={24} color="#000" />
-              </TouchableOpacity>
-            </View>
+              </View>
+            </Pressable>
           )}
         </View>
       </View>
@@ -122,6 +122,7 @@ const Header: React.FC<HeaderProps> = ({
         onClose={hideDatePicker}
         onDateSelected={handleDateSelection}
         initialDate={selectedDate}
+        completionData={completionData}
       />
     </SafeAreaView>
   );
