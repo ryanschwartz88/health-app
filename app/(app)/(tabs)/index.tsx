@@ -1,8 +1,8 @@
 import SummaryCard from "@/components/ai/SummaryCard";
 import AdditiveItem from "@/components/bad_additives/AdditiveItem";
 import HealthCategoryCard from "@/components/nutrition/CategoryHomeCard";
-import HomeGraph from "@/components/nutrition/HomeGraph";
 import BottomSpacer from "@/components/ui/BottomSpacer";
+import GlassTabView from "@/components/ui/GlassTabView";
 import { getUserId } from "@/utils/secureStorage";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
@@ -56,20 +56,50 @@ export default function Index() {
           rounded="lg"
           style={{ width: '100%' }}
         />
-        <HomeGraph data={nutritionData} />
-        
-        <AdditiveItem 
-          icon={<MaterialCommunityIcons name="candy" size={24} color="black" />}
-          name="Sugar"
-          amount={74}
-          unit="g"
-          color="#F0686F"
-        />
-
-        <HealthCategoryCard 
-          category="Calories"
-          completionRate={60}
-          icon="flame"
+        <GlassTabView
+          tabs={[
+            {
+              key: 'summary',
+              title: 'Summary',
+              content: (
+                <View className="w-full space-y-4">
+                  <AdditiveItem 
+                    icon={<MaterialCommunityIcons name="candy" size={24} color="black" />}
+                    name="Sugar"
+                    amount={74}
+                    unit="g"
+                    color="#F0686F"
+                  />
+                  <HealthCategoryCard 
+                    category="Calories"
+                    completionRate={60}
+                    icon="flame"
+                  />
+                </View>
+              ),
+            },
+            {
+              key: 'nutrition',
+              title: 'Nutrition',
+              content: (
+                <View className="w-full space-y-4">
+                  <AdditiveItem 
+                    icon={<MaterialCommunityIcons name="candy" size={24} color="black" />}
+                    name="Sugar"
+                    amount={74}
+                    unit="g"
+                    color="#F0686F"
+                  />
+                  <HealthCategoryCard 
+                    category="Calories"
+                    completionRate={60}
+                    icon="flame"
+                  />
+                </View>
+              ),
+            },
+          ]}
+          initialTabIndex={0}
         />
       </View>
       

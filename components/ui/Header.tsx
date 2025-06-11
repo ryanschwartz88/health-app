@@ -6,7 +6,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { usePathname } from 'expo-router';
 import React, { useState } from 'react';
-import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 // Import from same directory
 import DatePickerModal from '@/components/header/DatePickerModal';
 import WeekSlider from '@/components/header/WeekSlider';
@@ -97,12 +97,12 @@ const Header: React.FC<HeaderProps> = ({
           <Text style={styles.title}>{getTitle()}</Text>
           
           {showCalendar && (
-            <Pressable onPress={showDatePicker} style={styles.dateContainer}>
+            <TouchableOpacity onPress={showDatePicker} style={styles.dateContainer}>
               <Text style={styles.dateText}>{getFormattedMonthYear()}</Text>
               <View style={styles.calendarButton}>
                 <Ionicons name="calendar-outline" size={24} color="#000" />
               </View>
-            </Pressable>
+            </TouchableOpacity>
           )}
         </View>
       </View>

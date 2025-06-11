@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Nura",
-    "slug": "health-app",
+    "slug": "nura",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -55,12 +55,12 @@
     },
     "extra": {
       "eas": {
-        "projectId": "2512c392-e70a-4b2a-93b8-09b8a84da828"
+        "projectId": "0ab24358-ea49-4e4d-ac7b-f997b7edb2c4"
       }
     },
-    "owner": "ryanschwartz88",
+    "owner": "nuraai",
     "updates": {
-      "url": "https://u.expo.dev/2512c392-e70a-4b2a-93b8-09b8a84da828"
+      "url": "https://u.expo.dev/0ab24358-ea49-4e4d-ac7b-f997b7edb2c4"
     },
     "runtimeVersion": {
       "policy": "appVersion"
