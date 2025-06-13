@@ -1,42 +1,30 @@
-import { initializeUser } from '@/utils/userManager';
 import * as Haptics from 'expo-haptics';
-import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import {
-  ActivityIndicator,
-  Keyboard,
+import { 
+  Pressable, 
+  StyleSheet, 
+  Text, 
+  TextInput, 
+  View,
   KeyboardAvoidingView,
   Platform,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
   TouchableWithoutFeedback,
-  View
+  Keyboard
 } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useOnboarding } from './_layout';
 
-export default function Welcome() {
-  const [name, setName] = useState('');
-  const [loading, setLoading] = useState(false);
+export default function WelcomeScreen() {
+  const { data, updateData } = useOnboarding();
+  const [name, setName] = useState(data.name || '');
   
-  const handleContinue = async () => {
+  const handleContinue = () => {
     if (name.trim()) {
-      setLoading(true);
-      try {  
-        await initializeUser();
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-        // Store the name and navigate directly to your-goals
-        router.push({
-          pathname: '/onboarding/your-goals',
-          params: { name }
-        });
-      } catch (error) {
-        console.error('Error during onboarding:', error);
-      } finally {
-        setLoading(false);
-      }
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+      updateData({ name });
+      router.push('/onboarding/your-goals');
     }
   };
 
@@ -60,35 +48,34 @@ export default function Welcome() {
                 </Text>
                 
                 <Text style={styles.subtext}>
-                  We'll help you create a nutrition plan tailored to your unique needs.
+                  Answer a few quick questions to tailor your goals, nutrients, and insights — takes less than a minute. Let's start by getting to know each other
                 </Text>
                 
                 <View style={styles.inputContainer}>
-                  <Text style={styles.label}>First, what's your name?</Text>
+                  <Text style={styles.welcomeText}>Welcome!</Text>
                   <TextInput
                     style={styles.input}
                     placeholder="Your name"
-                    placeholderTextColor="#9CA3AF"
+                    placeholderTextColor="#999"
                     value={name}
                     onChangeText={setName}
                     autoFocus
                     returnKeyType="done"
                     onSubmitEditing={handleContinue}
+                    maxLength={30}
                   />
                 </View>
               </View>
-              
-              <Pressable
-                style={[styles.button, !name.trim() ? styles.buttonDisabled : null]}
-                onPress={handleContinue}
-                disabled={!name.trim() || loading}
-              >
-                {loading ? (
-                  <ActivityIndicator color="#fff" />
-                ) : (
+
+              <View style={styles.footer}>
+                <Pressable
+                  style={[styles.button, !name.trim() ? styles.buttonDisabled : null]}
+                  onPress={handleContinue}
+                  disabled={!name.trim()}
+                >
                   <Text style={styles.buttonText}>Let's Get Started</Text>
-                )}
-              </Pressable>
+                </Pressable>
+              </View>
             </View>
           </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
@@ -106,57 +93,64 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: 24,
-    justifyContent: 'space-between',
   },
   innerContainer: {
     flex: 1,
+    paddingHorizontal: 24,
+    paddingTop: 40,
+    paddingBottom: 30,
+    justifyContent: 'space-between',
   },
   contentContainer: {
-    marginTop: 40,
+    flex: 1,
+    justifyContent: 'center',
   },
   headline: {
-    fontSize: 32,
-    fontWeight: '800',
+    fontSize: 28,
+    fontWeight: 'bold',
     color: '#000',
     marginBottom: 16,
+    textAlign: 'center',
   },
   subtext: {
-    fontSize: 18,
-    color: '#333',
+    fontSize: 16,
+    color: '#555',
+    lineHeight: 24,
+    textAlign: 'center',
     marginBottom: 40,
-    lineHeight: 26,
+  },
+  welcomeText: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#000',
+    marginBottom: 12,
+    textAlign: 'center',
   },
   inputContainer: {
     width: '100%',
     marginTop: 20,
   },
-  label: {
-    fontSize: 16,
-    color: '#333',
-    marginBottom: 8,
-    fontWeight: '500',
-  },
   input: {
-    width: '100%',
-    height: 50,
-    borderWidth: 1,
-    borderColor: '#D1D5DB',
-    borderRadius: 10,
-    paddingHorizontal: 16,
-    fontSize: 16,
     backgroundColor: 'white',
-    marginTop: 8,
+    borderRadius: 12,
+    padding: 16,
+    fontSize: 16,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    color: '#000',
+  },
+  footer: {
+    width: '100%',
+    marginTop: 20,
   },
   button: {
     backgroundColor: '#000',
     borderRadius: 12,
     paddingVertical: 16,
     alignItems: 'center',
-    marginTop: 20,
   },
   buttonDisabled: {
-    backgroundColor: '#D1D5DB',
+    backgroundColor: '#d1d5db',
   },
   buttonText: {
     color: 'white',

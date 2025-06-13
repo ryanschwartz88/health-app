@@ -86,7 +86,7 @@ export default function ProfileScreen() {
       {/* Health Stats Summary */}
       <GlassPanel rounded="lg" style={styles.statsPanel}>
         <AppText variant="body" weight="medium" style={styles.statsPanelTitle}>
-          Health Summary
+          About Me
         </AppText>
         <View style={styles.statsRow}>
           <View style={styles.statItem}>

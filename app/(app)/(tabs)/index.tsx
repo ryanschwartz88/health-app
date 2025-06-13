@@ -62,7 +62,7 @@ export default function Index() {
               key: 'summary',
               title: 'Summary',
               content: (
-                <View className="w-full space-y-4">
+                <View className="space-y-4">
                   <AdditiveItem 
                     icon={<MaterialCommunityIcons name="candy" size={24} color="black" />}
                     name="Sugar"
@@ -82,7 +82,7 @@ export default function Index() {
               key: 'nutrition',
               title: 'Nutrition',
               content: (
-                <View className="w-full space-y-4">
+                <View style={{width: '100%', minWidth: '100%'}} className="space-y-4">
                   <AdditiveItem 
                     icon={<MaterialCommunityIcons name="candy" size={24} color="black" />}
                     name="Sugar"

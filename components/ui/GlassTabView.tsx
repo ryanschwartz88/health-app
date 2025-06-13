@@ -1,4 +1,5 @@
 import ArrowIcon from '@/assets/icons/arrow.svg';
+import '@/global.css';
 import React, { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import GlassPanel from './GlassPanel';
