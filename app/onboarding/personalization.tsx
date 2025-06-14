@@ -1,16 +1,17 @@
+import { initializeUser } from '@/utils/userManager';
+import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
+import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { 
-  Pressable, 
-  StyleSheet, 
-  Text, 
-  View, 
-  ScrollView, 
-  ActivityIndicator 
+import {
+  ActivityIndicator,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
 import { useOnboarding } from './_layout';
 
 export default function PersonalizationScreen() {
@@ -84,10 +85,11 @@ export default function PersonalizationScreen() {
     setInsightItems(insights.slice(0, 5));
   };
 
-  const handleComplete = () => {
+  const handleComplete = async () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     // Mark onboarding as complete and redirect to main app
     updateData({ onboardingComplete: true });
+    await initializeUser();
     router.replace('/');
   };
 

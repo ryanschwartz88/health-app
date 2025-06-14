@@ -22,7 +22,7 @@ export default function TabsLayout() {
     <View style={styles.container}>
 
       {/* Header */}
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}> 
         <Header name="Ryan" showCalendar={showCalendar} />
       
         {/* Main content area */}

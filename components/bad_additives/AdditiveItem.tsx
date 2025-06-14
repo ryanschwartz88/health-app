@@ -29,8 +29,8 @@ const AdditiveItem = ({ icon, name, amount, unit, color, onPress }: AdditiveItem
           <Text className="text-xl font-medium mr-3">
             {amount}{unit}
           </Text>
-          <TouchableOpacity onPress={onPress} className="w-10 h-10 rounded-full items-center justify-center bg-white mr-2">
-            <Feather name="chevron-right" size={24} color="black" />
+          <TouchableOpacity onPress={onPress} className="w-8 h-8 rounded-full items-center justify-center bg-white mr-2">
+            <Feather name="chevron-right" size={20} color="black" />
           </TouchableOpacity>
         </View>
         

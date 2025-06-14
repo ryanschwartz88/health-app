@@ -1,8 +1,38 @@
 import ArrowIcon from '@/assets/icons/arrow.svg';
 import '@/global.css';
-import React, { useState } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { Animated, Pressable, Text, View } from 'react-native';
 import GlassPanel from './GlassPanel';
+
+interface AnimatedArrowProps {
+  isActive: boolean;
+}
+
+const AnimatedArrow: React.FC<AnimatedArrowProps> = ({ isActive }) => {
+  const rotationAnim = useRef(new Animated.Value(isActive ? 0 : 1)).current; // 0 = 0deg, 1 = 180deg
+
+  useEffect(() => {
+    Animated.spring(rotationAnim, {
+      toValue: isActive ? 0 : 1,
+      useNativeDriver: true,
+      bounciness: 5,
+    }).start();
+  }, [isActive]);
+
+  const interpolatedRotation = rotationAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '180deg'],
+  });
+
+  return (
+    <Animated.View
+      className="w-10 h-10 bg-gray-300 rounded-full items-center justify-center"
+      style={{ transform: [{ rotate: interpolatedRotation }] }}
+    >
+      <ArrowIcon />
+    </Animated.View>
+  );
+};
 
 export type GlassTabViewProps = {
   tabs: {
@@ -31,7 +61,7 @@ export const GlassTabView: React.FC<GlassTabViewProps> = ({
   return (
     <View>
       {/* Tab Headers */}
-      <View className='flex-row w-full justify-center mt-10'>
+      <View className='flex-row w-full justify-center mt-4'>
         {tabs.map((tab, index) => {
           const isActive = index === activeTab;
           
@@ -47,7 +77,7 @@ export const GlassTabView: React.FC<GlassTabViewProps> = ({
                 style={{ width: '100%' }}
               >
                 <GlassPanel
-                  rounded={isActive ? 'none' : 'full'}
+                  rounded={'full'}
                   hasBorder={false}
                   style={{
                     padding: 16,
@@ -72,10 +102,7 @@ export const GlassTabView: React.FC<GlassTabViewProps> = ({
                     >
                       {tab.title}
                     </Text>
-                    <View className="w-10 h-10 bg-gray-300 rounded-full items-center justify-center">
-                      <ArrowIcon />
-
-                    </View>
+                    <AnimatedArrow isActive={isActive} />
                     
                   </View>
                 </GlassPanel>
@@ -124,7 +151,7 @@ export const GlassTabView: React.FC<GlassTabViewProps> = ({
           rounded="xl"
           hasBorder={false}
           style={{
-            padding: 16,
+            padding: 12,
             borderTopRightRadius: activeTab === 0 ? 24 : 0,
             borderTopLeftRadius: activeTab === tabs.length - 1 ? 24 : 0,
             borderBottomLeftRadius: 24,

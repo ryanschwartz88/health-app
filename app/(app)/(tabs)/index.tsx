@@ -1,12 +1,22 @@
+import RecommendationCard from "@/components/ai/RecommendationCard";
 import SummaryCard from "@/components/ai/SummaryCard";
 import AdditiveItem from "@/components/bad_additives/AdditiveItem";
 import HealthCategoryCard from "@/components/nutrition/CategoryHomeCard";
+import HomeGraph from "@/components/nutrition/HomeGraph";
+import TargetedSupportCard from "@/components/nutrition/TargetedSupportCard";
 import BottomSpacer from "@/components/ui/BottomSpacer";
+import CustomCollapsible from "@/components/ui/CustomCollapsible";
 import GlassTabView from "@/components/ui/GlassTabView";
 import { getUserId } from "@/utils/secureStorage";
+import {
+  LibreCaslonText_400Regular,
+  LibreCaslonText_400Regular_Italic,
+  LibreCaslonText_700Bold,
+  useFonts
+} from '@expo-google-fonts/libre-caslon-text';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, ScrollView, StyleSheet, View } from "react-native";
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from "react-native";
 
 export default function Index() {
   const [userId, setUserId] = useState<string>("");
@@ -20,6 +30,12 @@ export default function Index() {
     ["2:00 PM", 45, 50],
     ["6:00 PM", 65, 67],
   ];
+
+  const [fontsLoaded] = useFonts({
+    LibreCaslonText_400Regular,
+    LibreCaslonText_700Bold,
+    LibreCaslonText_400Regular_Italic
+  });
 
   useEffect(() => {
     // Get the user ID when the component mounts
@@ -46,35 +62,80 @@ export default function Index() {
   }
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
       
       <View style={styles.content}>
-        <SummaryCard
+      <SummaryCard
           title="Summary"
-          body="This is a summary of your health data for the week."
-          tags={['Health', 'Nutrition', 'Exercise']}
+          body="Based on your recent activity, your overall health appears to be in excellent shape. Your balanced diet—rich in fruits, vegetables, lean proteins, and whole grains—provides the necessary fuel for your daily activities. Keep up the fantastic work and continue nurturing these healthy habits!"
+          tags={['More Protein', 'Great Eating Habits']}
           rounded="lg"
-          style={{ width: '100%' }}
+          style={{ width: '100%'}}
         />
         <GlassTabView
           tabs={[
             {
-              key: 'summary',
-              title: 'Summary',
+              key: 'today',
+              title: 'Today',
               content: (
                 <View className="space-y-4">
-                  <AdditiveItem 
-                    icon={<MaterialCommunityIcons name="candy" size={24} color="black" />}
-                    name="Sugar"
-                    amount={74}
-                    unit="g"
-                    color="#F0686F"
-                  />
-                  <HealthCategoryCard 
-                    category="Calories"
-                    completionRate={60}
-                    icon="flame"
-                  />
+                  <CustomCollapsible
+                    header="Nutrition & Health Goals"
+                    >
+                      <HomeGraph 
+                        data={nutritionData}
+                      />
+                  </CustomCollapsible>
+
+                  <CustomCollapsible
+                    header="Targeted Support"
+                    >
+                      <TargetedSupportCard
+                        iconName="flame"
+                        title="Calories"
+                        overallPercentage={60}
+                        items={[
+                          {
+                            id: '1',
+                            title: 'Calories',
+                            takenAmount: 60,
+                            limitAmount: 100,
+                            unit: 'g',
+                          },
+                          {
+                            id: '2',
+                            title: 'Protein',
+                            takenAmount: 60,
+                            limitAmount: 200,
+                            unit: 'g',
+                          },
+                        ]}
+                        onRemove={() => {}}
+                      />
+                  </CustomCollapsible>
+
+                  <CustomCollapsible
+                    header="Unhealthy Additives"
+                    >
+                    <AdditiveItem 
+                      icon={<MaterialCommunityIcons name="candy" size={24} color="black" />}
+                      name="Sugar"
+                      amount={74}
+                      unit="g"
+                      color="#F0686F"
+                    />
+                  </CustomCollapsible>
+                  
+                  <CustomCollapsible
+                    header="Calories & Macros"
+                    >
+                    <HealthCategoryCard 
+                      category="Calories"
+                      completionRate={60}
+                      icon="flame"
+                    />
+                  </CustomCollapsible>
+                
                 </View>
               ),
             },
@@ -101,6 +162,25 @@ export default function Index() {
           ]}
           initialTabIndex={0}
         />
+
+        <Text style={styles.recTitle}>Improve<Text style={{fontFamily: 'LibreCaslonText_400Regular'}}> Your Health</Text></Text>
+
+        <RecommendationCard
+          title="Vitamin D"
+          rec="Take 1000 IU per day"
+          vitamin_id="vitamin_d"
+        />
+        <RecommendationCard
+          title="Vitamin C"
+          rec="Take 1000 IU per day"
+          vitamin_id="vitamin_c"
+        />
+        <RecommendationCard
+          title="Vitamin B12"
+          rec="Take 1000 IU per day"
+          vitamin_id="vitamin_b12"
+        />
+
       </View>
       
       <BottomSpacer />
@@ -113,12 +193,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   contentContainer: {
-    padding: 16,
+    paddingHorizontal: 10,
     paddingBottom: 40,
   },
   content: {
     flex: 1,
-    alignItems: 'center',
   },
   welcomeText: {
     fontSize: 24,
@@ -142,5 +221,11 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  recTitle: {
+    fontSize: 32,
+    fontFamily: 'LibreCaslonText_400Regular_Italic',
+    textAlign: 'left',
+    marginVertical: 20,
   },
 });

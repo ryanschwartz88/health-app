@@ -1,4 +1,3 @@
-import { initializeUser } from '@/utils/userManager';
 import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
@@ -25,7 +24,6 @@ export default function Welcome() {
     if (name.trim()) {
       setLoading(true);
       try {  
-        await initializeUser();
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
         // Store the name and navigate directly to your-goals
         router.push({

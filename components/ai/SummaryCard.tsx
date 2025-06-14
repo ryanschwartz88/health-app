@@ -5,8 +5,8 @@ import { StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 type SummaryCardProps = {
   title: string;
-  body: string;
-  tags: string[];
+  body?: string;
+  tags?: string[];
   style?: ViewStyle;
   rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
   className?: string;
@@ -77,11 +77,18 @@ const SummaryCard: React.FC<SummaryCardProps> = ({
         </View>
         
         {/* Body */}
-        <Text style={styles.body}>{body}</Text>
+        { body ? (
+          <Text style={styles.body}>{body}</Text>
+        ) :
+        (
+          <Text style={styles.body}>Welcome to Nura! As you log more data, we'll provide personalized summaries and recommendations here.</Text>
+        )
+        }
+        
         
         {/* Tags */}
         <View style={styles.tagsContainer}>
-          {tags.map((tag, index) => (
+          {tags && tags.map((tag, index) => (
             <View 
               key={index} 
               style={styles.tagButton}

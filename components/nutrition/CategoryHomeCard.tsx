@@ -1,3 +1,4 @@
+import DynamicOvalProgressBar from '@/components/ui/DynamicOvalProgressBar';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Text, View } from 'react-native';
@@ -16,26 +17,6 @@ export const HealthCategoryCard: React.FC<HealthCategoryCardProps> = ({
 }) => {
   // Ensure completion rate is between 0-100
   const normalizedRate = Math.min(Math.max(completionRate, 0), 100);
-  
-  // Calculate how many ovals should be filled (out of 16)
-  const filledOvals = Math.round((normalizedRate / 100) * 16);
-  
-  // Determine color based on completion rate
-  const getProgressColor = () => {
-    if (normalizedRate <= 33) return 'bg-red-400';
-    if (normalizedRate <= 66) return 'bg-yellow-400';
-    return 'bg-green-400';
-  };
-  
-  const progressColor = getProgressColor();
-  
-  // Generate an array of 16 ovals for the progress bar
-  const progressOvals = Array(16).fill(0).map((_, index) => (
-    <View 
-      key={index}
-      className={`h-4 w-3 rounded-full mx-0.5 ${index < filledOvals ? progressColor : 'bg-gray-300'}`}
-    />
-  ));
 
   return (
     <GlassPanel 
@@ -62,7 +43,7 @@ export const HealthCategoryCard: React.FC<HealthCategoryCardProps> = ({
       
       {/* Progress bar row */}
       <View className="flex-row">
-        {progressOvals}
+        <DynamicOvalProgressBar progressPercent={normalizedRate} style={{ flex: 1, justifyContent: 'space-between' }} />
       </View>
     </GlassPanel>
   );

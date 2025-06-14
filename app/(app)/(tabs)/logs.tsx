@@ -1,9 +1,10 @@
+import SummaryCard from '@/components/ai/SummaryCard';
+import AppText from '@/components/ui/AppText';
 import BottomSpacer from '@/components/ui/BottomSpacer';
+import GlassPanel from '@/components/ui/GlassPanel';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-import AppText from '../../../components/ui/AppText';
-import GlassPanel from '../../../components/ui/GlassPanel';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 type LogEntry = {
   id: string;
@@ -73,16 +74,13 @@ export default function LogsScreen() {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 
-      {/* Add New Log Button */}
-      <GlassPanel 
-        rounded="lg" 
-        style={styles.addLogPanel}
-      >
-        <TouchableOpacity style={styles.addLogButton}>
-          <Ionicons name="add-circle-outline" size={22} color="#333" />
-          <AppText weight="medium" style={styles.addLogText}>Add New Log</AppText>
-        </TouchableOpacity>
-      </GlassPanel>
+        <SummaryCard
+          title="Today's Overview"
+          body="Based on your recent activity, your overall health appears to be in excellent shape. Your balanced diet—rich in fruits, vegetables, lean proteins, and whole grains—provides the necessary fuel for your daily activities. Keep up the fantastic work and continue nurturing these healthy habits!"
+          tags={['More Protein', 'Great Eating Habits']}
+          rounded="lg"
+          style={{ width: '100%', marginBottom: 16 }}
+        />
 
       {/* Log Entries Section */}
       <View style={styles.section}>
