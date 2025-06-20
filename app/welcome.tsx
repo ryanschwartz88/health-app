@@ -1,6 +1,6 @@
 import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient';
-import { router } from 'expo-router';
+import { router, SplashScreen } from 'expo-router';
 import React, { useState } from 'react';
 import {
   ActivityIndicator,
@@ -19,6 +19,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 export default function Welcome() {
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
+
+  SplashScreen.hide();
   
   const handleContinue = async () => {
     if (name.trim()) {
