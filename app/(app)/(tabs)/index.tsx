@@ -8,12 +8,6 @@ import BottomSpacer from "@/components/ui/BottomSpacer";
 import CustomCollapsible from "@/components/ui/CustomCollapsible";
 import GlassTabView from "@/components/ui/GlassTabView";
 import { getUserId } from "@/utils/secureStorage";
-import {
-  LibreCaslonText_400Regular,
-  LibreCaslonText_400Regular_Italic,
-  LibreCaslonText_700Bold,
-  useFonts
-} from '@expo-google-fonts/libre-caslon-text';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from "react-native";
@@ -30,12 +24,6 @@ export default function Index() {
     ["2:00 PM", 45, 50],
     ["6:00 PM", 65, 67],
   ];
-
-  const [fontsLoaded] = useFonts({
-    LibreCaslonText_400Regular,
-    LibreCaslonText_700Bold,
-    LibreCaslonText_400Regular_Italic
-  });
 
   useEffect(() => {
     // Get the user ID when the component mounts
@@ -163,7 +151,9 @@ export default function Index() {
           initialTabIndex={0}
         />
 
-        <Text style={styles.recTitle}>Improve<Text style={{fontFamily: 'LibreCaslonText_400Regular'}}> Your Health</Text></Text>
+        <Text className="text-3xl font-caslon-medium-italic text-primary text-left my-5">
+          Improve <Text className="font-caslon-medium">Your Health</Text>
+        </Text>
 
         <RecommendationCard
           title="Vitamin D"
@@ -222,10 +212,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-  recTitle: {
-    fontSize: 32,
-    fontFamily: 'LibreCaslonText_400Regular_Italic',
-    textAlign: 'left',
-    marginVertical: 20,
-  },
+
 });

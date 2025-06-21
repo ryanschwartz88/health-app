@@ -5,6 +5,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 export default function TabsLayout() {
+
   // Handle the plus button press
   const handlePlusButtonPress = () => {
     // You can implement the action for the plus button here
@@ -17,6 +18,8 @@ export default function TabsLayout() {
   if (pathname === '/profile') {
     showCalendar = false;
   }
+
+
 
   return (
     <View style={styles.container}>

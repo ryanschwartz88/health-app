@@ -34,6 +34,10 @@ export default function AppLayout() {
     'Outfit-Medium': Outfit_500Medium,
     'Outfit-SemiBold': Outfit_600SemiBold,
     'Outfit-Bold': Outfit_700Bold,
+    'LibreCaslonText-Medium': require('@/assets/fonts/LibreCaslonText-Medium.ttf'),
+    'LibreCaslonText-MediumItalic': require('@/assets/fonts/LibreCaslonText-MediumItalic.ttf'),
+    'LibreCaslonText-Semibold': require('@/assets/fonts/LibreCaslonText-Semibold.ttf'),
+    'LibreCaslonText-SemiboldItalic': require('@/assets/fonts/LibreCaslonText-SemiboldItalic.ttf'),
   });
 
   useEffect(() => {
