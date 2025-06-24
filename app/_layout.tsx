@@ -33,7 +33,7 @@ function useProtectedRoute(isUserIdPresent: boolean | null) {
     
     // User has ID but is in welcome (should go to app)
     if (isUserIdPresent && isInWelcome) {
-      router.replace('/');
+      router.replace('/home');
       return;
     }
     
