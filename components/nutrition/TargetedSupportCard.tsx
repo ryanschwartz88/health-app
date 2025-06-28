@@ -1,8 +1,9 @@
 import DynamicOvalProgressBar from '@/components/ui/DynamicOvalProgressBar'; // Assuming this path is correct
 import { Feather, Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import Collapsible from 'react-native-collapsible';
+import { AppText } from '../ui/AppText';
 import GlassPanel from '../ui/GlassPanel'; // Assuming you want to use GlassPanel
 
 // Interface for individual support items
@@ -58,9 +59,9 @@ const TargetedSupportCard: React.FC<TargetedSupportCardProps> = ({
           <View className="h-10 w-10 rounded-full bg-black/10 items-center justify-center mr-3">
             <Ionicons name={iconName} size={20} color="black" />
           </View>
-          <Text className="text-xl font-medium">{title}</Text>
+          <AppText variant="h4" weight="medium">{title}</AppText>
         </View>
-        <Text className="text-2xl font-regular">{Math.round(normalizedOverallPercentage)}%</Text>
+        <AppText variant="h3" weight="regular">{Math.round(normalizedOverallPercentage)}%</AppText>
       </View>
 
       {/* Overall Progress Bar */}
@@ -76,9 +77,9 @@ const TargetedSupportCard: React.FC<TargetedSupportCardProps> = ({
         onPress={() => setIsExpanded(!isExpanded)}
         className="flex-row items-center justify-center py-2"
       >
-        <Text className="text-sm font-medium text-gray-600 mr-1">
+        <AppText variant="body2" weight="medium" className="text-gray-600 mr-1">
           {isExpanded ? 'Collapse' : 'Details'}
-        </Text>
+        </AppText>
         <Feather 
           name={isExpanded ? 'chevron-up' : 'chevron-down'} 
           size={18} 
@@ -98,16 +99,14 @@ const TargetedSupportCard: React.FC<TargetedSupportCardProps> = ({
             return (
               <View key={item.id} className="mb-4 border-t border-gray-200 pt-4">
                 <View className="flex-row justify-between items-center mb-3">
-                  <Text className="text-lg font-medium">
-                    {item.title}
-                  </Text>
+                  <AppText variant="body1" weight="medium">{item.title}</AppText>
                   <View className="flex-row items-center">
                     <View className="flex-row items-baseline">
-                      <Text className="text-lg font-semibold text-black">{item.takenAmount}/</Text>
-                      <Text className="text-base text-gray-600">{item.limitAmount}{item.unit}</Text>
+                      <AppText variant="body1" weight="semibold" className="text-black">{item.takenAmount}/</AppText>
+                      <AppText variant="body2" className="text-gray-600">{item.limitAmount}{item.unit}</AppText>
                     </View>
                     <View className="h-4 border-l border-black mx-2 self-center" />
-                    <Text className="text-base font-semibold text-right">{displayPercentage}%</Text>
+                    <AppText variant="body2" weight="semibold" className="text-right">{displayPercentage}%</AppText>
                   </View>
                 </View>
                 <ItemProgressBar percentage={itemPercentage} />
@@ -121,9 +120,9 @@ const TargetedSupportCard: React.FC<TargetedSupportCardProps> = ({
             className="flex-row items-center justify-center py-2 mt-4 mb-4 bg-red-100 rounded-xl"
           >
             <Feather name="trash-2" size={16} color="rgb(239 68 68)" /> 
-            <Text className="text-sm font-medium text-red-600 ml-2">
+            <AppText variant="body2" weight="medium" className="text-red-600 ml-2">
               Remove Support
-            </Text>
+            </AppText>
           </Pressable>
         </View>
       </Collapsible>

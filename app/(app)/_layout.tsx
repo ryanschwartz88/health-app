@@ -29,11 +29,11 @@ SplashScreen.preventAutoHideAsync();
 export default function AppLayout() {
   // Load the Outfit font weights
   const [googleFontsLoaded, googleFontError] = useFonts({
-    'Outfit-Light': Outfit_300Light,
-    'Outfit-Regular': Outfit_400Regular,
-    'Outfit-Medium': Outfit_500Medium,
-    'Outfit-SemiBold': Outfit_600SemiBold,
-    'Outfit-Bold': Outfit_700Bold,
+    'outfit-light': Outfit_300Light,
+    'outfit-regular': Outfit_400Regular,
+    'outfit-medium': Outfit_500Medium,
+    'outfit-semibold': Outfit_600SemiBold,
+    'outfit-bold': Outfit_700Bold,
   });
 
   // Load the Libre Caslon Text font weights

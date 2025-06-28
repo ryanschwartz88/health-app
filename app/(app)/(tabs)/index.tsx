@@ -4,10 +4,10 @@ import AdditiveItem from "@/components/bad_additives/AdditiveItem";
 import HealthCategoryCard from "@/components/nutrition/CategoryHomeCard";
 import HomeGraph from "@/components/nutrition/HomeGraph";
 import TargetedSupportCard from "@/components/nutrition/TargetedSupportCard";
+import { AppText } from "@/components/ui/AppText";
 import BottomSpacer from "@/components/ui/BottomSpacer";
 import CustomCollapsible from "@/components/ui/CustomCollapsible";
 import GlassTabView from "@/components/ui/GlassTabView";
-import { AppText } from "@/components/ui/AppText";
 import { getUserId } from "@/utils/secureStorage";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
@@ -152,8 +152,9 @@ export default function Index() {
           initialTabIndex={0}
         />
 
-        <AppText variant="h2" family="caslon" style={styles.headerText}>
-          Improve <AppText weight="medium" family="caslon">Your Health</AppText>
+        <AppText variant="h3" family="caslon" style={styles.headerText}>
+          <AppText variant="h3" family="caslon" italic>Improve </AppText>
+          <AppText variant="h3" family="caslon" weight="medium">Your Health</AppText>
         </AppText>
 
         <RecommendationCard
@@ -181,7 +182,7 @@ export default function Index() {
 
 const styles = StyleSheet.create({
   headerText: {
-    color: '#4B4B4B',
+    color: '#000000',
     textAlign: 'left',
     marginVertical: 20,
   },

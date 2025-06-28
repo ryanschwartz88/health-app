@@ -1,8 +1,9 @@
 import DynamicOvalProgressBar from '@/components/ui/DynamicOvalProgressBar'; // Assuming this path is correct
 import { Feather, Ionicons } from '@expo/vector-icons';
 import React, { useMemo, useState } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import Collapsible from 'react-native-collapsible';
+import { AppText } from '../ui/AppText';
 import GlassPanel from '../ui/GlassPanel'; // Assuming you want to use GlassPanel
 
 // Interface for individual support items
@@ -74,9 +75,9 @@ const NutritionCard: React.FC<NutritionCardProps> = ({
           <View className="h-10 w-10 rounded-full bg-black/10 items-center justify-center mr-3">
             <Ionicons name={iconName} size={20} color="black" />
           </View>
-          <Text className="text-xl font-medium">{title}</Text>
+          <AppText variant="h4" weight="medium">{title}</AppText>
         </View>
-        <Text className="text-2xl font-regular">{Math.round(normalizedOverallPercentage)}%</Text>
+        <AppText variant="h3" weight="regular">{Math.round(normalizedOverallPercentage)}%</AppText>
       </View>
 
       {/* Overall Progress Bar */}
@@ -92,9 +93,9 @@ const NutritionCard: React.FC<NutritionCardProps> = ({
         onPress={() => setIsExpanded(!isExpanded)}
         className="flex-row items-center justify-center py-2"
       >
-        <Text className="text-sm font-medium text-gray-600 mr-1">
+        <AppText variant="body2" weight="medium" className="text-gray-600 mr-1">
           {isExpanded ? 'Collapse' : 'Details'}
-        </Text>
+        </AppText>
         <Feather 
           name={isExpanded ? 'chevron-up' : 'chevron-down'} 
           size={18} 
@@ -114,17 +115,17 @@ const NutritionCard: React.FC<NutritionCardProps> = ({
             return (
               <View key={item.id} className="mb-4 border-t border-gray-200 pt-4">
                 <View className="flex-row justify-between items-center mb-3">
-                  <Text className="text-lg font-medium">
+                  <AppText variant="body1" weight="medium">
                     {item.title}
-                    {item.isTargeted && <Text className="text-red-500">*</Text>}
-                  </Text>
+                    {item.isTargeted && <AppText className="text-red-500">*</AppText>}
+                  </AppText>
                   <View className="flex-row items-center">
                     <View className="flex-row items-baseline">
-                      <Text className="text-lg font-semibold text-black">{item.takenAmount}/</Text>
-                      <Text className="text-base text-gray-600">{item.limitAmount}{item.unit}</Text>
+                      <AppText variant="body1" weight="semibold" className="text-black">{item.takenAmount}/</AppText>
+                      <AppText variant="body2" className="text-gray-600">{item.limitAmount}{item.unit}</AppText>
                     </View>
                     <View className="h-4 border-l border-black mx-2 self-center" />
-                    <Text className="text-base font-semibold text-right">{displayPercentage}%</Text>
+                    <AppText variant="body2" weight="semibold" className="text-right">{displayPercentage}%</AppText>
                   </View>
                 </View>
                 <ItemProgressBar percentage={itemPercentage} />
@@ -133,9 +134,9 @@ const NutritionCard: React.FC<NutritionCardProps> = ({
           })}
 
           {hasTargetedItems && (
-            <Text className="text-xs text-right text-gray-500 italic mt-2 mb-2">
+            <AppText variant="tagline" className="text-right text-gray-500 italic mt-2 mb-2">
               *Targeted Support - Not included in percentage
-            </Text>
+            </AppText>
           )}
 
         </View>

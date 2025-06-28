@@ -19,28 +19,27 @@ interface AppTextProps<T extends FontFamily> extends TextProps {
   family?: T;
   variant?: Variant;
   weight?: Weight<T>;
+  italic?: boolean;
   className?: string;
 }
 
 // Helper to get the correct font family string based on family and weight
-const getFontFamilyName = (family: FontFamily, weight: Weight<any>): string => {
+const getFontFamilyName = (
+  family: FontFamily,
+  weight: Weight<any>,
+  italic?: boolean
+): string => {
   if (family === 'caslon') {
     // Caslon only supports medium and semibold, default to medium
     const validWeight = weight === 'medium' || weight === 'semibold' ? weight : 'medium';
-    return `caslon-${validWeight}`;
+    return `caslon-${validWeight}${italic ? '-italic' : ''}`;
   }
 
   // Default to Outfit, ensuring the weight is valid
-  if (family === 'outfit') {
-    if (weight === 'semibold') {
-      return 'Outfit-SemiBold';
-    }
-    const capitalizedWeight = weight.charAt(0).toUpperCase() + weight.slice(1);
-    return `Outfit-${capitalizedWeight}`;
-  }
-
-  // Fallback for caslon or other families
-  return `caslon-${weight}`;
+  const validWeight = ['light', 'regular', 'medium', 'semibold', 'bold'].includes(weight)
+    ? weight
+    : 'regular';
+  return `outfit-${validWeight}`;
 };
 
 // The generic component allows for strong type inference
@@ -48,12 +47,13 @@ const AppText = <T extends FontFamily>({
   family = 'outfit' as T,
   variant = 'body1',
   weight = 'regular' as Weight<T>,
+  italic,
   style,
   className,
   children,
   ...props
 }: AppTextProps<T>) => {
-  const fontFamily = getFontFamilyName(family, weight);
+  const fontFamily = getFontFamilyName(family, weight, italic);
   const variantStyle = styles[variant];
 
   return (

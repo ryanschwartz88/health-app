@@ -10,11 +10,11 @@ module.exports = {
         },
         fontFamily: {
           // Define font families for use with className="font-light", etc.
-          'Outfit-Light': ['Outfit-Light'],
-          'Outfit-Regular': ['Outfit-Regular'],
-          'Outfit-Medium': ['Outfit-Medium'],
-          'Outfit-SemiBold': ['Outfit-SemiBold'],
-          'Outfit-Bold': ['Outfit-Bold'],
+          'outfit-light': ['outfit-light'],
+          'outfit-regular': ['outfit-regular'],
+          'outfit-medium': ['outfit-medium'],
+          'outfit-semibold': ['outfit-semibold'],
+          'outfit-bold': ['outfit-bold'],
           'caslon-regular': ['caslon-regular'],
           'caslon-italic': ['caslon-italic'],
           'caslon-bold': ['caslon-bold'],
