@@ -141,14 +141,14 @@ export default function Welcome() {
         <Pressable onPress={handleSignIn} className="mt-5">
           <Text className="text-center text-gray-600 font-regular">
             Already have an account?{' '}
-            <Text className="font-medium text-black">Log In.</Text>
+            <Text className="font-outfit-medium text-black">Log In.</Text>
           </Text>
         </Pressable>
 
         <Text className="text-center text-gray-500 text-xs mt-6 px-4 font-regular">
           By continuing, you agree to our{' '}
-          <Text className="font-medium underline">Terms of Service</Text> and{' '}
-          <Text className="font-medium underline">Privacy Policy</Text>.
+          <Text className="font-outfit-medium underline">Terms of Service</Text> and{' '}
+          <Text className="font-outfit-medium underline">Privacy Policy</Text>.
         </Text>
       </View>
     </SafeAreaView>

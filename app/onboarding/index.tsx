@@ -1,18 +1,18 @@
 import * as Haptics from 'expo-haptics';
+import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { 
-  Pressable, 
-  StyleSheet, 
-  Text, 
-  TextInput, 
-  View,
+import {
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
   TouchableWithoutFeedback,
-  Keyboard
+  View
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useOnboarding } from './_layout';
 
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   },
   headline: {
     fontSize: 28,
-    fontWeight: 'bold',
+    fontFamily: 'outfit-bold',
     color: '#000',
     marginBottom: 16,
     textAlign: 'center',
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     fontSize: 20,
-    fontWeight: '600',
+    fontFamily: 'outfit-semibold',
     color: '#000',
     marginBottom: 12,
     textAlign: 'center',
@@ -155,6 +155,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: 'outfit-semibold',
   },
 });

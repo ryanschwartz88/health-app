@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: 'outfit-bold',
     marginBottom: 10,
     color: '#333',
   },
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   selectedText: {
-    fontWeight: 'bold',
+    fontFamily: 'outfit-bold',
     color: '#000',
   },
   footer: {
@@ -182,6 +182,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: 'outfit-semibold',
   },
 });

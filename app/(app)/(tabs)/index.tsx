@@ -7,10 +7,11 @@ import TargetedSupportCard from "@/components/nutrition/TargetedSupportCard";
 import BottomSpacer from "@/components/ui/BottomSpacer";
 import CustomCollapsible from "@/components/ui/CustomCollapsible";
 import GlassTabView from "@/components/ui/GlassTabView";
+import { AppText } from "@/components/ui/AppText";
 import { getUserId } from "@/utils/secureStorage";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, ScrollView, StyleSheet, View } from "react-native";
 
 export default function Index() {
   const [userId, setUserId] = useState<string>("");
@@ -151,9 +152,9 @@ export default function Index() {
           initialTabIndex={0}
         />
 
-        <Text className="text-3xl font-caslon-medium-italic text-primary text-left my-5">
-          Improve <Text className="font-caslon-medium">Your Health</Text>
-        </Text>
+        <AppText variant="h2" family="caslon" style={styles.headerText}>
+          Improve <AppText weight="medium" family="caslon">Your Health</AppText>
+        </AppText>
 
         <RecommendationCard
           title="Vitamin D"
@@ -179,38 +180,22 @@ export default function Index() {
 }
 
 const styles = StyleSheet.create({
+  headerText: {
+    color: '#4B4B4B',
+    textAlign: 'left',
+    marginVertical: 20,
+  },
   container: {
     flex: 1,
   },
   contentContainer: {
-    paddingHorizontal: 10,
-    paddingBottom: 40,
+    paddingHorizontal: 4,
+    paddingBottom: 16,
+    paddingTop: 16,
   },
   content: {
     flex: 1,
   },
-  welcomeText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  userIdText: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 30,
-  },
-  featureButton: {
-    backgroundColor: '#4CAF50',
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    borderRadius: 25,
-    marginTop: 10,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
+
 
 });

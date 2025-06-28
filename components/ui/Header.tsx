@@ -84,7 +84,7 @@ const Header: React.FC<HeaderProps> = ({
       <View style={styles.headerContent}>
         {/* Title and Calendar row */}
         <View style={[styles.titleContainer, showCalendar && styles.titleContainerWithCalendar]}>
-          <Text className="font-caslon-medium text-[40px] tracking-[-0.5px] text-black">{getTitle()}</Text>
+          <Text className="font-caslon-semibold text-[40px] tracking-[-0.5px] text-black">{getTitle()}</Text>
           
           {showCalendar && (
             <TouchableOpacity onPress={showDatePicker} style={styles.dateContainer}>

@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   headline: {
     fontSize: 36,
-    fontWeight: '800',
+    fontFamily: 'outfit-bold',
     color: '#000',
     marginBottom: 16,
     textAlign: 'center',
@@ -70,6 +70,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: 'outfit-semibold',
   },
 });

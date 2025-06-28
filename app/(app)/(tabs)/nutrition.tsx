@@ -3,7 +3,8 @@ import BottomSpacer from '@/components/ui/BottomSpacer';
 import GlassPanel from '@/components/ui/GlassPanel';
 import InvertedGlassPanel from '@/components/ui/InvertedGlassPanel'; // Import InvertedGlassPanel
 import React, { useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { AppText } from '@/components/ui/AppText';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 
 type ActiveSegment = 'Health Categories' | 'All Nutrients';
 
@@ -100,13 +101,13 @@ export default function NutritionScreen() {
         {activeSegment === 'Health Categories' ? (
           <InvertedGlassPanel rounded="full" hasBorder={true} style={styles.activeSwitcherButtonWrapper}>
             <Pressable style={styles.switcherButton} onPress={() => setActiveSegment('Health Categories')}>
-              <Text style={[styles.switcherText, styles.activeSwitcherText]}>Health Categories</Text>
+              <AppText variant="body1" weight="semibold" style={[styles.switcherText, styles.activeSwitcherText]}>Health Categories</AppText>
             </Pressable>
           </InvertedGlassPanel>
         ) : (
           <GlassPanel rounded="full" hasBorder={true} style={styles.inactiveSwitcherButtonWrapper}>
             <Pressable style={styles.switcherButton} onPress={() => setActiveSegment('Health Categories')}>
-              <Text style={styles.switcherText}>Health Categories</Text>
+              <AppText variant="body1" weight="semibold" style={styles.switcherText}>Health Categories</AppText>
             </Pressable>
           </GlassPanel>
         )}
@@ -114,13 +115,13 @@ export default function NutritionScreen() {
         {activeSegment === 'All Nutrients' ? (
           <InvertedGlassPanel rounded="full" hasBorder={false} style={styles.activeSwitcherButtonWrapper}>
             <Pressable style={styles.switcherButton} onPress={() => setActiveSegment('All Nutrients')}>
-              <Text style={[styles.switcherText, styles.activeSwitcherText]}>All Nutrients</Text>
+              <AppText variant="body1" weight="semibold" style={[styles.switcherText, styles.activeSwitcherText]}>All Nutrients</AppText>
             </Pressable>
           </InvertedGlassPanel>
         ) : (
           <GlassPanel rounded="full" hasBorder={false} style={styles.inactiveSwitcherButtonWrapper}>
             <Pressable style={styles.switcherButton} onPress={() => setActiveSegment('All Nutrients')}>
-              <Text style={styles.switcherText}>All Nutrients</Text>
+              <AppText variant="body1" weight="semibold" style={styles.switcherText}>All Nutrients</AppText>
             </Pressable>
           </GlassPanel>
         )}
@@ -170,7 +171,6 @@ const styles = StyleSheet.create({
     width: '100%', // Ensure Pressable fills the panel
   },
   switcherText: {
-    fontSize: 16, // Increased text size
     color: 'black', // gray-700 for inactive
     textAlign: 'center',
   },

@@ -28,17 +28,24 @@ SplashScreen.preventAutoHideAsync();
 
 export default function AppLayout() {
   // Load the Outfit font weights
-  const [fontsLoaded, fontError] = useFonts({
+  const [googleFontsLoaded, googleFontError] = useFonts({
     'Outfit-Light': Outfit_300Light,
     'Outfit-Regular': Outfit_400Regular,
     'Outfit-Medium': Outfit_500Medium,
     'Outfit-SemiBold': Outfit_600SemiBold,
     'Outfit-Bold': Outfit_700Bold,
-    'LibreCaslonText-Medium': require('@/assets/fonts/LibreCaslonText-Medium.ttf'),
-    'LibreCaslonText-MediumItalic': require('@/assets/fonts/LibreCaslonText-MediumItalic.ttf'),
-    'LibreCaslonText-Semibold': require('@/assets/fonts/LibreCaslonText-Semibold.ttf'),
-    'LibreCaslonText-SemiboldItalic': require('@/assets/fonts/LibreCaslonText-SemiboldItalic.ttf'),
   });
+
+  // Load the Libre Caslon Text font weights
+  const [customFontsLoaded, customFontError] = useFonts({
+    'caslon-medium': require('@/assets/fonts/LibreCaslonText-Medium.ttf'),
+    'caslon-medium-italic': require('@/assets/fonts/LibreCaslonText-MediumItalic.ttf'),
+    'caslon-semibold': require('@/assets/fonts/LibreCaslonText-Semibold.ttf'),
+    'caslon-semibold-italic': require('@/assets/fonts/LibreCaslonText-SemiboldItalic.ttf'),
+  });
+
+  const fontsLoaded = googleFontsLoaded && customFontsLoaded;
+  const fontError = googleFontError || customFontError;
 
   useEffect(() => {
     // Register the Superwall placement for subscription check

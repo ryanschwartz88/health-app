@@ -1,5 +1,5 @@
 import SummaryCard from '@/components/ai/SummaryCard';
-import AppText from '@/components/ui/AppText';
+import { AppText } from '@/components/ui/AppText';
 import BottomSpacer from '@/components/ui/BottomSpacer';
 import GlassPanel from '@/components/ui/GlassPanel';
 import { Ionicons } from '@expo/vector-icons';
@@ -84,7 +84,7 @@ export default function LogsScreen() {
 
       {/* Log Entries Section */}
       <View style={styles.section}>
-        <AppText variant="title" weight="medium" style={styles.sectionTitle}>
+        <AppText variant="h4" weight="medium" style={styles.sectionTitle}>
           Today's Logs
         </AppText>
         
@@ -96,11 +96,11 @@ export default function LogsScreen() {
                   <View style={[styles.iconContainer, { backgroundColor: getLogTypeColor(log.type) }]}>
                     <Ionicons name={log.icon} size={20} color="#333" />
                   </View>
-                  <AppText weight="semibold">{log.title}</AppText>
+                  <AppText variant="body1" weight="semibold">{log.title}</AppText>
                 </View>
-                <AppText variant="caption" weight="light">{log.time}</AppText>
+                <AppText variant="tagline" weight="light">{log.time}</AppText>
               </View>
-              <AppText variant="body" style={styles.logDetails}>
+              <AppText variant="body1" style={styles.logDetails}>
                 {log.details}
               </AppText>
             </GlassPanel>
@@ -119,25 +119,6 @@ const styles = StyleSheet.create({
   contentContainer: {
     padding: 16,
     paddingBottom: 40,
-  },
-  titleContainer: {
-    marginBottom: 20,
-  },
-  subtitle: {
-    marginTop: 4,
-    opacity: 0.7,
-  },
-  addLogPanel: {
-    marginBottom: 24,
-  },
-  addLogButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 12,
-  },
-  addLogText: {
-    marginLeft: 8,
   },
   section: {
     marginBottom: 16,

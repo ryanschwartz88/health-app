@@ -2,7 +2,8 @@ import { Ionicons } from '@expo/vector-icons';
 import Slider from '@react-native-community/slider';
 import * as Haptics from 'expo-haptics';
 import React, { useMemo, useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
+import { AppText } from '../../components/ui/AppText';
 import { useOnboarding } from './_layout';
 
 interface SpeedCategory {
@@ -41,18 +42,18 @@ export default function GoalSpeedScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>How quickly do you want to {isGaining ? 'gain' : 'lose'} weight?</Text>
-        <Text style={styles.subtitle}>
+        <AppText variant="h2" weight="bold" style={styles.title}>How quickly do you want to {isGaining ? 'gain' : 'lose'} weight?</AppText>
+        <AppText variant="body1" weight="medium" style={styles.subtitle}>
         We recommend aiming for 0.5-2.0 lbs/week for sustainable progress.
-        </Text>
+        </AppText>
       </View>
 
       <View style={styles.contentContainer}>
         <View style={styles.speedDisplayContainer}>
           <Ionicons name={speedCategory.icon} size={36} color={'#000'} style={styles.speedIcon} />
           <View style={styles.speedTextContainer}>
-            <Text style={[styles.speedValueText, { color: '#000' }]}>{currentSpeed.toFixed(1)} lbs/week</Text>
-            <Text style={[styles.speedLabelText, { color: '#000' }]}>{speedCategory.label}</Text>
+            <AppText variant="h2" weight="bold" style={[styles.speedValueText, { color: '#000' }]}>{currentSpeed.toFixed(1)} lbs/week</AppText>
+            <AppText variant="h4" weight="medium" style={[styles.speedLabelText, { color: '#000' }]}>{speedCategory.label}</AppText>
           </View>
         </View>
 
@@ -70,14 +71,14 @@ export default function GoalSpeedScreen() {
           maximumTrackTintColor="#E0E0E0"
           thumbTintColor={'#000'}
         />
-        <Text style={styles.note}>
+        <AppText variant="body1" style={styles.note}>
           Faster you go, the more fat you will gain (bulk) and more muscle you will lose (cut)
-        </Text>
+        </AppText>
       </View>
 
       <View style={styles.footer}>
         <Pressable style={styles.button} onPress={handleNext}>
-          <Text style={styles.buttonText}>Continue</Text>
+          <AppText variant="body1" weight="semibold" style={styles.buttonText}>Continue</AppText>
         </Pressable>
       </View>
     </View>
@@ -97,15 +98,11 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
     marginBottom: 10,
     color: '#333',
   },
   subtitle: {
-    fontSize: 16,
     color: '#666',
-    lineHeight: 22,
     alignContent: 'center',
   },
   contentContainer: {
@@ -134,19 +131,12 @@ const styles = StyleSheet.create({
   speedTextContainer: {
     alignItems: 'flex-start',
   },
-  speedValueText: {
-    fontSize: 28,
-    fontWeight: 'bold',
-  },
+  speedValueText: {},
   speedLabelText: {
-    fontSize: 18,
-    fontWeight: '500',
     marginTop: 2,
   },
   note: {
-    fontSize: 16,
     color: '#666',
-    lineHeight: 22,
     marginTop: 20,
     textAlign: 'center',
   },
@@ -170,7 +160,5 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 16,
-    fontWeight: '600',
   },
 });

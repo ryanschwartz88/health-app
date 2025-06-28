@@ -1,7 +1,8 @@
 import GlassPanel from '@/components/ui/GlassPanel';
 import { Feather } from '@expo/vector-icons';
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { AppText } from '@/components/ui/AppText';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 type AdditiveItemProps = {
   icon: React.ReactNode;
@@ -23,12 +24,12 @@ const AdditiveItem = ({ icon, name, amount, unit, color, onPress }: AdditiveItem
           >
             {icon}
           </View>
-          <Text className="text-xl font-medium">{name}</Text>
+          <AppText variant="h4" weight="medium">{name}</AppText>
         </View>
         <View className="flex-row items-center">
-          <Text className="text-xl font-medium mr-3">
+          <AppText variant="h4" weight="medium" style={styles.amountText}>
             {amount}{unit}
-          </Text>
+          </AppText>
           <TouchableOpacity onPress={onPress} className="w-8 h-8 rounded-full items-center justify-center bg-white mr-2">
             <Feather name="chevron-right" size={20} color="black" />
           </TouchableOpacity>
@@ -38,6 +39,12 @@ const AdditiveItem = ({ icon, name, amount, unit, color, onPress }: AdditiveItem
     </GlassPanel>
   );
 };
+
+const styles = StyleSheet.create({
+  amountText: {
+    marginRight: 12, // Corresponds to mr-3 in Tailwind
+  },
+});
 
 export default AdditiveItem;
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { AppText } from '../ui/AppText';
 import Svg, { Circle } from 'react-native-svg';
 
 type DayCircleProps = {
@@ -57,13 +58,13 @@ const DayCircle: React.FC<DayCircleProps> = ({
       disabled={disabled}
     >
       {/* Day of Week */}
-      <Text style={[
+      <AppText variant="body2" weight="bold" style={[
         styles.dayOfWeek,
         isSelected && !disabled && styles.selectedText,
         disabled && styles.disabledText
       ]}>
         {dayOfWeek}
-      </Text>
+      </AppText>
       
       {/* Day of Month with Progress Circle */}
       <View style={[styles.circleContainer, isSelected && { backgroundColor: 'rgb(217, 217, 217)' }, { width: chosenWidth * 0.75, height: chosenWidth * 0.75 }]}>
@@ -87,12 +88,12 @@ const DayCircle: React.FC<DayCircleProps> = ({
         )}
         
         <View style={styles.dayNumberContainer}>
-          <Text style={[
+          <AppText variant="body1" weight="bold" style={[
             styles.dayNumber,
             disabled && styles.disabledText
           ]}>
             {dayOfMonth}
-          </Text>
+          </AppText>
         </View>
       </View>
     </TouchableOpacity>
@@ -113,8 +114,6 @@ const styles = StyleSheet.create({
     opacity: 1,
   },
   dayOfWeek: {
-    fontSize: 14,
-    fontWeight: 'bold',
     marginBottom: 4,
   },
   selectedText: {
@@ -141,8 +140,6 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   dayNumber: {
-    fontSize: 16,
-    fontWeight: 'bold',
     color: '#000',
   }
 });

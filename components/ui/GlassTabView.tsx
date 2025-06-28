@@ -1,7 +1,8 @@
 import ArrowIcon from '@/assets/icons/arrow.svg';
 import '@/global.css';
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated, Pressable, Text, View } from 'react-native';
+import { Animated, Pressable, View } from 'react-native';
+import { AppText } from './AppText';
 import GlassPanel from './GlassPanel';
 
 interface AnimatedArrowProps {
@@ -92,16 +93,16 @@ export const GlassTabView: React.FC<GlassTabViewProps> = ({
                   }}
                 >
                   <View className="flex flex-row items-center justify-between">
-                    <Text 
+                    <AppText
+                      variant="h4"
+                      weight="regular"
                       style={{
                         textAlign: 'center',
-                        fontWeight: 'regular',
-                        fontSize: 18,
                         color: '#000000'
                       }}
                     >
                       {tab.title}
-                    </Text>
+                    </AppText>
                     <AnimatedArrow isActive={isActive} />
                     
                   </View>

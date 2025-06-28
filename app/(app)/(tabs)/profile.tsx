@@ -1,4 +1,4 @@
-import AppText from '@/components/ui/AppText';
+import { AppText } from '@/components/ui/AppText';
 import BottomSpacer from '@/components/ui/BottomSpacer';
 import GlassPanel from '@/components/ui/GlassPanel';
 import { resetUser } from '@/utils/userManager';
@@ -85,23 +85,23 @@ export default function ProfileScreen() {
       
       {/* Health Stats Summary */}
       <GlassPanel rounded="lg" style={styles.statsPanel}>
-        <AppText variant="body" weight="medium" style={styles.statsPanelTitle}>
+        <AppText variant="body1" weight="medium" style={styles.statsPanelTitle}>
           About Me
         </AppText>
         <View style={styles.statsRow}>
           <View style={styles.statItem}>
-            <AppText variant="title" weight="bold">157</AppText>
-            <AppText variant="caption">lbs</AppText>
+            <AppText variant="h4" weight="bold">157</AppText>
+            <AppText variant="body2">lbs</AppText>
           </View>
           <View style={styles.statDivider} />
           <View style={styles.statItem}>
-            <AppText variant="title" weight="bold">5'10"</AppText>
-            <AppText variant="caption">height</AppText>
+            <AppText variant="h4" weight="bold">5'10"</AppText>
+            <AppText variant="body2">height</AppText>
           </View>
           <View style={styles.statDivider} />
           <View style={styles.statItem}>
-            <AppText variant="title" weight="bold">24.5</AppText>
-            <AppText variant="caption">BMI</AppText>
+            <AppText variant="h4" weight="bold">24.5</AppText>
+            <AppText variant="body2">BMI</AppText>
           </View>
         </View>
       </GlassPanel>
@@ -109,7 +109,7 @@ export default function ProfileScreen() {
       {/* Profile Sections */}
       {profileSections.map(section => (
         <View key={section.id} style={styles.section}>
-          <AppText variant="title" weight="medium" style={styles.sectionTitle}>
+          <AppText variant="h4" weight="medium" style={styles.sectionTitle}>
             {section.title}
           </AppText>
           
@@ -123,7 +123,7 @@ export default function ProfileScreen() {
                     <View style={styles.menuIconContainer}>
                       <Ionicons name={item.icon as any} size={22} color="#333" />
                     </View>
-                    <AppText weight="regular">{item.title}</AppText>
+                    <AppText weight="regular" variant="body1">{item.title}</AppText>
                   </View>
                   <Ionicons name="chevron-forward" size={18} color="#888" />
                 </TouchableOpacity>
@@ -144,7 +144,7 @@ export default function ProfileScreen() {
           onPress={deleteAccount}
         >
           <Ionicons name="log-out-outline" size={20} color="#E53935" />
-          <AppText weight="medium" style={styles.logoutText}>Delete Account</AppText>
+          <AppText weight="medium" variant="body1" style={styles.logoutText}>Delete Account</AppText>
         </TouchableOpacity>
       </GlassPanel>
       <BottomSpacer />
