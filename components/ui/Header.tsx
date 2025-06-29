@@ -2,7 +2,8 @@
 import { Ionicons } from '@expo/vector-icons';
 import { usePathname } from 'expo-router';
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { AppText } from './AppText';
 // Import from same directory
 import DatePickerModal from '@/components/header/DatePickerModal';
 import WeekSlider from '@/components/header/WeekSlider';
@@ -84,11 +85,11 @@ const Header: React.FC<HeaderProps> = ({
       <View style={styles.headerContent}>
         {/* Title and Calendar row */}
         <View style={[styles.titleContainer, showCalendar && styles.titleContainerWithCalendar]}>
-          <Text className="font-caslon-semibold text-[40px] tracking-[-0.5px] text-black">{getTitle()}</Text>
+          <AppText variant="h0" family="caslon" weight="semibold" style={{ letterSpacing: -0.5 }}>{getTitle()}</AppText>
           
           {showCalendar && (
             <TouchableOpacity onPress={showDatePicker} style={styles.dateContainer}>
-              <Text style={styles.dateText}>{getFormattedMonthYear()}</Text>
+              <AppText variant="body1" weight="bold">{getFormattedMonthYear()}</AppText>
               <View style={styles.calendarButton}>
                 <Ionicons name="calendar-outline" size={24} color="#000" />
               </View>
@@ -142,11 +143,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
   },
-  dateText: {
-    fontSize: 16,
-    fontWeight: '800',
-    color: '#000',
-  },
+
   calendarButton: {
     marginTop: 12,
   },

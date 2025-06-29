@@ -143,7 +143,10 @@ const styles = StyleSheet.create({
     color: '#666',
     marginBottom: 30,
   },
-
+  questionText: {
+    color: '#333',
+    marginBottom: 16,
+  },
   contentContainer: {
     flex: 1,
     width: '100%',

@@ -5,7 +5,7 @@ import { StyleSheet, Text, TextProps } from 'react-native';
 type FontFamily = 'outfit' | 'caslon';
 
 // Define the available variants
-type Variant = 'h1' | 'h2' | 'h3' | 'h4' | 'body1' | 'body2' | 'tagline';
+type Variant = 'h0' | 'h1' | 'h2' | 'h3' | 'h4' | 'body1' | 'body2' | 'body3' | 'tagline';
 
 // Define the available weights for each font family
 type OutfitWeight = 'light' | 'regular' | 'medium' | 'semibold' | 'bold';
@@ -69,33 +69,41 @@ const AppText = <T extends FontFamily>({
 
 // Define the styles for each typographic variant
 const styles = StyleSheet.create({
-  h1: {
+  h0: {
     fontSize: 40,
     lineHeight: 44,
+  },
+  h1: {
+    fontSize: 36,
+    lineHeight: 40,
   },
   h2: {
     fontSize: 32,
     lineHeight: 36,
   },
   h3: {
-    fontSize: 24,
+    fontSize: 28,
     lineHeight: 32,
   },
   h4: {
-    fontSize: 20,
+    fontSize: 24,
     lineHeight: 28,
   },
   body1: {
+    fontSize: 20,
+    lineHeight: 24,
+  },
+  body2: {
+    fontSize: 18,
+    lineHeight: 22,
+  },
+  body3: {
     fontSize: 16,
     lineHeight: 20,
   },
-  body2: {
-    fontSize: 14,
-    lineHeight: 18,
-  },
   tagline: {
-    fontSize: 12,
-    lineHeight: 16,
+    fontSize: 14,
+    lineHeight: 28,
   },
 });
 

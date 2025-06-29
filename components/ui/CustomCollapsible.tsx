@@ -58,7 +58,7 @@ const CustomCollapsible: React.FC<CustomCollapsibleProps> = ({
     <View className="mb-4 mt-2">
       <Pressable onPress={toggleCollapse}>
         <View className="flex-row items-center justify-between">
-          <AppText variant="h2" weight="medium">{header}</AppText>
+          <AppText variant="h3" weight="medium">{header}</AppText>
           <Animated.View 
             className="w-10 h-10 bg-white rounded-full items-center justify-center"
             style={{ transform: [{ rotate: interpolatedRotate }] }}

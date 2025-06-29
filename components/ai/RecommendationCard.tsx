@@ -1,9 +1,9 @@
 import DefaultRecPillIcon from '@/assets/ai/Rec_Pill.svg';
 import GlassPanel from '@/components/ui/GlassPanel'; // Import GlassPanel
-import { Feather, MaterialIcons } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import { Feather } from '@expo/vector-icons';
+import React from 'react';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { AppText } from '../ui/AppText';
-import { Modal, Pressable, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 interface RecommendationCardProps {
   title: string;
@@ -30,7 +30,7 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({ title, rec, vit
                 <View style={styles.iconWrapper}>
                   {IconComponent}
                 </View>
-                <AppText variant="body1" weight="medium" style={{ flex: 1 }} numberOfLines={2} ellipsizeMode="tail">{title}</AppText>
+                <AppText variant="body1" weight="medium" style={{ flex: 1 }} numberOfLines={3} ellipsizeMode="tail">{title}</AppText>
               </View>
               <View style={styles.chevronWrapper}>
                 <Feather name="chevron-right" size={24} />

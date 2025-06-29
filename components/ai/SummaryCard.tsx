@@ -74,12 +74,12 @@ const SummaryCard: React.FC<SummaryCardProps> = ({
         {/* Title */}
         <View style={styles.titleContainer}>
           <AiIcon width={24} height={24}/>
-          <AppText variant="h4" weight="medium" style={styles.title}>{title}</AppText>
+          <AppText variant="body1" weight="medium" style={styles.title}>{title}</AppText>
         </View>
         
         {/* Body */}
         { body ? (
-          <AppText variant="body1" style={styles.body}>{body}</AppText>
+          <AppText variant="body2" style={styles.body}>{body}</AppText>
         ) :
         (
           <AppText variant="body1" style={styles.body}>Welcome to Nura! As you log more data, we'll provide personalized summaries and recommendations here.</AppText>
@@ -94,7 +94,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({
               key={index} 
               style={styles.tagButton}
             >
-              <AppText variant="body2" weight="medium" style={styles.tagText}>{tag}</AppText>
+              <AppText variant="body3" weight="medium" style={styles.tagText}>{tag}</AppText>
             </View>
           ))}
         </View>
