@@ -75,9 +75,9 @@ const NutritionCard: React.FC<NutritionCardProps> = ({
           <View className="h-12 w-12 rounded-full bg-black/10 items-center justify-center mr-3">
             <Ionicons name={iconName} size={20} color="black" />
           </View>
-          <AppText variant="h4" weight="regular">{title}</AppText>
+          <AppText variant="h4" weight="medium">{title}</AppText>
         </View>
-        <AppText variant="h4" weight="regular">{Math.round(normalizedOverallPercentage)}%</AppText>
+        <AppText variant="h4" weight="medium">{Math.round(normalizedOverallPercentage)}%</AppText>
       </View>
 
       {/* Overall Progress Bar */}
@@ -105,7 +105,7 @@ const NutritionCard: React.FC<NutritionCardProps> = ({
 
       {/* Collapsible Section */}
       <Collapsible collapsed={!isExpanded || !isInitialized}>
-        <View className="border-t border-gray-300 pb-2">
+        <View className="border-t border-n-border pb-2">
             {items.map((item, index) => {
               const itemPercentage = item.limitAmount > 0
                 ? (item.takenAmount / item.limitAmount) * 100
@@ -115,7 +115,7 @@ const NutritionCard: React.FC<NutritionCardProps> = ({
               return (
                 <View
                   key={item.id}
-                  className={`${index > 0 ? 'border-t border-gray-300' : ''} py-[10px]`}
+                  className={`${index > 0 ? 'border-t border-n-border' : ''} py-[10px] `}
                 >
                   <View className="flex-row justify-between items-center mb-1">
                     <AppText variant="body2" weight="regular">
@@ -144,7 +144,7 @@ const NutritionCard: React.FC<NutritionCardProps> = ({
             })}
 
           {hasTargetedItems && (
-            <View className="border-t border-gray-300 pt-2">
+            <View className="border-t border-n-border pt-2">
               <AppText variant="tagline" className="text-right text-gray-500 italic">
                 *Targeted Support - Not included in percentage
               </AppText>

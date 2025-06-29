@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   disabledText: {
-    color: '#ccc',
+    color: '#A0A0A0', // A darker, more visible gray
   },
   circleContainer: {
     alignItems: 'center',

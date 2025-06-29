@@ -97,7 +97,7 @@ const TargetedSupportCard: React.FC<TargetedSupportCardProps> = ({
             const displayPercentage = Math.round(Math.min(Math.max(itemPercentage, 0), 100));
 
             return (
-              <View key={item.id} className="mb-4 border-t border-gray-200 pt-4">
+              <View key={item.id} className="mb-4 border-t border-n-border pt-4">
                 <View className="flex-row justify-between items-center mb-3">
                   <AppText variant="body1" weight="medium">{item.title}</AppText>
                   <View className="flex-row items-center">
