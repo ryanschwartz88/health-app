@@ -1,7 +1,8 @@
 import * as Haptics from 'expo-haptics';
 import { router } from 'expo-router';
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
+import { AppText } from '../../components/ui/AppText';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function AboutYouScreen() {
@@ -14,17 +15,17 @@ export default function AboutYouScreen() {
     <View style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.contentContainer}>
-          <Text style={styles.headline}>About You</Text>
-          <Text style={styles.description}>
+          <AppText variant="h1" weight="bold" style={styles.headline}>About You</AppText>
+          <AppText variant="body1" style={styles.description}>
             Help us understand your unique profile so we can create personalized nutrition recommendations.
-          </Text>
+          </AppText>
         </View>
         
         <Pressable
           style={styles.button}
           onPress={handleContinue}
         >
-          <Text style={styles.buttonText}>Continue</Text>
+          <AppText variant="body1" weight="semibold" style={styles.buttonText}>Continue</AppText>
         </Pressable>
       </SafeAreaView>
     </View>
@@ -46,17 +47,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headline: {
-    fontSize: 36,
-    fontWeight: '800',
     color: '#000',
     marginBottom: 16,
     textAlign: 'center',
   },
   description: {
-    fontSize: 18,
     color: '#333',
     textAlign: 'center',
-    lineHeight: 26,
     marginBottom: 32,
     maxWidth: '90%',
   },
@@ -69,7 +66,5 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 16,
-    fontWeight: '600',
   },
 });

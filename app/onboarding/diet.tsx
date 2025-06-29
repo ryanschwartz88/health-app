@@ -2,7 +2,8 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { AppText } from '../../components/ui/AppText';
 import { useOnboarding } from './_layout';
 
 interface DietOption {
@@ -41,8 +42,8 @@ export default function DietScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Do you follow a specific diet?</Text>
-        <Text style={styles.subtitle}>Select the option that best describes your diet preference.</Text>
+        <AppText variant="h2" weight="bold" style={styles.title}>Do you follow a specific diet?</AppText>
+        <AppText variant="body1" style={styles.subtitle}>Select the option that best describes your diet preference.</AppText>
       </View>
       
       <View style={styles.contentContainer}>
@@ -67,12 +68,15 @@ export default function DietScreen() {
                   color={selectedDiet === option.id ? 'white' : '#666'} 
                 />
               </View>
-              <Text style={[
-                styles.optionText,
-                selectedDiet === option.id ? styles.selectedText : null
-              ]}>
+              <AppText 
+                variant="body1" 
+                weight={selectedDiet === option.id ? 'bold' : 'regular'}
+                style={[
+                  styles.optionText,
+                  selectedDiet === option.id ? styles.selectedText : null
+                ]}>
                 {option.label}
-              </Text>
+              </AppText>
             </Pressable>
             ))}
           </View>
@@ -85,7 +89,7 @@ export default function DietScreen() {
           onPress={handleNext}
           disabled={!selectedDiet}
         >
-          <Text style={styles.buttonText}>Continue</Text>
+          <AppText variant="body1" weight="semibold" style={styles.buttonText}>Continue</AppText>
         </Pressable>
       </View>
     </View>
@@ -105,18 +109,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
     marginBottom: 10,
     color: '#333',
   },
   subtitle: {
-    fontSize: 16,
     color: '#666',
   },
   questionText: {
-    fontSize: 18,
-    fontWeight: '600',
     color: '#333',
     marginBottom: 16,
   },
@@ -159,11 +158,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
   },
   optionText: {
-    fontSize: 16,
     color: '#333',
   },
   selectedText: {
-    fontWeight: 'bold',
     color: '#000',
   },
   footer: {
@@ -181,7 +178,5 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 16,
-    fontWeight: '600',
   },
 });

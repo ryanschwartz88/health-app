@@ -1,4 +1,4 @@
-import AppText from '@/components/ui/AppText';
+import { AppText } from '@/components/ui/AppText';
 import BottomSpacer from '@/components/ui/BottomSpacer';
 import GlassPanel from '@/components/ui/GlassPanel';
 import { resetUser } from '@/utils/userManager';
@@ -82,26 +82,26 @@ export default function ProfileScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-      
-      {/* Health Stats Summary */}
-      <GlassPanel rounded="lg" style={styles.statsPanel}>
-        <AppText variant="body" weight="medium" style={styles.statsPanelTitle}>
+      <View style={{ gap: 24 }}>
+        {/* Health Stats Summary */}
+        <GlassPanel rounded="lg" contentContainerStyle={styles.statsPanel}>
+        <AppText variant="body1" weight="medium" style={styles.statsPanelTitle}>
           About Me
         </AppText>
         <View style={styles.statsRow}>
           <View style={styles.statItem}>
-            <AppText variant="title" weight="bold">157</AppText>
-            <AppText variant="caption">lbs</AppText>
+            <AppText variant="h4" weight="bold">157</AppText>
+            <AppText variant="body2">lbs</AppText>
           </View>
           <View style={styles.statDivider} />
           <View style={styles.statItem}>
-            <AppText variant="title" weight="bold">5'10"</AppText>
-            <AppText variant="caption">height</AppText>
+            <AppText variant="h4" weight="bold">5'10"</AppText>
+            <AppText variant="body2">height</AppText>
           </View>
           <View style={styles.statDivider} />
           <View style={styles.statItem}>
-            <AppText variant="title" weight="bold">24.5</AppText>
-            <AppText variant="caption">BMI</AppText>
+            <AppText variant="h4" weight="bold">24.5</AppText>
+            <AppText variant="body2">BMI</AppText>
           </View>
         </View>
       </GlassPanel>
@@ -109,11 +109,11 @@ export default function ProfileScreen() {
       {/* Profile Sections */}
       {profileSections.map(section => (
         <View key={section.id} style={styles.section}>
-          <AppText variant="title" weight="medium" style={styles.sectionTitle}>
+          <AppText variant="h4" weight="medium" style={styles.sectionTitle}>
             {section.title}
           </AppText>
           
-          <GlassPanel rounded="lg" style={styles.menuPanel}>
+          <GlassPanel rounded="lg" contentContainerStyle={styles.menuPanel}>
             {section.items.map((item, index) => (
               <React.Fragment key={item.id}>
                 <TouchableOpacity
@@ -123,7 +123,7 @@ export default function ProfileScreen() {
                     <View style={styles.menuIconContainer}>
                       <Ionicons name={item.icon as any} size={22} color="#333" />
                     </View>
-                    <AppText weight="regular">{item.title}</AppText>
+                    <AppText weight="regular" variant="body1">{item.title}</AppText>
                   </View>
                   <Ionicons name="chevron-forward" size={18} color="#888" />
                 </TouchableOpacity>
@@ -138,16 +138,17 @@ export default function ProfileScreen() {
       ))}
 
       {/* Logout Button */}
-      <GlassPanel rounded="lg" style={styles.logoutPanel}>
+      <GlassPanel rounded="lg" contentContainerStyle={styles.logoutPanelContent}>
         <TouchableOpacity 
           style={styles.logoutButton}
           onPress={deleteAccount}
         >
           <Ionicons name="log-out-outline" size={20} color="#E53935" />
-          <AppText weight="medium" style={styles.logoutText}>Delete Account</AppText>
+          <AppText weight="medium" variant="body1" style={styles.logoutText}>Delete Account</AppText>
         </TouchableOpacity>
       </GlassPanel>
-      <BottomSpacer />
+        <BottomSpacer />
+      </View>
     </ScrollView>
   );
 }
@@ -160,46 +161,11 @@ const styles = StyleSheet.create({
     padding: 16,
     paddingBottom: 40,
   },
-  profileHeader: {
-    padding: 20,
-    marginBottom: 16,
-  },
-  profileInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  avatarContainer: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    backgroundColor: 'rgba(200, 200, 200, 0.3)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 16,
-  },
-  nameContainer: {
-    flex: 1,
-  },
-  editButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'flex-start',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 20,
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-  },
-  editButtonText: {
-    marginLeft: 4,
-    fontSize: 14,
-  },
   statsPanel: {
     padding: 16,
-    marginBottom: 24,
+    gap: 12,
   },
   statsPanelTitle: {
-    marginBottom: 12,
   },
   statsRow: {
     flexDirection: 'row',
@@ -215,10 +181,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.1)',
   },
   section: {
-    marginBottom: 20,
+    gap: 10,
   },
   sectionTitle: {
-    marginBottom: 10,
   },
   menuPanel: {
     paddingVertical: 8,
@@ -234,6 +199,7 @@ const styles = StyleSheet.create({
   menuItemLeft: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 12,
   },
   menuIconContainer: {
     width: 36,
@@ -242,25 +208,22 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.05)',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 12,
   },
   menuDivider: {
     height: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.05)',
     marginHorizontal: 16,
   },
-  logoutPanel: {
-    marginTop: 10,
-    marginBottom: 30,
+  logoutPanelContent: {
+    padding: 14,
   },
   logoutButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 14,
+    gap: 8,
   },
   logoutText: {
-    marginLeft: 8,
     color: '#E53935',
   },
 });

@@ -1,9 +1,10 @@
 import NutritionCard from '@/components/nutrition/NutritionCard';
+import { AppText } from '@/components/ui/AppText';
 import BottomSpacer from '@/components/ui/BottomSpacer';
 import GlassPanel from '@/components/ui/GlassPanel';
 import InvertedGlassPanel from '@/components/ui/InvertedGlassPanel'; // Import InvertedGlassPanel
 import React, { useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 
 type ActiveSegment = 'Health Categories' | 'All Nutrients';
 
@@ -94,48 +95,49 @@ export default function NutritionScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+      <View style={{ gap: 24 }}>
+        {/* Segmented Control Buttons */}
+        <View style={styles.switcherButtonContainer}>
+          {activeSegment === 'Health Categories' ? (
+            <InvertedGlassPanel rounded="full" hasBorder={true} style={styles.activeSwitcherButtonWrapper}>
+              <Pressable style={styles.switcherButton} onPress={() => setActiveSegment('Health Categories')}>
+                <AppText variant="body1" weight="regular" style={[styles.switcherText, styles.activeSwitcherText]}>Health Categories</AppText>
+              </Pressable>
+            </InvertedGlassPanel>
+          ) : (
+            <GlassPanel rounded="full" hasBorder={true} style={styles.inactiveSwitcherButtonWrapper}>
+              <Pressable style={styles.switcherButton} onPress={() => setActiveSegment('Health Categories')}>
+                <AppText variant="body1" weight="regular" style={styles.switcherText}>Health Categories</AppText>
+              </Pressable>
+            </GlassPanel>
+          )}
 
-      {/* Segmented Control Buttons */}
-      <View style={styles.switcherButtonContainer}>
-        {activeSegment === 'Health Categories' ? (
-          <InvertedGlassPanel rounded="full" hasBorder={true} style={styles.activeSwitcherButtonWrapper}>
-            <Pressable style={styles.switcherButton} onPress={() => setActiveSegment('Health Categories')}>
-              <Text style={[styles.switcherText, styles.activeSwitcherText]}>Health Categories</Text>
-            </Pressable>
-          </InvertedGlassPanel>
-        ) : (
-          <GlassPanel rounded="full" hasBorder={true} style={styles.inactiveSwitcherButtonWrapper}>
-            <Pressable style={styles.switcherButton} onPress={() => setActiveSegment('Health Categories')}>
-              <Text style={styles.switcherText}>Health Categories</Text>
-            </Pressable>
-          </GlassPanel>
-        )}
-
-        {activeSegment === 'All Nutrients' ? (
-          <InvertedGlassPanel rounded="full" hasBorder={false} style={styles.activeSwitcherButtonWrapper}>
-            <Pressable style={styles.switcherButton} onPress={() => setActiveSegment('All Nutrients')}>
-              <Text style={[styles.switcherText, styles.activeSwitcherText]}>All Nutrients</Text>
-            </Pressable>
-          </InvertedGlassPanel>
-        ) : (
-          <GlassPanel rounded="full" hasBorder={false} style={styles.inactiveSwitcherButtonWrapper}>
-            <Pressable style={styles.switcherButton} onPress={() => setActiveSegment('All Nutrients')}>
-              <Text style={styles.switcherText}>All Nutrients</Text>
-            </Pressable>
-          </GlassPanel>
-        )}
-      </View>
-
-      {/* Nutritional Cards Section */}
-      <View style={styles.section}>
-        
-        <View style={styles.cardsContainer}>
-          {currentData.map((cardProps, index) => (
-            <NutritionCard key={`${activeSegment}-${index}`} {...cardProps} />
-          ))}
+          {activeSegment === 'All Nutrients' ? (
+            <InvertedGlassPanel rounded="full" hasBorder={false} style={styles.activeSwitcherButtonWrapper}>
+              <Pressable style={styles.switcherButton} onPress={() => setActiveSegment('All Nutrients')}>
+                <AppText variant="body1" weight="regular" style={[styles.switcherText, styles.activeSwitcherText]}>All Nutrients</AppText>
+              </Pressable>
+            </InvertedGlassPanel>
+          ) : (
+            <GlassPanel rounded="full" hasBorder={false} style={styles.inactiveSwitcherButtonWrapper}>
+              <Pressable style={styles.switcherButton} onPress={() => setActiveSegment('All Nutrients')}>
+                <AppText variant="body1" weight="regular" style={styles.switcherText}>All Nutrients</AppText>
+              </Pressable>
+            </GlassPanel>
+          )}
         </View>
+
+        {/* Nutritional Cards Section */}
+        <View>
+          
+          <View style={styles.cardsContainer}>
+            {currentData.map((cardProps, index) => (
+              <NutritionCard key={`${activeSegment}-${index}`} {...cardProps} />
+            ))}
+          </View>
+        </View>
+        <BottomSpacer />
       </View>
-      <BottomSpacer />
     </ScrollView>
   );
 }
@@ -145,32 +147,28 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   contentContainer: {
-    paddingHorizontal: 8, // Use 8 for less side padding if cards have m-2
-    paddingTop: 16,
+    paddingHorizontal: 16, // Use 8 for less side padding if cards have m-2
+    paddingTop: 0,
     paddingBottom: 24,
   },
   switcherButtonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 20,
+    gap: 8, // Use gap for spacing
   },
   activeSwitcherButtonWrapper: {
     flex: 1,
-    marginHorizontal: 4, // Add some space between buttons
   },
   inactiveSwitcherButtonWrapper: {
     flex: 1,
-    marginHorizontal: 4, // Add some space between buttons
   },
   switcherButton: { // Style for the Pressable area inside the panels
-    paddingVertical: 12, // Increased padding for larger touch area
+    paddingVertical: 8, // Increased padding for larger touch area
     paddingHorizontal: 12,
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%', // Ensure Pressable fills the panel
   },
   switcherText: {
-    fontSize: 16, // Increased text size
     color: 'black', // gray-700 for inactive
     textAlign: 'center',
   },
@@ -178,9 +176,8 @@ const styles = StyleSheet.create({
     color: 'white', // Text color for active button (inside InvertedGlassPanel)
   },
   section: {
-    marginBottom: 24,
   },
   cardsContainer: {
-    gap: 12,
+    gap: 16,
   },
 });

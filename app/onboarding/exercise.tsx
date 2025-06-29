@@ -2,7 +2,8 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
+import { AppText } from '../../components/ui/AppText';
 import { useOnboarding } from './_layout';
 
 interface ExerciseOption {
@@ -59,8 +60,8 @@ export default function ExerciseScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>How often do you exercise?</Text>
-        <Text style={styles.subtitle}>Select the option that best describes your exercise frequency.</Text>
+        <AppText variant="h2" weight="bold" style={styles.title}>How often do you exercise?</AppText>
+        <AppText variant="body1" style={styles.subtitle}>Select the option that best describes your exercise frequency.</AppText>
       </View>
       
       <View style={styles.contentContainer}>
@@ -86,15 +87,18 @@ export default function ExerciseScreen() {
                   />
                 </View>
                 <View style={styles.optionTextContainer}>
-                  <Text style={[
-                    styles.optionText,
-                    selectedExercise === option.id ? styles.selectedText : null
-                  ]}>
+                  <AppText 
+                    variant="body1" 
+                    weight={selectedExercise === option.id ? 'bold' : 'medium'}
+                    style={[
+                      styles.optionText,
+                      selectedExercise === option.id ? styles.selectedText : null
+                    ]}>
                     {option.label}
-                  </Text>
-                  <Text style={styles.optionDescription}>
+                  </AppText>
+                  <AppText variant="body2" style={styles.optionDescription}>
                     {option.description}
-                  </Text>
+                  </AppText>
                 </View>
               </Pressable>
             ))}
@@ -108,7 +112,7 @@ export default function ExerciseScreen() {
           onPress={handleNext}
           disabled={!selectedExercise}
         >
-          <Text style={styles.buttonText}>Continue</Text>
+          <AppText variant="body1" weight="semibold" style={styles.buttonText}>Continue</AppText>
         </Pressable>
       </View>
     </View>
@@ -132,19 +136,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
     marginBottom: 10,
     color: '#333',
   },
   subtitle: {
-    fontSize: 16,
     color: '#666',
     marginBottom: 30,
   },
   questionText: {
-    fontSize: 18,
-    fontWeight: '600',
     color: '#333',
     marginBottom: 16,
   },
@@ -188,16 +187,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   optionText: {
-    fontSize: 16,
-    fontWeight: '500',
     color: '#333',
   },
   selectedText: {
-    fontWeight: 'bold',
     color: '#000',
   },
   optionDescription: {
-    fontSize: 14,
     color: '#666',
     marginTop: 4,
   },
@@ -216,7 +211,5 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 16,
-    fontWeight: '600',
   },
 });

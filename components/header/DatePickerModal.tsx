@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
-import { Modal, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { Modal, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { AppText } from '../ui/AppText';
 import Svg, { Circle } from 'react-native-svg';
 
 type DatePickerModalProps = {
@@ -174,7 +175,7 @@ const DatePickerModal: React.FC<DatePickerModalProps> = ({
               <View style={styles.panel}>
                 {/* Header */}
                 <View style={styles.header}>
-                  <Text style={styles.title}>Select Date</Text>
+                  <AppText variant="h4" weight="semibold">Select Date</AppText>
                   <TouchableOpacity onPress={onClose} style={styles.closeButton}>
                     <Ionicons name="close" size={24} color="#000" />
                   </TouchableOpacity>
@@ -190,9 +191,9 @@ const DatePickerModal: React.FC<DatePickerModalProps> = ({
                     <Ionicons name="chevron-back" size={24} color={canGoToPreviousMonth ? "#000" : "#ccc"} />
                   </TouchableOpacity>
                   
-                  <Text style={styles.monthYearText}>
+                  <AppText variant="body1" weight="medium" style={styles.monthYearText}>
                     {`${monthNames[currentMonth.getMonth()]} ${currentMonth.getFullYear()}`}
-                  </Text>
+                  </AppText>
                   
                   <TouchableOpacity 
                     onPress={canGoToNextMonth ? goToNextMonth : undefined} 
@@ -206,7 +207,7 @@ const DatePickerModal: React.FC<DatePickerModalProps> = ({
                 {/* Day names */}
                 <View style={styles.dayNamesContainer}>
                   {dayNames.map(day => (
-                    <Text key={day} style={styles.dayName}>{day}</Text>
+                    <AppText key={day} variant="body2" weight="medium" style={styles.dayName}>{day}</AppText>
                   ))}
                 </View>
                 
@@ -280,12 +281,12 @@ const DatePickerModal: React.FC<DatePickerModalProps> = ({
                               isSelectedDay(day) && styles.selectedDayCircle,
                               !isDateInRange && styles.disabledDayCircle
                             ]}>
-                              <Text style={[
+                              <AppText variant="body2" weight="medium" style={[
                                 styles.dayText,
                                 !isDateInRange && styles.disabledDayText
                               ]}>
                                 {day}
-                              </Text>
+                              </AppText>
                             </View>
                           </View>
                         )}
@@ -300,14 +301,14 @@ const DatePickerModal: React.FC<DatePickerModalProps> = ({
                     style={[styles.button, styles.cancelButton]} 
                     onPress={onClose}
                   >
-                    <Text style={styles.buttonText}>Cancel</Text>
+                    <AppText variant="body1" weight="medium">Cancel</AppText>
                   </TouchableOpacity>
                   
                   <TouchableOpacity 
                     style={[styles.button, styles.confirmButton]} 
                     onPress={confirmSelection}
                   >
-                    <Text style={[styles.buttonText, styles.confirmButtonText]}>Confirm</Text>
+                    <AppText variant="body1" weight="medium" style={{color: '#fff'}}>Confirm</AppText>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -343,16 +344,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 5,
+    gap: 20,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: '600',
   },
   closeButton: {
     padding: 8,
@@ -361,37 +358,33 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20,
   },
   navButton: {
     padding: 8,
   },
   monthYearText: {
-    fontSize: 18,
-    fontWeight: '500',
+    // fontSize is handled by AppText variant
   },
   dayNamesContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginBottom: 10,
   },
   dayName: {
-    width: 40,
+    width: '14.28%',
     textAlign: 'center',
-    fontWeight: '500',
-    color: '#757575',
+    color: '#888',
   },
   calendarGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
+    gap: 4,
   },
   dayCell: {
     width: 40,
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 2,
   },
   dayCellWithCircle: {
     // No specific styling needed here, just a marker for cells with days
@@ -399,12 +392,14 @@ const styles = StyleSheet.create({
   selectedDayCell: {
     // Cell background color removed, now using circle
   },
+  disabledDayCell: {
+    opacity: 0.5,
+  },
   dayCircleContainer: {
     width: 40,
     height: 40,
-    alignItems: 'center',
     justifyContent: 'center',
-    position: 'relative',
+    alignItems: 'center',
   },
   svg: {
     position: 'absolute',
@@ -412,53 +407,41 @@ const styles = StyleSheet.create({
     left: 0,
   },
   dayCircle: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: -1,
     backgroundColor: 'transparent',
   },
   selectedDayCircle: {
-    borderBottomWidth: 2,
-    borderBottomColor: '#000',
+    backgroundColor: '#000',
   },
   disabledDayCircle: {
-    opacity: 0.5,
+    backgroundColor: '#f0f0f0',
   },
   dayText: {
-    fontSize: 16,
-    zIndex: 3,
+    color: '#000',
   },
-  selectedDayText: {
-    color: '#fff',
+  disabledDayText: {
+    color: '#ccc',
   },
   actionButtons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20,
+    gap: 10,
   },
   button: {
-    padding: 12,
+    flex: 1,
+    paddingVertical: 12,
     borderRadius: 8,
-    width: '48%',
     alignItems: 'center',
   },
   cancelButton: {
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#eee',
   },
   confirmButton: {
     backgroundColor: '#000',
-  },
-  buttonText: {
-    fontWeight: '500',
-  },
-  confirmButtonText: {
-    color: '#fff',
-  },
-  disabledDayCell: {
-    opacity: 0.5,
-  },
-  disabledDayText: {
-    color: '#ccc',
   },
 });
 

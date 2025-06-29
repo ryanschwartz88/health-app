@@ -1,7 +1,8 @@
 import DynamicOvalProgressBar from '@/components/ui/DynamicOvalProgressBar';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
+import { AppText } from '../ui/AppText';
 import GlassPanel from '../ui/GlassPanel';
 
 interface HealthCategoryCardProps {
@@ -34,11 +35,11 @@ export const HealthCategoryCard: React.FC<HealthCategoryCardProps> = ({
           </View>
           
           {/* Category name */}
-          <Text className="text-2xl font-regular">{category}</Text>
+          <AppText variant="h3" weight="regular">{category}</AppText>
         </View>
         
         {/* Completion percentage */}
-        <Text className="text-3xl font-regular">{Math.round(normalizedRate)}%</Text>
+        <AppText variant="h2" weight="regular">{Math.round(normalizedRate)}%</AppText>
       </View>
       
       {/* Progress bar row */}

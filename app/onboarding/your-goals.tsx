@@ -2,7 +2,8 @@ import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { AppText } from '../../components/ui/AppText';
 import { useOnboarding } from './_layout';
 
 interface GoalOption {
@@ -70,8 +71,8 @@ export default function YourGoalsScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>What do you want to focus on? (Choose up to {MAX_SELECTIONS})</Text>
-        <Text style={styles.hint}>This helps us tailor your dashboard to what matters most.</Text>
+        <AppText variant="h2" weight="bold" style={styles.title}>What do you want to focus on? (Choose up to {MAX_SELECTIONS})</AppText>
+        <AppText variant="body1" style={styles.hint}>This helps us tailor your dashboard to what matters most.</AppText>
       </View>
       
       <View style={styles.contentContainer}>
@@ -108,12 +109,15 @@ export default function YourGoalsScreen() {
                     />
                   )}
                 </View>
-                <Text style={[
-                  styles.optionText,
-                  selectedGoals.includes(option.id) ? styles.selectedText : null
-                ]}>
+                <AppText 
+                  variant="body1" 
+                  weight={selectedGoals.includes(option.id) ? 'bold' : 'regular'}
+                  style={[
+                    styles.optionText,
+                    selectedGoals.includes(option.id) ? styles.selectedText : null
+                  ]}>
                   {option.label}
-                </Text>
+                </AppText>
                 {selectedGoals.includes(option.id) && (
                   <View style={styles.checkmarkContainer}>
                     <Ionicons name="checkmark-circle" size={20} color="#000" />
@@ -131,7 +135,7 @@ export default function YourGoalsScreen() {
           onPress={handleNext}
           disabled={selectedGoals.length === 0}
         >
-          <Text style={styles.buttonText}>Continue</Text>
+          <AppText variant="body1" weight="semibold" style={styles.buttonText}>Continue</AppText>
         </Pressable>
       </View>
     </View>
@@ -151,18 +155,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
     marginBottom: 10,
     color: '#333',
   },
   subtitle: {
-    fontSize: 18,
     color: '#333',
     marginBottom: 8,
   },
   hint: {
-    fontSize: 16,
     color: '#666',
     marginBottom: 10,
   },
@@ -203,12 +203,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
   },
   optionText: {
-    fontSize: 16,
     color: '#333',
     flex: 1,
   },
   selectedText: {
-    fontWeight: 'bold',
     color: '#000',
   },
   checkmarkContainer: {
@@ -229,7 +227,5 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 16,
-    fontWeight: '600',
   },
 });

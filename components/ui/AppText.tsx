@@ -1,55 +1,65 @@
 import React from 'react';
 import { StyleSheet, Text, TextProps } from 'react-native';
 
-interface AppTextProps extends TextProps {
-  variant?: 'body' | 'title' | 'heading' | 'caption';
-  weight?: 'light' | 'regular' | 'medium' | 'semibold' | 'bold';
+// Define the available font families
+type FontFamily = 'outfit' | 'caslon';
+
+// Define the available variants
+type Variant = 'h0' | 'h1' | 'h2' | 'h3' | 'h4' | 'body1' | 'body2' | 'body3' | 'tagline';
+
+// Define the available weights for each font family
+type OutfitWeight = 'light' | 'regular' | 'medium' | 'semibold' | 'bold';
+type CaslonWeight = 'medium' | 'semibold';
+
+// Use a conditional type for the weight prop to ensure type safety
+type Weight<T extends FontFamily> = T extends 'outfit' ? OutfitWeight : CaslonWeight;
+
+// Define the component props using generics
+interface AppTextProps<T extends FontFamily> extends TextProps {
+  family?: T;
+  variant?: Variant;
+  weight?: Weight<T>;
+  italic?: boolean;
   className?: string;
 }
 
-/**
- * AppText - Custom text component that uses the Outfit font family
- * Can be used with both StyleSheet styles and NativeWind classes
- */
-const AppText: React.FC<AppTextProps> = ({
-  children,
-  variant = 'body',
-  weight = 'regular',
+// Helper to get the correct font family string based on family and weight
+const getFontFamilyName = (
+  family: FontFamily,
+  weight: Weight<any>,
+  italic?: boolean
+): string => {
+  if (family === 'caslon') {
+    // Caslon only supports medium and semibold, default to medium
+    const validWeight = weight === 'medium' || weight === 'semibold' ? weight : 'medium';
+    return `caslon-${validWeight}${italic ? '-italic' : ''}`;
+  }
+
+  // Default to Outfit, ensuring the weight is valid
+  const validWeight = ['light', 'regular', 'medium', 'semibold', 'bold'].includes(weight)
+    ? weight
+    : 'regular';
+  return `outfit-${validWeight}`;
+};
+
+// The generic component allows for strong type inference
+const AppText = <T extends FontFamily>({
+  family = 'outfit' as T,
+  variant = 'body1',
+  weight = 'regular' as Weight<T>,
+  italic,
   style,
   className,
+  children,
   ...props
-}) => {
-  // Map weight to font family
-  const getFontFamily = () => {
-    switch (weight) {
-      case 'light': return 'Outfit-Light';
-      case 'regular': return 'Outfit-Regular';
-      case 'medium': return 'Outfit-Medium';
-      case 'semibold': return 'Outfit-SemiBold';
-      case 'bold': return 'Outfit-Bold';
-      default: return 'Outfit-Regular';
-    }
-  };
-
-  // Get variant style
-  const getVariantStyle = () => {
-    switch (variant) {
-      case 'heading': return styles.heading;
-      case 'title': return styles.title;
-      case 'body': return styles.body;
-      case 'caption': return styles.caption;
-      default: return styles.body;
-    }
-  };
+}: AppTextProps<T>) => {
+  const fontFamily = getFontFamilyName(family, weight, italic);
+  const variantStyle = styles[variant];
 
   return (
     <Text
       className={className}
-      style={[
-        { fontFamily: getFontFamily() }, 
-        getVariantStyle(),
-        style
-      ]}
+      style={[{ fontFamily }, variantStyle, style]}
       {...props}
     >
       {children}
@@ -57,23 +67,44 @@ const AppText: React.FC<AppTextProps> = ({
   );
 };
 
+// Define the styles for each typographic variant
 const styles = StyleSheet.create({
-  heading: {
-    fontSize: 24,
+  h0: {
+    fontSize: 40,
+    lineHeight: 44,
+  },
+  h1: {
+    fontSize: 36,
+    lineHeight: 40,
+  },
+  h2: {
+    fontSize: 32,
+    lineHeight: 36,
+  },
+  h3: {
+    fontSize: 28,
     lineHeight: 32,
   },
-  title: {
+  h4: {
+    fontSize: 24,
+    lineHeight: 28,
+  },
+  body1: {
+    fontSize: 20,
+    lineHeight: 24,
+  },
+  body2: {
     fontSize: 18,
-    lineHeight: 24,
+    lineHeight: 22,
   },
-  body: {
+  body3: {
     fontSize: 16,
-    lineHeight: 24,
-  },
-  caption: {
-    fontSize: 14,
     lineHeight: 20,
+  },
+  tagline: {
+    fontSize: 14,
+    lineHeight: 28,
   },
 });
 
-export default AppText;
+export { AppText };

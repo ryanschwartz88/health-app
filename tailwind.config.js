@@ -5,14 +5,23 @@ module.exports = {
     presets: [require("nativewind/preset")],
     theme: {
       extend: {
+        colors: {
+          primary: '#000000',
+        },
         fontFamily: {
           // Define font families for use with className="font-light", etc.
-          'sans': ['Outfit-Regular'],
-          'light': ['Outfit-Light'],
-          'regular': ['Outfit-Regular'],
-          'medium': ['Outfit-Medium'],
-          'semibold': ['Outfit-SemiBold'],
-          'bold': ['Outfit-Bold'],
+          'outfit-light': ['outfit-light'],
+          'outfit-regular': ['outfit-regular'],
+          'outfit-medium': ['outfit-medium'],
+          'outfit-semibold': ['outfit-semibold'],
+          'outfit-bold': ['outfit-bold'],
+          'caslon-regular': ['caslon-regular'],
+          'caslon-italic': ['caslon-italic'],
+          'caslon-bold': ['caslon-bold'],
+          'caslon-medium': ['caslon-medium'],
+          'caslon-medium-italic': ['caslon-medium-italic'],
+          'caslon-semibold': ['caslon-semibold'],
+          'caslon-semibold-italic': ['caslon-semibold-italic'],
         },
       },
     },

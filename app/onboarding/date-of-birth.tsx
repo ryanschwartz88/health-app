@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: 'outfit-bold',
     marginBottom: 10,
     color: '#333',
   },
@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
   },
   pickerLabel: {
     fontSize: 14,
-    fontWeight: '500',
+    fontFamily: 'outfit-medium',
     color: '#666',
     marginVertical: 8,
   },
@@ -297,10 +297,11 @@ const styles = StyleSheet.create({
   },
   pickerItemText: {
     fontSize: 18,
+    fontFamily: 'outfit-medium',
     color: '#999',
   },
   selectedItemText: {
-    fontWeight: '600',
+    fontFamily: 'outfit-semibold',
     color: '#000',
   },
   pickerHighlight: {
@@ -336,6 +337,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: 'outfit-semibold',
   },
 });

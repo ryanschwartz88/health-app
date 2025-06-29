@@ -9,9 +9,9 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
-  Text,
   View
 } from 'react-native';
+import { AppText } from '../../components/ui/AppText';
 import { useOnboarding } from './_layout';
 
 export default function PersonalizationScreen() {
@@ -106,56 +106,76 @@ export default function PersonalizationScreen() {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.header}>
-          <Text style={styles.title}>Your Personalized Plan</Text>
-          <Text style={styles.subtitle}>
+          <AppText variant="h2" weight="bold" style={styles.title}>Your Personalized Plan</AppText>
+          <AppText variant="body1" style={styles.subtitle}>
             Based on your profile, here's how we'll help you achieve your goals.
-          </Text>
+          </AppText>
         </View>
         
         {isLoading ? (
           <View style={styles.loadingContainer}>
             <ActivityIndicator size="large" color="#000" />
-            <Text style={styles.loadingText}>Personalizing your experience...</Text>
+            <AppText variant="body1" style={styles.loadingText}>Personalizing your experience...</AppText>
           </View>
         ) : (
           <View style={styles.contentContainer}>
-            {/* User Summary Section */}
+            {/* Summary Section */}
             <View style={styles.summaryContainer}>
-              <Text style={styles.sectionTitle}>Your Profile</Text>
+              <AppText variant="h4" weight="semibold" style={styles.sectionTitle}>Your Profile</AppText>
               
               <View style={styles.summaryItem}>
                 <Ionicons name="person" size={22} color="#333" />
-                <Text style={styles.summaryText}>
+                <AppText variant="body1" style={styles.summaryText}>
                   {data.name || 'User'}, {data.sex === 'male' ? 'Male' : data.sex === 'female' ? 'Female' : 'Not specified'}
-                </Text>
+                </AppText>
               </View>
               
               {data.fitnessGoal && (
                 <View style={styles.summaryItem}>
                   <Ionicons name="barbell" size={22} color="#333" />
-                  <Text style={styles.summaryText}>
+                  <AppText variant="body1" style={styles.summaryText}>
                     Goal: {data.fitnessGoal === 'lose-weight' 
                       ? 'Lose weight' 
                       : data.fitnessGoal === 'gain-weight' 
                         ? 'Gain weight' 
-                        : 'Maintain/Improve health'}
-                  </Text>
+                        : data.fitnessGoal === 'build-muscle' 
+                          ? 'Build muscle' 
+                          : 'Maintain/Improve health'}
+                  </AppText>
                 </View>
               )}
               
               {data.dietPreference && (
                 <View style={styles.summaryItem}>
                   <Ionicons name="nutrition" size={22} color="#333" />
-                  <Text style={styles.summaryText}>
+                  <AppText variant="body1" style={styles.summaryText}>
                     {data.dietPreference.charAt(0).toUpperCase() + data.dietPreference.slice(1)} diet
-                  </Text>
+                  </AppText>
+                </View>
+              )}
+
+              {data.activityLevel && (
+                <View style={styles.summaryItem}>
+                  <Ionicons name="walk" size={22} color="#333" />
+                  <AppText variant="body1" style={styles.summaryText}>
+                    Activity: {data.activityLevel.charAt(0).toUpperCase() + data.activityLevel.slice(1).replace('-', ' ')}
+                  </AppText>
+                </View>
+              )}
+
+              {data.goals && data.goals.length > 0 && (
+                <View style={styles.summaryItem}>
+                  <Ionicons name="trophy" size={22} color="#333" />
+                  <AppText variant="body1" style={[styles.summaryText, { flex: 1 }]}>
+                    Priorities: <AppText weight="semibold">{data.goals.map(g => g.charAt(0).toUpperCase() + g.slice(1)).join(', ')}</AppText>
+                  </AppText>
                 </View>
               )}
               
               {data.exerciseFrequency && (
                 <View style={styles.summaryItem}>
                   <Ionicons name="fitness" size={22} color="#333" />
-                  <Text style={styles.summaryText}>
+                  <AppText variant="body1" style={styles.summaryText}>
                     Exercise: {data.exerciseFrequency === 'rarely' 
                       ? 'Rarely' 
                       : data.exerciseFrequency === 'sometimes' 
@@ -163,29 +183,29 @@ export default function PersonalizationScreen() {
                         : data.exerciseFrequency === 'often' 
                           ? 'Often' 
                           : 'Daily'}
-                  </Text>
+                  </AppText>
                 </View>
               )}
             </View>
             
             {/* Insights Section */}
             <View style={styles.insightsContainer}>
-              <Text style={styles.sectionTitle}>Your Nutrition Insights</Text>
+              <AppText variant="h4" weight="semibold" style={styles.sectionTitle}>Your Nutrition Insights</AppText>
               
               {insightItems.map((insight, index) => (
                 <View key={index} style={styles.insightItem}>
                   <Ionicons name="checkmark-circle" size={22} color="#000" />
-                  <Text style={styles.insightText}>{insight}</Text>
+                  <AppText variant="body1" style={styles.insightText}>{insight}</AppText>
                 </View>
               ))}
             </View>
             
             {/* Next Steps */}
             <View style={styles.nextStepsContainer}>
-              <Text style={styles.sectionTitle}>Ready to begin?</Text>
-              <Text style={styles.nextStepsText}>
+              <AppText variant="h4" weight="semibold" style={styles.sectionTitle}>Ready to begin?</AppText>
+              <AppText variant="body1" style={styles.nextStepsText}>
                 Your personalized nutrition dashboard is ready. Start tracking your foods to get insights tailored to your goals.
-              </Text>
+              </AppText>
             </View>
           </View>
         )}
@@ -197,7 +217,7 @@ export default function PersonalizationScreen() {
           onPress={handleComplete}
           disabled={isLoading}
         >
-          <Text style={styles.buttonText}>Start Tracking</Text>
+          <AppText variant="body1" weight="semibold" style={styles.buttonText}>Start Tracking</AppText>
           <Ionicons name="arrow-forward" size={20} color="white" style={styles.buttonIcon} />
         </Pressable>
       </View>
@@ -223,14 +243,11 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   title: {
-    fontSize: 28,
-    fontWeight: 'bold',
     marginBottom: 12,
     color: '#000',
     textAlign: 'center',
   },
   subtitle: {
-    fontSize: 16,
     color: '#555',
     textAlign: 'center',
     maxWidth: '80%',
@@ -243,15 +260,12 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     marginTop: 16,
-    fontSize: 16,
     color: '#555',
   },
   contentContainer: {
     width: '100%',
   },
   sectionTitle: {
-    fontSize: 20,
-    fontWeight: '600',
     color: '#333',
     marginBottom: 16,
   },
@@ -272,7 +286,6 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   summaryText: {
-    fontSize: 16,
     color: '#333',
     marginLeft: 12,
   },
@@ -293,7 +306,6 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   insightText: {
-    fontSize: 16,
     color: '#333',
     marginLeft: 12,
     flex: 1,
@@ -310,9 +322,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   nextStepsText: {
-    fontSize: 16,
     color: '#333',
-    lineHeight: 22,
   },
   footer: {
     position: 'absolute',
@@ -334,8 +344,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 18,
-    fontWeight: '600',
   },
   buttonIcon: {
     marginLeft: 8,

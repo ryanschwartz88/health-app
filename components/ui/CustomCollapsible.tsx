@@ -1,7 +1,8 @@
 import ArrowIcon from '@/assets/icons/arrow.svg'; // Make sure this path is correct and arrow.svg is an SVG component
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated, Pressable, Text, View } from 'react-native';
+import { Animated, Pressable, View } from 'react-native';
 import Collapsible from 'react-native-collapsible';
+import { AppText } from './AppText';
 
 interface CustomCollapsibleProps {
   header: string;
@@ -57,7 +58,7 @@ const CustomCollapsible: React.FC<CustomCollapsibleProps> = ({
     <View className="mb-4 mt-2">
       <Pressable onPress={toggleCollapse}>
         <View className="flex-row items-center justify-between">
-          <Text className="text-3xl font-medium text-black">{header}</Text>
+          <AppText variant="h3" weight="medium">{header}</AppText>
           <Animated.View 
             className="w-10 h-10 bg-white rounded-full items-center justify-center"
             style={{ transform: [{ rotate: interpolatedRotate }] }}

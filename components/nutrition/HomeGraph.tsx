@@ -1,7 +1,8 @@
 import GlassPanel from '@/components/ui/GlassPanel';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { CurveType, LineChart } from 'react-native-gifted-charts';
+import { AppText } from '../ui/AppText';
 
 type DataPoint = [string, number, number]; 
 
@@ -36,14 +37,14 @@ const HomeGraph: React.FC<HomeGraphProps> = ({ data }) => {
   const nutritionData = formattedData.filter((_, i) => i % 2 === 1);
 
   return (
-    <GlassPanel rounded="lg" style={{ padding: 16 }}>
+    <GlassPanel rounded="lg" contentContainerStyle={{ padding: 16 }}>
       <View className="flex-row">
         {/* Left Column - 1/3 width */}
         <View className="flex justify-between">
-          <Text className="text-2xl font-medium">All Nutrition</Text>
+          <AppText variant="h4" weight="regular">All Nutrition</AppText>
           <View>
-            <Text className="text-6xl font-medium">{currentNutrition}%</Text>
-            <Text className="text-gray-400 text-lg">of all nutrition</Text>
+            <AppText weight="medium" style={styles.percentage}>{currentNutrition}%</AppText>
+            <AppText variant="body1" style={styles.subtitle}>of all nutrition</AppText>
           </View>
         </View>
 
@@ -103,11 +104,11 @@ const HomeGraph: React.FC<HomeGraphProps> = ({ data }) => {
           <View className="flex-row items-center justify-center ml-4">
             <View className="flex-row items-center mr-4 bg-white rounded-full pt-1 pb-1 pl-3 pr-3">
               <View className="h-3 w-3 rounded-full bg-gray-400 mr-2" />
-              <Text>Nutrition</Text>
+              <AppText variant="body2">Nutrition</AppText>
             </View>
             <View className="flex-row items-center bg-white rounded-full pt-1 pb-1 pl-3 pr-3">
               <View className="h-3 w-3 rounded-full bg-gray-800 mr-2" />
-              <Text>Calories</Text>
+              <AppText variant="body2">Calories</AppText>
             </View>
           </View>
         </View>
@@ -115,5 +116,14 @@ const HomeGraph: React.FC<HomeGraphProps> = ({ data }) => {
     </GlassPanel>
   );
 };
+
+const styles = StyleSheet.create({
+  percentage: {
+    fontSize: 60,
+  },
+  subtitle: {
+    color: '#9ca3af', // Equivalent to text-gray-400
+  },
+});
 
 export default HomeGraph;

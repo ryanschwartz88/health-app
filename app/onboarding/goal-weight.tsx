@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: 'outfit-bold',
     marginBottom: 10,
     color: '#333',
   },
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
   },
   netChangeValue: {
     fontSize: 32,
-    fontWeight: 'bold',
+    fontFamily: 'outfit-bold',
     color: '#333',
   },
   netChangeLabel: {
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: 'outfit-semibold',
   },
   pickerWrapper: {
     height: PICKER_HEIGHT,
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
   selectedItemText: {
     fontSize: 24,
     color: '#333',
-    fontWeight: 'bold',
+    fontFamily: 'outfit-bold',
   },
   pickerHighlight: {
     position: 'absolute',

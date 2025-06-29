@@ -28,13 +28,24 @@ SplashScreen.preventAutoHideAsync();
 
 export default function AppLayout() {
   // Load the Outfit font weights
-  const [fontsLoaded, fontError] = useFonts({
-    'Outfit-Light': Outfit_300Light,
-    'Outfit-Regular': Outfit_400Regular,
-    'Outfit-Medium': Outfit_500Medium,
-    'Outfit-SemiBold': Outfit_600SemiBold,
-    'Outfit-Bold': Outfit_700Bold,
+  const [googleFontsLoaded, googleFontError] = useFonts({
+    'outfit-light': Outfit_300Light,
+    'outfit-regular': Outfit_400Regular,
+    'outfit-medium': Outfit_500Medium,
+    'outfit-semibold': Outfit_600SemiBold,
+    'outfit-bold': Outfit_700Bold,
   });
+
+  // Load the Libre Caslon Text font weights
+  const [customFontsLoaded, customFontError] = useFonts({
+    'caslon-medium': require('@/assets/fonts/LibreCaslonText-Medium.ttf'),
+    'caslon-medium-italic': require('@/assets/fonts/LibreCaslonText-MediumItalic.ttf'),
+    'caslon-semibold': require('@/assets/fonts/LibreCaslonText-Semibold.ttf'),
+    'caslon-semibold-italic': require('@/assets/fonts/LibreCaslonText-SemiboldItalic.ttf'),
+  });
+
+  const fontsLoaded = googleFontsLoaded && customFontsLoaded;
+  const fontError = googleFontError || customFontError;
 
   useEffect(() => {
     // Register the Superwall placement for subscription check
@@ -63,9 +74,9 @@ export default function AppLayout() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#E7E3E2', '#DDDBE9']}
+        colors={['#E7E3E2', '#DDDEF0']}
         start={{ x: 0.1, y: 0.1 }}
-        end={{ x: .75, y: .5 }}
+        end={{ x: .8, y: .6 }}
         style={styles.background}
       >
         

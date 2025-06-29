@@ -2,9 +2,10 @@ import BottomNav from '@/components/ui/BottomNav';
 import Header from '@/components/ui/Header';
 import { Slot, usePathname } from 'expo-router';
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 export default function TabsLayout() {
+
   // Handle the plus button press
   const handlePlusButtonPress = () => {
     // You can implement the action for the plus button here
@@ -18,18 +19,16 @@ export default function TabsLayout() {
     showCalendar = false;
   }
 
+
+
   return (
     <View style={styles.container}>
-
-      {/* Header */}
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}> 
+      {/* Main content with fixed header and gap */}
+      <View style={{ flex: 1, gap: 16 }}>
         <Header name="Ryan" showCalendar={showCalendar} />
-      
-        {/* Main content area */}
         <Slot />
-      </ScrollView>
-      
-      
+      </View>
+
       {/* Custom bottom navigation */}
       <BottomNav onPlusButtonPress={handlePlusButtonPress} />
     </View>

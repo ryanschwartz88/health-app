@@ -1,7 +1,8 @@
 import ArrowIcon from '@/assets/icons/arrow.svg';
 import '@/global.css';
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated, Pressable, Text, View } from 'react-native';
+import { Animated, Pressable, View } from 'react-native';
+import { AppText } from './AppText';
 import GlassPanel from './GlassPanel';
 
 interface AnimatedArrowProps {
@@ -61,7 +62,7 @@ export const GlassTabView: React.FC<GlassTabViewProps> = ({
   return (
     <View>
       {/* Tab Headers */}
-      <View className='flex-row w-full justify-center mt-4'>
+      <View className='flex-row w-full justify-center mt-4' style={{ gap: 8 }}>
         {tabs.map((tab, index) => {
           const isActive = index === activeTab;
           
@@ -83,8 +84,6 @@ export const GlassTabView: React.FC<GlassTabViewProps> = ({
                     padding: 16,
                     marginBottom: isActive ? 0 : 16,
                     paddingBottom: isActive ? 32 : 16,
-                    marginLeft: index === 0 ? 0 : 8,
-                    marginRight: index === 1 ? 0 : 8,
                     borderTopLeftRadius: isActive ? 24 : undefined,
                     borderTopRightRadius: isActive ? 24 : undefined,
                     borderBottomLeftRadius: isActive ? 0 : undefined,
@@ -92,16 +91,16 @@ export const GlassTabView: React.FC<GlassTabViewProps> = ({
                   }}
                 >
                   <View className="flex flex-row items-center justify-between">
-                    <Text 
+                    <AppText
+                      variant="h4"
+                      weight="regular"
                       style={{
                         textAlign: 'center',
-                        fontWeight: 'regular',
-                        fontSize: 18,
                         color: '#000000'
                       }}
                     >
                       {tab.title}
-                    </Text>
+                    </AppText>
                     <AnimatedArrow isActive={isActive} />
                     
                   </View>

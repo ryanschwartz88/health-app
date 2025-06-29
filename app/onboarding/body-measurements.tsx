@@ -8,10 +8,10 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
-  Text,
   View
 } from 'react-native';
 import { useOnboarding } from './_layout';
+import { AppText } from '../../components/ui/AppText';
 
 // Custom hook for picker logic
 const usePicker = (
@@ -135,9 +135,9 @@ export default function BodyMeasurementsScreen() {
       >
         {options.map((option, index) => (
           <View key={`${option}-${index}`} style={styles.pickerItem}>
-            <Text style={[styles.pickerItemText, selectedIndex === index && styles.selectedItemText]}>
+            <AppText variant="h4" weight={selectedIndex === index ? 'semibold' : 'regular'} style={[styles.pickerItemText, selectedIndex === index && styles.selectedItemText]}>
               {option} {unit}
-            </Text>
+            </AppText>
           </View>
         ))}
       </ScrollView>
@@ -148,17 +148,17 @@ export default function BodyMeasurementsScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>What's your height & weight?</Text>
-        <Text style={styles.subtitle}>This helps us calculate your fitness goals.</Text>
+        <AppText variant="h3" weight="bold" style={styles.title}>Your Measurements</AppText>
+        <AppText variant="body2" style={styles.subtitle}>This helps us calculate your fitness goals.</AppText>
       </View>
 
       <View style={styles.contentContainer}>
         <View style={styles.unitSwitcherContainer}>
           <Pressable onPress={() => setUnits('imperial')} style={[styles.unitButton, units === 'imperial' && styles.unitButtonActive]}>
-            <Text style={[styles.unitButtonText, units === 'imperial' && styles.unitButtonTextActive]}>Imperial</Text>
+            <AppText variant="body1" weight={units === 'imperial' ? 'semibold' : 'medium'} style={[styles.unitButtonText, units === 'imperial' && styles.unitButtonTextActive]}>Imperial</AppText>
           </Pressable>
           <Pressable onPress={() => setUnits('metric')} style={[styles.unitButton, units === 'metric' && styles.unitButtonActive]}>
-            <Text style={[styles.unitButtonText, units === 'metric' && styles.unitButtonTextActive]}>Metric</Text>
+            <AppText variant="body1" weight={units === 'metric' ? 'semibold' : 'medium'} style={[styles.unitButtonText, units === 'metric' && styles.unitButtonTextActive]}>Metric</AppText>
           </Pressable>
         </View>
   
@@ -167,25 +167,25 @@ export default function BodyMeasurementsScreen() {
             {units === 'imperial' ? (
               <>
                 <View style={styles.pickerColumn}>
-                  <Text style={styles.pickerLabel}>Height</Text>
+                  <AppText variant="body2" weight="medium" style={styles.pickerLabel}>Height</AppText>
                   <View style={styles.imperialHeightContainer}>
                       {renderPicker(feetScrollRef, feetOptions, feetIndex, handleFeetScroll, "ft")}
                       {renderPicker(inchScrollRef, inchOptions, inchIndex, handleInchScroll, "in")}
                   </View>
                 </View>
                 <View style={styles.pickerColumn}>
-                  <Text style={styles.pickerLabel}>Weight</Text>
+                  <AppText variant="body2" weight="medium" style={styles.pickerLabel}>Weight</AppText>
                   {renderPicker(weightLbsScrollRef, weightLbsOptions, weightLbsIndex, handleWeightLbsScroll, "lbs")}
                 </View>
               </>
             ) : (
               <>
                 <View style={styles.pickerColumn}>
-                  <Text style={styles.pickerLabel}>Height</Text>
+                  <AppText variant="body2" weight="medium" style={styles.pickerLabel}>Height</AppText>
                   {renderPicker(heightCmScrollRef, heightCmOptions, heightCmIndex, handleHeightCmScroll, "cm")}
                 </View>
                 <View style={styles.pickerColumn}>
-                  <Text style={styles.pickerLabel}>Weight</Text>
+                  <AppText variant="body2" weight="medium" style={styles.pickerLabel}>Weight</AppText>
                   {renderPicker(weightKgScrollRef, weightKgOptions, weightKgIndex, handleWeightKgScroll, "kg")}
                 </View>
               </>
@@ -196,7 +196,7 @@ export default function BodyMeasurementsScreen() {
 
       <View style={styles.footer}>
         <Pressable style={styles.button} onPress={handleNext}>
-          <Text style={styles.buttonText}>Continue</Text>
+          <AppText variant="body1" weight="semibold" style={styles.buttonText}>Continue</AppText>
         </Pressable>
       </View>
     </View>
@@ -216,13 +216,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
     marginBottom: 10,
     color: '#333',
   },
   subtitle: {
-    fontSize: 16,
     color: '#666',
     marginBottom: 20,
   },
@@ -255,11 +252,8 @@ const styles = StyleSheet.create({
   },
   unitButtonTextActive: {
     color: '#000',
-    fontWeight: '600',
   },
   unitButtonText: {
-    fontSize: 16,
-    fontWeight: '500',
     color: '#666',
   },
   pickersRow: {
@@ -277,8 +271,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   pickerLabel: {
-    fontSize: 14,
-    fontWeight: '500',
     color: '#666',
     marginBottom: 8,
   },
@@ -298,11 +290,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   pickerItemText: {
-    fontSize: 18,
     color: '#999',
   },
   selectedItemText: {
-    fontWeight: '600',
     color: '#000',
   },
   pickerHighlight: {
@@ -329,7 +319,5 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 16,
-    fontWeight: '600',
   },
 });

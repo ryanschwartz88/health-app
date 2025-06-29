@@ -1,12 +1,9 @@
-import {
-  LibreCaslonText_400Regular,
-  LibreCaslonText_700Bold,
-  useFonts
-} from '@expo-google-fonts/libre-caslon-text';
+
 import { Ionicons } from '@expo/vector-icons';
 import { usePathname } from 'expo-router';
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { AppText } from './AppText';
 // Import from same directory
 import DatePickerModal from '@/components/header/DatePickerModal';
 import WeekSlider from '@/components/header/WeekSlider';
@@ -39,11 +36,7 @@ const Header: React.FC<HeaderProps> = ({
     '2025-05-25': 45,
   });
   
-  // Load Libre Caslon Text font
-  const [fontsLoaded] = useFonts({
-    LibreCaslonText_400Regular,
-    LibreCaslonText_700Bold,
-  });
+
   
   // Generate appropriate title based on path or name
   const getTitle = () => {
@@ -85,21 +78,19 @@ const Header: React.FC<HeaderProps> = ({
     hideDatePicker();
   };
   
-  if (!fontsLoaded) {
-    return null; // Or return a loading placeholder
-  }
+
   
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContent}>
         {/* Title and Calendar row */}
         <View style={[styles.titleContainer, showCalendar && styles.titleContainerWithCalendar]}>
-          <Text style={styles.title}>{getTitle()}</Text>
+          <AppText variant="h0" family="caslon" weight="semibold" style={{ letterSpacing: -0.5 }}>{getTitle()}</AppText>
           
           {showCalendar && (
             <TouchableOpacity onPress={showDatePicker} style={styles.dateContainer}>
-              <Text style={styles.dateText}>{getFormattedMonthYear()}</Text>
-              <View style={styles.calendarButton}>
+              <AppText variant="body1" weight="bold">{getFormattedMonthYear()}</AppText>
+              <View>
                 <Ionicons name="calendar-outline" size={24} color="#000" />
               </View>
             </TouchableOpacity>
@@ -133,8 +124,8 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   headerContent: {
-    paddingHorizontal: 20,
-    paddingVertical: 16,
+    paddingHorizontal: 16,
+    paddingBottom: 8,
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
@@ -146,24 +137,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  title: {
-    fontSize: 40,
-    color: '#000',
-    fontFamily: 'LibreCaslonText_700Bold',
-    letterSpacing: -0.5,
-  },
+
   dateContainer: {
     flexDirection: 'column',
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
-  },
-  dateText: {
-    fontSize: 16,
-    fontWeight: '800',
-    color: '#000',
-  },
-  calendarButton: {
-    marginTop: 12,
+    gap: 12,
   },
 });
 

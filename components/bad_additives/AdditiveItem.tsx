@@ -1,7 +1,8 @@
+import { AppText } from '@/components/ui/AppText';
 import GlassPanel from '@/components/ui/GlassPanel';
 import { Feather } from '@expo/vector-icons';
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 
 type AdditiveItemProps = {
   icon: React.ReactNode;
@@ -14,22 +15,22 @@ type AdditiveItemProps = {
 
 const AdditiveItem = ({ icon, name, amount, unit, color, onPress }: AdditiveItemProps) => {
   return (
-    <GlassPanel rounded="full" style={{ paddingVertical: 4, paddingHorizontal: 4, marginBottom: 8, width: '100%' }}>
+    <GlassPanel rounded="full" style={{ width: '100%' }} contentContainerStyle={{ paddingVertical: 4, paddingHorizontal: 4 }}>
       <View className="flex-row items-center justify-between">
-        <View className="flex-row items-center">
+        <View className="flex-row items-center gap-4">
           <View 
-            className="w-14 h-14 rounded-full items-center justify-center mr-4"
+            className="w-14 h-14 rounded-full items-center justify-center"
             style={{ backgroundColor: color }}
           >
             {icon}
           </View>
-          <Text className="text-xl font-medium">{name}</Text>
+          <AppText variant="body1" weight="regular">{name}</AppText>
         </View>
-        <View className="flex-row items-center">
-          <Text className="text-xl font-medium mr-3">
+        <View className="flex-row items-center gap-3">
+          <AppText variant="body1" weight="regular">
             {amount}{unit}
-          </Text>
-          <TouchableOpacity onPress={onPress} className="w-8 h-8 rounded-full items-center justify-center bg-white mr-2">
+          </AppText>
+          <TouchableOpacity onPress={onPress} className="w-8 h-8 rounded-full items-center justify-center bg-white">
             <Feather name="chevron-right" size={20} color="black" />
           </TouchableOpacity>
         </View>

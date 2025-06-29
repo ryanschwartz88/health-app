@@ -1,7 +1,8 @@
 import AiIcon from '@/assets/ai/Group_237.svg';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import { StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { StyleSheet, View, ViewStyle } from 'react-native';
+import { AppText } from '../ui/AppText';
 
 type SummaryCardProps = {
   title: string;
@@ -51,7 +52,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({
         colors={['#251D7F', '#000000']}
         start={{ x: 0, y: 0 }}
         end={{ x: 0.75, y: 0.9 }}
-        style={[StyleSheet.absoluteFill, { opacity: 0.8 }]}
+        style={[StyleSheet.absoluteFill, { opacity: 1 }]}
       />
 
       {/* First gradient: transparent to white with 10% opacity */}
@@ -73,15 +74,15 @@ const SummaryCard: React.FC<SummaryCardProps> = ({
         {/* Title */}
         <View style={styles.titleContainer}>
           <AiIcon width={24} height={24}/>
-          <Text style={styles.title}>{title}</Text>
+          <AppText variant="body1" weight="medium" style={styles.title}>{title}</AppText>
         </View>
         
         {/* Body */}
         { body ? (
-          <Text style={styles.body}>{body}</Text>
+          <AppText variant="body2" style={styles.body}>{body}</AppText>
         ) :
         (
-          <Text style={styles.body}>Welcome to Nura! As you log more data, we'll provide personalized summaries and recommendations here.</Text>
+          <AppText variant="body1" style={styles.body}>Welcome to Nura! As you log more data, we'll provide personalized summaries and recommendations here.</AppText>
         )
         }
         
@@ -93,7 +94,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({
               key={index} 
               style={styles.tagButton}
             >
-              <Text style={styles.tagText}>{tag}</Text>
+              <AppText variant="body3" weight="medium" style={styles.tagText}>{tag}</AppText>
             </View>
           ))}
         </View>
@@ -111,23 +112,18 @@ const styles = StyleSheet.create({
   content: {
     position: 'relative',
     zIndex: 1,
+    gap: 16,
   },
   titleContainer: {
     flexDirection: 'row',
     gap: 8,
     alignItems: 'center',
-    marginBottom: 8,
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'medium',
     color: '#ffffff',
   },
   body: {
-    fontSize: 16,
     color: '#ffffff',
-    marginBottom: 16,
-    lineHeight: 22,
   },
   tagsContainer: {
     flexDirection: 'row',
@@ -137,13 +133,11 @@ const styles = StyleSheet.create({
   tagButton: {
     backgroundColor: '#ffffff',
     paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 20,
+    paddingVertical: 4,
+    borderRadius: 10,
   },
   tagText: {
     color: '#000000',
-    fontSize: 14,
-    fontWeight: '500',
   },
 });
 

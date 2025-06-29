@@ -1,5 +1,5 @@
 import SummaryCard from '@/components/ai/SummaryCard';
-import AppText from '@/components/ui/AppText';
+import { AppText } from '@/components/ui/AppText';
 import BottomSpacer from '@/components/ui/BottomSpacer';
 import GlassPanel from '@/components/ui/GlassPanel';
 import { Ionicons } from '@expo/vector-icons';
@@ -73,39 +73,42 @@ export default function LogsScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+      <View style={{ gap: 36 }}>
+        <View style={styles.summaryCardContainer}>
+          <SummaryCard
+            title="Today's Overview"
+            body="Based on your recent activity, your overall health appears to be in excellent shape. Your balanced diet—rich in fruits, vegetables, lean proteins, and whole grains—provides the necessary fuel for your daily activities. Keep up the fantastic work and continue nurturing these healthy habits!"
+            tags={['More Protein', 'Great Eating Habits']}
+            rounded="lg"
+            style={{ width: '100%' }}
+          />
+        </View>
 
-        <SummaryCard
-          title="Today's Overview"
-          body="Based on your recent activity, your overall health appears to be in excellent shape. Your balanced diet—rich in fruits, vegetables, lean proteins, and whole grains—provides the necessary fuel for your daily activities. Keep up the fantastic work and continue nurturing these healthy habits!"
-          tags={['More Protein', 'Great Eating Habits']}
-          rounded="lg"
-          style={{ width: '100%', marginBottom: 16 }}
-        />
-
-      {/* Log Entries Section */}
-      <View style={styles.section}>
-        <AppText variant="title" weight="medium" style={styles.sectionTitle}>
+        {/* Log Entries Section */}
+        <View style={[styles.section, styles.logsSectionContainer]}>
+        <AppText variant="h3" family="caslon" style={styles.sectionTitle}>
           Today's Logs
         </AppText>
         
         <View style={styles.logsContainer}>
           {sampleLogs.map((log) => (
-            <GlassPanel key={log.id} rounded="lg" style={styles.logItem}>
+            <GlassPanel key={log.id} rounded="lg" contentContainerStyle={styles.logItemContent}>
               <View style={styles.logHeader}>
                 <View style={styles.logTitleRow}>
                   <View style={[styles.iconContainer, { backgroundColor: getLogTypeColor(log.type) }]}>
                     <Ionicons name={log.icon} size={20} color="#333" />
                   </View>
-                  <AppText weight="semibold">{log.title}</AppText>
+                  <AppText variant="body1" weight="semibold">{log.title}</AppText>
                 </View>
-                <AppText variant="caption" weight="light">{log.time}</AppText>
+                <AppText variant="tagline" weight="light">{log.time}</AppText>
               </View>
-              <AppText variant="body" style={styles.logDetails}>
+              <AppText variant="body1" style={styles.logDetails}>
                 {log.details}
               </AppText>
             </GlassPanel>
           ))}
         </View>
+      </View>
       </View>
       <BottomSpacer />
     </ScrollView>
@@ -117,57 +120,43 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   contentContainer: {
-    padding: 16,
     paddingBottom: 40,
   },
-  titleContainer: {
-    marginBottom: 20,
+  summaryCardContainer: {
+    paddingHorizontal: 4,
   },
-  subtitle: {
-    marginTop: 4,
-    opacity: 0.7,
-  },
-  addLogPanel: {
-    marginBottom: 24,
-  },
-  addLogButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 12,
-  },
-  addLogText: {
-    marginLeft: 8,
+  logsSectionContainer: {
+    paddingHorizontal: 16,
   },
   section: {
-    marginBottom: 16,
+    gap: 16,
   },
   sectionTitle: {
-    marginBottom: 12,
   },
   logsContainer: {
     gap: 12,
   },
-  logItem: {
+  logItemContent: {
     padding: 12,
+    paddingBottom: 16,
+    gap: 8,
   },
   logHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 8,
   },
   logTitleRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 12,
   },
   iconContainer: {
     width: 36,
     height: 36,
-    borderRadius: 18,
+    borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 10,
   },
   logDetails: {
     opacity: 0.8,
