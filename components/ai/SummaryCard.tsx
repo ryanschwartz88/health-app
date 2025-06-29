@@ -52,7 +52,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({
         colors={['#251D7F', '#000000']}
         start={{ x: 0, y: 0 }}
         end={{ x: 0.75, y: 0.9 }}
-        style={[StyleSheet.absoluteFill, { opacity: 0.8 }]}
+        style={[StyleSheet.absoluteFill, { opacity: 1 }]}
       />
 
       {/* First gradient: transparent to white with 10% opacity */}
