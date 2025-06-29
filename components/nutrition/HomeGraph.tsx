@@ -41,7 +41,7 @@ const HomeGraph: React.FC<HomeGraphProps> = ({ data }) => {
       <View className="flex-row">
         {/* Left Column - 1/3 width */}
         <View className="flex justify-between">
-          <AppText variant="h3" weight="medium">All Nutrition</AppText>
+          <AppText variant="h4" weight="regular">All Nutrition</AppText>
           <View>
             <AppText weight="medium" style={styles.percentage}>{currentNutrition}%</AppText>
             <AppText variant="body1" style={styles.subtitle}>of all nutrition</AppText>
