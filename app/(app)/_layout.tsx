@@ -74,7 +74,7 @@ export default function AppLayout() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#F3F1F0', '#EFEEF6']}
+        colors={['#E7E3E2', '#DDDBE9']}
         start={{ x: 0.1, y: 0.1 }}
         end={{ x: .75, y: .5 }}
         style={styles.background}

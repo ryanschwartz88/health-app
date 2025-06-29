@@ -58,7 +58,7 @@ const NutritionCard: React.FC<NutritionCardProps> = ({
     const progressColor = 'bg-[#1AD0A9]';
     
     return (
-      <View className="h-3 w-full bg-gray-200 rounded-full overflow-hidden">
+      <View className="h-[8px] w-full bg-gray-300 rounded-full overflow-hidden">
         <View 
           style={{ width: `${normalizedPercentage}%` }} 
           className={`h-full rounded-full ${progressColor}`} 
@@ -72,16 +72,16 @@ const NutritionCard: React.FC<NutritionCardProps> = ({
       {/* Top section: Icon, Title, Overall Percentage */}
       <View className="flex-row items-center justify-between mb-4">
         <View className="flex-row items-center">
-          <View className="h-10 w-10 rounded-full bg-black/10 items-center justify-center mr-3">
+          <View className="h-12 w-12 rounded-full bg-black/10 items-center justify-center mr-3">
             <Ionicons name={iconName} size={20} color="black" />
           </View>
-          <AppText variant="h4" weight="medium">{title}</AppText>
+          <AppText variant="h4" weight="regular">{title}</AppText>
         </View>
-        <AppText variant="h3" weight="regular">{Math.round(normalizedOverallPercentage)}%</AppText>
+        <AppText variant="h4" weight="regular">{Math.round(normalizedOverallPercentage)}%</AppText>
       </View>
 
       {/* Overall Progress Bar */}
-      <View className="flex-row mb-3">
+      <View className="flex-row mt-2 mb-2">
         <DynamicOvalProgressBar 
           progressPercent={normalizedOverallPercentage} 
           style={{ flex: 1, justifyContent: 'space-between' }} 
@@ -91,9 +91,9 @@ const NutritionCard: React.FC<NutritionCardProps> = ({
       {/* Details/Collapse Toggle Button */}
       <Pressable
         onPress={() => setIsExpanded(!isExpanded)}
-        className="flex-row items-center justify-center py-2"
+        className="flex-row items-center justify-center py-4"
       >
-        <AppText variant="body2" weight="medium" className="text-gray-600 mr-1">
+        <AppText variant="body3" weight="regular" className="text-gray-600 mr-1">
           {isExpanded ? 'Collapse' : 'Details'}
         </AppText>
         <Feather 
@@ -105,40 +105,51 @@ const NutritionCard: React.FC<NutritionCardProps> = ({
 
       {/* Collapsible Section */}
       <Collapsible collapsed={!isExpanded || !isInitialized}>
-        <View className="mt-3">
-          {items.map((item) => {
-            const itemPercentage = item.limitAmount > 0 
-              ? (item.takenAmount / item.limitAmount) * 100 
-              : 0;
-            const displayPercentage = Math.round(Math.min(Math.max(itemPercentage, 0), 100));
+        <View className="border-t border-gray-300 pb-2">
+            {items.map((item, index) => {
+              const itemPercentage = item.limitAmount > 0
+                ? (item.takenAmount / item.limitAmount) * 100
+                : 0;
+              const displayPercentage = Math.round(Math.min(Math.max(itemPercentage, 0), 100));
 
-            return (
-              <View key={item.id} className="mb-4 border-t border-gray-200 pt-4">
-                <View className="flex-row justify-between items-center mb-3">
-                  <AppText variant="body1" weight="medium">
-                    {item.title}
-                    {item.isTargeted && <AppText className="text-red-500">*</AppText>}
-                  </AppText>
-                  <View className="flex-row items-center">
-                    <View className="flex-row items-baseline">
-                      <AppText variant="body1" weight="semibold" className="text-black">{item.takenAmount}/</AppText>
-                      <AppText variant="body2" className="text-gray-600">{item.limitAmount}{item.unit}</AppText>
+              return (
+                <View
+                  key={item.id}
+                  className={`${index > 0 ? 'border-t border-gray-300' : ''} py-[10px]`}
+                >
+                  <View className="flex-row justify-between items-center mb-1">
+                    <AppText variant="body2" weight="regular">
+                      {item.title}
+                      {item.isTargeted && <AppText className="text-red-500">*</AppText>}
+                    </AppText>
+                    <View className="flex-row items-center">
+                      <View className="flex-row items-baseline">
+                        <AppText variant="body2" weight="regular" className="text-black">
+                          {item.takenAmount}/
+                        </AppText>
+                        <AppText variant="tagline" className="text-gray-600">
+                          {item.limitAmount}
+                          {item.unit}
+                        </AppText>
+                      </View>
+                      <View className="h-4 border-l border-black mx-2 self-center" />
+                      <AppText variant="body2" weight="regular" className="text-right">
+                        {displayPercentage}%
+                      </AppText>
                     </View>
-                    <View className="h-4 border-l border-black mx-2 self-center" />
-                    <AppText variant="body2" weight="semibold" className="text-right">{displayPercentage}%</AppText>
                   </View>
+                  <ItemProgressBar percentage={itemPercentage} />
                 </View>
-                <ItemProgressBar percentage={itemPercentage} />
-              </View>
-            );
-          })}
+              );
+            })}
 
           {hasTargetedItems && (
-            <AppText variant="tagline" className="text-right text-gray-500 italic mt-2 mb-2">
-              *Targeted Support - Not included in percentage
-            </AppText>
+            <View className="border-t border-gray-300 pt-2">
+              <AppText variant="tagline" className="text-right text-gray-500 italic">
+                *Targeted Support - Not included in percentage
+              </AppText>
+            </View>
           )}
-
         </View>
       </Collapsible>
     </GlassPanel>

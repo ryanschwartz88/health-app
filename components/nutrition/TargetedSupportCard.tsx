@@ -56,12 +56,12 @@ const TargetedSupportCard: React.FC<TargetedSupportCardProps> = ({
       {/* Top section: Icon, Title, Overall Percentage */}
       <View className="flex-row items-center justify-between mb-4">
         <View className="flex-row items-center">
-          <View className="h-10 w-10 rounded-full bg-black/10 items-center justify-center mr-3">
+          <View className="h-12 w-12 rounded-full bg-black/10 items-center justify-center mr-3">
             <Ionicons name={iconName} size={20} color="black" />
           </View>
-          <AppText variant="h4" weight="medium">{title}</AppText>
+          <AppText variant="h4" weight="regular">{title}</AppText>
         </View>
-        <AppText variant="h3" weight="regular">{Math.round(normalizedOverallPercentage)}%</AppText>
+        <AppText variant="h4" weight="regular">{Math.round(normalizedOverallPercentage)}%</AppText>
       </View>
 
       {/* Overall Progress Bar */}
