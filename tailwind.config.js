@@ -6,7 +6,9 @@ module.exports = {
     theme: {
       extend: {
         colors: {
-          primary: '#000000',
+          'primary': '#000000',
+          'line': '#EAEAEA',
+          'n-border': '#D1D5DB',
         },
         fontFamily: {
           // Define font families for use with className="font-light", etc.
