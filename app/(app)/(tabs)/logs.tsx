@@ -73,24 +73,26 @@ export default function LogsScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-      <View style={{ gap: 16 }}>
-        <SummaryCard
-          title="Today's Overview"
-          body="Based on your recent activity, your overall health appears to be in excellent shape. Your balanced diet—rich in fruits, vegetables, lean proteins, and whole grains—provides the necessary fuel for your daily activities. Keep up the fantastic work and continue nurturing these healthy habits!"
-          tags={['More Protein', 'Great Eating Habits']}
-          rounded="lg"
-          style={{ width: '100%' }}
-        />
+      <View style={{ gap: 36 }}>
+        <View style={styles.summaryCardContainer}>
+          <SummaryCard
+            title="Today's Overview"
+            body="Based on your recent activity, your overall health appears to be in excellent shape. Your balanced diet—rich in fruits, vegetables, lean proteins, and whole grains—provides the necessary fuel for your daily activities. Keep up the fantastic work and continue nurturing these healthy habits!"
+            tags={['More Protein', 'Great Eating Habits']}
+            rounded="lg"
+            style={{ width: '100%' }}
+          />
+        </View>
 
-      {/* Log Entries Section */}
-      <View style={styles.section}>
-        <AppText variant="h4" weight="medium" style={styles.sectionTitle}>
+        {/* Log Entries Section */}
+        <View style={[styles.section, styles.logsSectionContainer]}>
+        <AppText variant="h3" family="caslon" style={styles.sectionTitle}>
           Today's Logs
         </AppText>
         
         <View style={styles.logsContainer}>
           {sampleLogs.map((log) => (
-            <GlassPanel key={log.id} rounded="lg" style={styles.logItem}>
+            <GlassPanel key={log.id} rounded="lg" contentContainerStyle={styles.logItemContent}>
               <View style={styles.logHeader}>
                 <View style={styles.logTitleRow}>
                   <View style={[styles.iconContainer, { backgroundColor: getLogTypeColor(log.type) }]}>
@@ -118,19 +120,25 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   contentContainer: {
-    padding: 16,
     paddingBottom: 40,
   },
+  summaryCardContainer: {
+    paddingHorizontal: 4,
+  },
+  logsSectionContainer: {
+    paddingHorizontal: 16,
+  },
   section: {
-    gap: 12,
+    gap: 16,
   },
   sectionTitle: {
   },
   logsContainer: {
     gap: 12,
   },
-  logItem: {
+  logItemContent: {
     padding: 12,
+    paddingBottom: 16,
     gap: 8,
   },
   logHeader: {
@@ -141,12 +149,12 @@ const styles = StyleSheet.create({
   logTitleRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    gap: 12,
   },
   iconContainer: {
     width: 36,
     height: 36,
-    borderRadius: 18,
+    borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
   },

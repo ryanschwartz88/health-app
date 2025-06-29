@@ -84,7 +84,7 @@ export default function ProfileScreen() {
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
       <View style={{ gap: 24 }}>
         {/* Health Stats Summary */}
-        <GlassPanel rounded="lg" style={styles.statsPanel}>
+        <GlassPanel rounded="lg" contentContainerStyle={styles.statsPanel}>
         <AppText variant="body1" weight="medium" style={styles.statsPanelTitle}>
           About Me
         </AppText>
@@ -113,7 +113,7 @@ export default function ProfileScreen() {
             {section.title}
           </AppText>
           
-          <GlassPanel rounded="lg" style={styles.menuPanel}>
+          <GlassPanel rounded="lg" contentContainerStyle={styles.menuPanel}>
             {section.items.map((item, index) => (
               <React.Fragment key={item.id}>
                 <TouchableOpacity
@@ -138,7 +138,7 @@ export default function ProfileScreen() {
       ))}
 
       {/* Logout Button */}
-      <GlassPanel rounded="lg" style={styles.logoutPanel}>
+      <GlassPanel rounded="lg" contentContainerStyle={styles.logoutPanelContent}>
         <TouchableOpacity 
           style={styles.logoutButton}
           onPress={deleteAccount}
@@ -214,13 +214,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.05)',
     marginHorizontal: 16,
   },
-  logoutPanel: {
+  logoutPanelContent: {
+    padding: 14,
   },
   logoutButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 14,
     gap: 8,
   },
   logoutText: {

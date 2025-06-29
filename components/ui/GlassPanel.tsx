@@ -5,6 +5,7 @@ import { StyleSheet, View, ViewStyle } from 'react-native';
 type GlassPanelProps = {
   children: React.ReactNode;
   style?: ViewStyle;
+  contentContainerStyle?: ViewStyle; // Style for the inner content container
   rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full'; // Different rounding options
   hasBorder?: boolean;
   className?: string; // For additional NativeWind styling if needed
@@ -17,6 +18,7 @@ type GlassPanelProps = {
 const GlassPanel: React.FC<GlassPanelProps> = ({
   children,
   style,
+  contentContainerStyle,
   rounded = 'lg',
   hasBorder = true,
   className,
@@ -62,7 +64,7 @@ const GlassPanel: React.FC<GlassPanelProps> = ({
       />
       
       {/* Content container */}
-      <View style={styles.content}>
+      <View style={[styles.content, contentContainerStyle]}>
         {children}
       </View>
     </View>

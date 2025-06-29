@@ -15,7 +15,7 @@ type AdditiveItemProps = {
 
 const AdditiveItem = ({ icon, name, amount, unit, color, onPress }: AdditiveItemProps) => {
   return (
-    <GlassPanel rounded="full" style={{ paddingVertical: 4, paddingHorizontal: 4, width: '100%' }}>
+    <GlassPanel rounded="full" style={{ width: '100%' }} contentContainerStyle={{ paddingVertical: 4, paddingHorizontal: 4 }}>
       <View className="flex-row items-center justify-between">
         <View className="flex-row items-center gap-4">
           <View 

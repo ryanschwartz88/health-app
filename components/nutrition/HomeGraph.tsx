@@ -37,7 +37,7 @@ const HomeGraph: React.FC<HomeGraphProps> = ({ data }) => {
   const nutritionData = formattedData.filter((_, i) => i % 2 === 1);
 
   return (
-    <GlassPanel rounded="lg" style={{ padding: 16 }}>
+    <GlassPanel rounded="lg" contentContainerStyle={{ padding: 16 }}>
       <View className="flex-row">
         {/* Left Column - 1/3 width */}
         <View className="flex justify-between">

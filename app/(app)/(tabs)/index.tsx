@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   headerText: {
     color: '#000000',
     textAlign: 'left',
-    marginTop: 24, // Add a different gap above this section
+    marginTop: 20, // Add a different gap above this section
   },
   container: {
     flex: 1,
