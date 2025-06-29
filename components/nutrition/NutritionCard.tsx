@@ -68,7 +68,7 @@ const NutritionCard: React.FC<NutritionCardProps> = ({
   };
 
   return (
-    <GlassPanel rounded="xl" hasBorder={true} className="pt-4 pl-4 pr-4 m-2">
+    <GlassPanel rounded="xl" hasBorder={true} className="pt-4 pl-4 pr-4">
       {/* Top section: Icon, Title, Overall Percentage */}
       <View className="flex-row items-center justify-between mb-4">
         <View className="flex-row items-center">
