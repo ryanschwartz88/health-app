@@ -1,21 +1,18 @@
-import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import { Platform, StyleSheet, View, ViewStyle } from 'react-native';
+import { StyleSheet, View, ViewStyle } from 'react-native';
 
 type GlassPanelProps = {
   children: React.ReactNode;
   style?: ViewStyle;
-  rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full'; // Different rounding options
   hasBorder?: boolean;
-  className?: string;
-  intensity?: number;
-  tint?: 'light' | 'dark' | 'default';
+  className?: string; // For additional NativeWind styling if needed
 };
 
 /**
- * GlassPanel - A reusable glassmorphism panel with a true background blur effect.
- * This implementation uses Expo's BlurView for a realistic frosted-glass look.
+ * GlassPanel - A reusable semi-transparent panel with gradient effects
+ * Use this component to create a consistent glass-like UI element across the app
  */
 const GlassPanel: React.FC<GlassPanelProps> = ({
   children,
@@ -23,9 +20,8 @@ const GlassPanel: React.FC<GlassPanelProps> = ({
   rounded = 'lg',
   hasBorder = true,
   className,
-  intensity = 80,
-  tint = 'light',
 }) => {
+  // Map rounded prop to actual border radius values
   const getBorderRadius = () => {
     switch (rounded) {
       case 'none': return 0;
@@ -38,46 +34,34 @@ const GlassPanel: React.FC<GlassPanelProps> = ({
     }
   };
 
-  const borderRadius = getBorderRadius();
-
-  // On Web, BlurView is not supported, so we fall back to a semi-transparent background.
-  const Fallback = () => <View style={[styles.fallback, { borderRadius }]} />;
-
   return (
     <View 
       style={[
-        styles.container,
-        { borderRadius },
+        styles.container, 
+        { borderRadius: getBorderRadius() },
         hasBorder && styles.border,
         style
       ]}
       className={className}
     >
-      {Platform.OS !== 'web' ? (
-        <BlurView
-          tint={tint}
-          intensity={intensity}
-          style={StyleSheet.absoluteFill}
-        />
-      ) : (
-        <Fallback />
-      )}
+      {/* White background with 40% opacity */}
+      <View style={styles.baseBackground} />
       
-      {/* Sheen Gradients */}
+      {/* First gradient: transparent to white with 10% opacity */}
       <LinearGradient
         colors={['transparent', 'rgba(255,255,255,0.1)']}
         start={{ x: .1, y: .1 }}
         end={{ x: .75, y: 1.5 }}
-        style={StyleSheet.absoluteFill}
       />
+      
+      {/* Second gradient: white to transparent with 50% opacity */}
       <LinearGradient
         colors={['rgba(255,255,255,0.5)', 'transparent']}
         start={{ x: .1, y: .1 }}
         end={{ x: .75, y: 1.5 }}
-        style={StyleSheet.absoluteFill}
       />
       
-      {/* Content */}
+      {/* Content container */}
       <View style={styles.content}>
         {children}
       </View>
@@ -87,18 +71,20 @@ const GlassPanel: React.FC<GlassPanelProps> = ({
 
 const styles = StyleSheet.create({
   container: {
+    position: 'relative',
     overflow: 'hidden',
+  },
+  baseBackground: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(255,255,255,0.4)', // White with 40% opacity
+  },
+  content: {
+    position: 'relative',
+    zIndex: 1,
   },
   border: {
     borderWidth: 1,
     borderColor: 'rgba(255,255,255,0.6)',
-  },
-  fallback: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(255,255,255,0.4)',
-  },
-  content: {
-    flex: 1,
   },
 });
 
