@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { AppText } from '../ui/AppText';
 import Svg, { Circle } from 'react-native-svg';
+import { AppText } from '../ui/AppText';
 
 type DayCircleProps = {
   dayOfWeek: string; // First letter of day (S, M, T, W, T, F, S)
@@ -32,11 +32,11 @@ const DayCircle: React.FC<DayCircleProps> = ({
   const circumference = 2 * Math.PI * radius;
   const strokeWidth = 5; // Scale stroke width with container
   
-  // Calculate stroke-dashoffset for progress circle
-  const isComplete = completionPercentage >= 100;
-  const strokeDashoffset = isComplete ? 0 : circumference - (completionPercentage / 100) * circumference;
+  // Change color at 80%, but keep filling until 100%
+  const isFullyComplete = completionPercentage >= 100;
+  const strokeDashoffset = isFullyComplete ? 0 : circumference - (completionPercentage / 100) * circumference;
   
-  const circleColor = isComplete ? '#62DB43' : '#BBBBBB';
+  const circleColor = completionPercentage >= 80 ? '#62DB43' : '#BBBBBB';
   
   // Handle touchable press when not disabled
   const handlePress = () => {
@@ -58,7 +58,7 @@ const DayCircle: React.FC<DayCircleProps> = ({
       disabled={disabled}
     >
       {/* Day of Week */}
-      <AppText variant="body2" weight="bold" style={[
+      <AppText variant="body2" weight="medium" style={[
         styles.dayOfWeek,
         isSelected && !disabled && styles.selectedText,
         disabled && styles.disabledText
@@ -88,7 +88,7 @@ const DayCircle: React.FC<DayCircleProps> = ({
         )}
         
         <View style={styles.dayNumberContainer}>
-          <AppText variant="body1" weight="bold" style={[
+          <AppText variant="body1" weight="regular" style={[
             styles.dayNumber,
             disabled && styles.disabledText
           ]}>
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   },
   selectedContainer: {
     backgroundColor: '#000',
-    borderRadius: 16,
+    borderRadius: 20,
   },
   disabledContainer: {
     opacity: 1,

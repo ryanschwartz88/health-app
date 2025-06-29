@@ -10,6 +10,8 @@ type WeekSliderProps = {
 };
 
 const deviceWidth = Dimensions.get('window').width;
+const HORIZONTAL_PADDING = 8;
+const availableWidth = deviceWidth - (HORIZONTAL_PADDING * 2);
 
 const WeekSlider: React.FC<WeekSliderProps> = ({
   selectedDate,
@@ -88,7 +90,7 @@ const WeekSlider: React.FC<WeekSliderProps> = ({
           isSelected={isSelected}
           onPress={() => onDateChange(date)}
           disabled={isDisabled}
-          chosenWidth={deviceWidth / 7.1}
+          chosenWidth={availableWidth / 7} // Use available width
           chosenSize={42}
         />
       );
@@ -112,6 +114,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
+    paddingHorizontal: HORIZONTAL_PADDING, // Use the defined constant for padding
   },
 });
 
