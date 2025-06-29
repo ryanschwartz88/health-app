@@ -62,7 +62,7 @@ export const GlassTabView: React.FC<GlassTabViewProps> = ({
   return (
     <View>
       {/* Tab Headers */}
-      <View className='flex-row w-full justify-center mt-4'>
+      <View className='flex-row w-full justify-center mt-4' style={{ gap: 8 }}>
         {tabs.map((tab, index) => {
           const isActive = index === activeTab;
           
@@ -84,8 +84,6 @@ export const GlassTabView: React.FC<GlassTabViewProps> = ({
                     padding: 16,
                     marginBottom: isActive ? 0 : 16,
                     paddingBottom: isActive ? 32 : 16,
-                    marginLeft: index === 0 ? 0 : 8,
-                    marginRight: index === 1 ? 0 : 8,
                     borderTopLeftRadius: isActive ? 24 : undefined,
                     borderTopRightRadius: isActive ? 24 : undefined,
                     borderBottomLeftRadius: isActive ? 0 : undefined,

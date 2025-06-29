@@ -112,19 +112,18 @@ const styles = StyleSheet.create({
   content: {
     position: 'relative',
     zIndex: 1,
+    gap: 16,
   },
   titleContainer: {
     flexDirection: 'row',
     gap: 8,
     alignItems: 'center',
-    marginBottom: 8,
   },
   title: {
     color: '#ffffff',
   },
   body: {
     color: '#ffffff',
-    marginBottom: 16,
   },
   tagsContainer: {
     flexDirection: 'row',
@@ -134,8 +133,8 @@ const styles = StyleSheet.create({
   tagButton: {
     backgroundColor: '#ffffff',
     paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 20,
+    paddingVertical: 4,
+    borderRadius: 10,
   },
   tagText: {
     color: '#000000',

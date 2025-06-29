@@ -21,29 +21,25 @@ const DynamicOvalProgressBar: React.FC<DynamicOvalProgressBarProps> = ({
   const {
     ovalHeightClass,
     ovalWidthClass,
-    ovalMarginClass,
-    singleOvalEffectiveWidthPx,
+    ovalWidthPx,
+    gap,
   } = useMemo(() => {
     // Define sizes based on screen width breakpoints
     if (screenWidth < 400) {
       // Smaller ovals for smaller screens
-      const ovalWidthPx = 8;
-      const ovalMarginHorizontalPx = 1;
       return {
         ovalHeightClass: 'h-[14px]',
         ovalWidthClass: 'w-[8px]',
-        ovalMarginClass: 'mx-[1px]',
-        singleOvalEffectiveWidthPx: ovalWidthPx + (ovalMarginHorizontalPx * 2),
+        ovalWidthPx: 8,
+        gap: 2, // Replaces 'mx-[1px]'
       };
     } else {
       // Larger ovals for larger screens
-      const ovalWidthPx = 10;
-      const ovalMarginHorizontalPx = 1.3;
       return {
         ovalHeightClass: 'h-[16px]',
         ovalWidthClass: 'w-[10px]',
-        ovalMarginClass: 'mx-[1.3px]',
-        singleOvalEffectiveWidthPx: ovalWidthPx + (ovalMarginHorizontalPx * 2),
+        ovalWidthPx: 10,
+        gap: 2.6, // Replaces 'mx-[1.3px]'
       };
     }
   }, [screenWidth]);
@@ -62,13 +58,15 @@ const DynamicOvalProgressBar: React.FC<DynamicOvalProgressBarProps> = ({
   };
 
   const { numberOfOvals, numberOfFilledOvals } = useMemo(() => {
-    if (containerWidth === null || containerWidth <= 0 || singleOvalEffectiveWidthPx <= 0) {
+    if (containerWidth === null || containerWidth <= 0 || (ovalWidthPx + gap) <= 0) {
       return { numberOfOvals: 0, numberOfFilledOvals: 0 };
     }
-    const maxOvals = Math.max(0, Math.floor(containerWidth / singleOvalEffectiveWidthPx));
+    // Calculate the number of ovals that can fit in the container width with the given gap
+    // Formula: N = floor((W + g) / (w + g))
+    const maxOvals = Math.max(0, Math.floor((containerWidth + gap) / (ovalWidthPx + gap)));
     const filledCount = Math.min(maxOvals, Math.max(0, Math.round((progressPercent / 100) * maxOvals)));
     return { numberOfOvals: maxOvals, numberOfFilledOvals: filledCount };
-  }, [containerWidth, progressPercent, singleOvalEffectiveWidthPx]);
+  }, [containerWidth, progressPercent, ovalWidthPx, gap]);
 
   // If containerWidth is null, render a view that will trigger onLayout.
   // This view should be styled to take up the space it's supposed to fill.
@@ -78,13 +76,13 @@ const DynamicOvalProgressBar: React.FC<DynamicOvalProgressBarProps> = ({
   }
 
   return (
-    <View style={[{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }, style]} onLayout={handleLayout}>
+    <View style={[{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap }, style]} onLayout={handleLayout}>
       {Array.from({ length: numberOfOvals }).map((_, index) => {
         const isFilled = index < numberOfFilledOvals;
         return (
           <View
             key={index}
-            className={`rounded-full ${ovalHeightClass} ${ovalWidthClass} ${ovalMarginClass} ${isFilled ? determinedFilledColorClass : emptyColorClass}`}
+            className={`rounded-full ${ovalHeightClass} ${ovalWidthClass} ${isFilled ? determinedFilledColorClass : emptyColorClass}`}
           />
         );
       })}

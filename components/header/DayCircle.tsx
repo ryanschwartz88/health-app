@@ -59,7 +59,6 @@ const DayCircle: React.FC<DayCircleProps> = ({
     >
       {/* Day of Week */}
       <AppText variant="body2" weight="medium" style={[
-        styles.dayOfWeek,
         isSelected && !disabled && styles.selectedText,
         disabled && styles.disabledText
       ]}>
@@ -105,6 +104,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 8,
+    gap: 4,
   },
   selectedContainer: {
     backgroundColor: '#000',
@@ -112,9 +112,6 @@ const styles = StyleSheet.create({
   },
   disabledContainer: {
     opacity: 1,
-  },
-  dayOfWeek: {
-    marginBottom: 4,
   },
   selectedText: {
     color: '#FFFFFF',

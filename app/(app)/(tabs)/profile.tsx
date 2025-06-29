@@ -82,9 +82,9 @@ export default function ProfileScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-      
-      {/* Health Stats Summary */}
-      <GlassPanel rounded="lg" style={styles.statsPanel}>
+      <View style={{ gap: 24 }}>
+        {/* Health Stats Summary */}
+        <GlassPanel rounded="lg" style={styles.statsPanel}>
         <AppText variant="body1" weight="medium" style={styles.statsPanelTitle}>
           About Me
         </AppText>
@@ -147,7 +147,8 @@ export default function ProfileScreen() {
           <AppText weight="medium" variant="body1" style={styles.logoutText}>Delete Account</AppText>
         </TouchableOpacity>
       </GlassPanel>
-      <BottomSpacer />
+        <BottomSpacer />
+      </View>
     </ScrollView>
   );
 }
@@ -160,46 +161,11 @@ const styles = StyleSheet.create({
     padding: 16,
     paddingBottom: 40,
   },
-  profileHeader: {
-    padding: 20,
-    marginBottom: 16,
-  },
-  profileInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  avatarContainer: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    backgroundColor: 'rgba(200, 200, 200, 0.3)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 16,
-  },
-  nameContainer: {
-    flex: 1,
-  },
-  editButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'flex-start',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 20,
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-  },
-  editButtonText: {
-    marginLeft: 4,
-    fontSize: 14,
-  },
   statsPanel: {
     padding: 16,
-    marginBottom: 24,
+    gap: 12,
   },
   statsPanelTitle: {
-    marginBottom: 12,
   },
   statsRow: {
     flexDirection: 'row',
@@ -215,10 +181,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.1)',
   },
   section: {
-    marginBottom: 20,
+    gap: 10,
   },
   sectionTitle: {
-    marginBottom: 10,
   },
   menuPanel: {
     paddingVertical: 8,
@@ -234,6 +199,7 @@ const styles = StyleSheet.create({
   menuItemLeft: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 12,
   },
   menuIconContainer: {
     width: 36,
@@ -242,7 +208,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.05)',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 12,
   },
   menuDivider: {
     height: 1,
@@ -250,17 +215,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   logoutPanel: {
-    marginTop: 10,
-    marginBottom: 30,
   },
   logoutButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 14,
+    gap: 8,
   },
   logoutText: {
-    marginLeft: 8,
     color: '#E53935',
   },
 });

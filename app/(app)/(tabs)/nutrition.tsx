@@ -95,48 +95,49 @@ export default function NutritionScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+      <View style={{ gap: 24 }}>
+        {/* Segmented Control Buttons */}
+        <View style={styles.switcherButtonContainer}>
+          {activeSegment === 'Health Categories' ? (
+            <InvertedGlassPanel rounded="full" hasBorder={true} style={styles.activeSwitcherButtonWrapper}>
+              <Pressable style={styles.switcherButton} onPress={() => setActiveSegment('Health Categories')}>
+                <AppText variant="body1" weight="regular" style={[styles.switcherText, styles.activeSwitcherText]}>Health Categories</AppText>
+              </Pressable>
+            </InvertedGlassPanel>
+          ) : (
+            <GlassPanel rounded="full" hasBorder={true} style={styles.inactiveSwitcherButtonWrapper}>
+              <Pressable style={styles.switcherButton} onPress={() => setActiveSegment('Health Categories')}>
+                <AppText variant="body1" weight="regular" style={styles.switcherText}>Health Categories</AppText>
+              </Pressable>
+            </GlassPanel>
+          )}
 
-      {/* Segmented Control Buttons */}
-      <View style={styles.switcherButtonContainer}>
-        {activeSegment === 'Health Categories' ? (
-          <InvertedGlassPanel rounded="full" hasBorder={true} style={styles.activeSwitcherButtonWrapper}>
-            <Pressable style={styles.switcherButton} onPress={() => setActiveSegment('Health Categories')}>
-              <AppText variant="body1" weight="regular" style={[styles.switcherText, styles.activeSwitcherText]}>Health Categories</AppText>
-            </Pressable>
-          </InvertedGlassPanel>
-        ) : (
-          <GlassPanel rounded="full" hasBorder={true} style={styles.inactiveSwitcherButtonWrapper}>
-            <Pressable style={styles.switcherButton} onPress={() => setActiveSegment('Health Categories')}>
-              <AppText variant="body1" weight="regular" style={styles.switcherText}>Health Categories</AppText>
-            </Pressable>
-          </GlassPanel>
-        )}
-
-        {activeSegment === 'All Nutrients' ? (
-          <InvertedGlassPanel rounded="full" hasBorder={false} style={styles.activeSwitcherButtonWrapper}>
-            <Pressable style={styles.switcherButton} onPress={() => setActiveSegment('All Nutrients')}>
-              <AppText variant="body1" weight="regular" style={[styles.switcherText, styles.activeSwitcherText]}>All Nutrients</AppText>
-            </Pressable>
-          </InvertedGlassPanel>
-        ) : (
-          <GlassPanel rounded="full" hasBorder={false} style={styles.inactiveSwitcherButtonWrapper}>
-            <Pressable style={styles.switcherButton} onPress={() => setActiveSegment('All Nutrients')}>
-              <AppText variant="body1" weight="regular" style={styles.switcherText}>All Nutrients</AppText>
-            </Pressable>
-          </GlassPanel>
-        )}
-      </View>
-
-      {/* Nutritional Cards Section */}
-      <View style={styles.section}>
-        
-        <View style={styles.cardsContainer}>
-          {currentData.map((cardProps, index) => (
-            <NutritionCard key={`${activeSegment}-${index}`} {...cardProps} />
-          ))}
+          {activeSegment === 'All Nutrients' ? (
+            <InvertedGlassPanel rounded="full" hasBorder={false} style={styles.activeSwitcherButtonWrapper}>
+              <Pressable style={styles.switcherButton} onPress={() => setActiveSegment('All Nutrients')}>
+                <AppText variant="body1" weight="regular" style={[styles.switcherText, styles.activeSwitcherText]}>All Nutrients</AppText>
+              </Pressable>
+            </InvertedGlassPanel>
+          ) : (
+            <GlassPanel rounded="full" hasBorder={false} style={styles.inactiveSwitcherButtonWrapper}>
+              <Pressable style={styles.switcherButton} onPress={() => setActiveSegment('All Nutrients')}>
+                <AppText variant="body1" weight="regular" style={styles.switcherText}>All Nutrients</AppText>
+              </Pressable>
+            </GlassPanel>
+          )}
         </View>
+
+        {/* Nutritional Cards Section */}
+        <View>
+          
+          <View style={styles.cardsContainer}>
+            {currentData.map((cardProps, index) => (
+              <NutritionCard key={`${activeSegment}-${index}`} {...cardProps} />
+            ))}
+          </View>
+        </View>
+        <BottomSpacer />
       </View>
-      <BottomSpacer />
     </ScrollView>
   );
 }
@@ -147,13 +148,12 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingHorizontal: 16, // Use 8 for less side padding if cards have m-2
-    paddingTop: 16,
+    paddingTop: 0,
     paddingBottom: 24,
   },
   switcherButtonContainer: {
     flexDirection: 'row',
     gap: 8, // Use gap for spacing
-    marginBottom: 20,
   },
   activeSwitcherButtonWrapper: {
     flex: 1,
@@ -176,7 +176,6 @@ const styles = StyleSheet.create({
     color: 'white', // Text color for active button (inside InvertedGlassPanel)
   },
   section: {
-    marginBottom: 24,
   },
   cardsContainer: {
     gap: 16,

@@ -53,7 +53,7 @@ export default function Index() {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
       
-      <View style={styles.content}>
+      <View style={[styles.content, { gap: 16 }]}>
       <SummaryCard
           title="Summary"
           body="Based on your recent activity, your overall health appears to be in excellent shape. Your balanced diet—rich in fruits, vegetables, lean proteins, and whole grains—provides the necessary fuel for your daily activities. Keep up the fantastic work and continue nurturing these healthy habits!"
@@ -152,26 +152,30 @@ export default function Index() {
           initialTabIndex={0}
         />
 
-        <AppText variant="h3" family="caslon" style={styles.headerText}>
-          <AppText variant="h3" family="caslon" italic>Improve </AppText>
-          <AppText variant="h3" family="caslon" weight="medium">Your Health</AppText>
-        </AppText>
+        <View style={styles.paddedSection}>
+          <AppText variant="h3" family="caslon" style={styles.headerText}>
+            <AppText variant="h3" family="caslon" italic>Improve </AppText>
+            <AppText variant="h3" family="caslon" weight="medium">Your Health</AppText>
+          </AppText>
 
-        <RecommendationCard
-          title="Vitamin D"
-          rec="Take 1000 IU per day"
-          vitamin_id="vitamin_d"
-        />
-        <RecommendationCard
-          title="Vitamin C"
-          rec="Take 1000 IU per day"
-          vitamin_id="vitamin_c"
-        />
-        <RecommendationCard
-          title="Vitamin B12"
-          rec="Take 1000 IU per day"
-          vitamin_id="vitamin_b12"
-        />
+          <View style={styles.recommendationContainer}>
+          <RecommendationCard
+            title="Vitamin D"
+            rec="Take 1000 IU per day"
+            vitamin_id="vitamin_d"
+          />
+          <RecommendationCard
+            title="Vitamin C"
+            rec="Take 1000 IU per day"
+            vitamin_id="vitamin_c"
+          />
+          <RecommendationCard
+            title="Vitamin B12"
+            rec="Take 1000 IU per day"
+            vitamin_id="vitamin_b12"
+          />
+          </View>
+        </View>
 
       </View>
       
@@ -184,7 +188,7 @@ const styles = StyleSheet.create({
   headerText: {
     color: '#000000',
     textAlign: 'left',
-    marginVertical: 20,
+    marginTop: 24, // Add a different gap above this section
   },
   container: {
     flex: 1,
@@ -192,10 +196,16 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingHorizontal: 4,
     paddingBottom: 16,
-    paddingTop: 16,
   },
   content: {
     flex: 1,
+  },
+  recommendationContainer: {
+    gap: 12,
+  },
+  paddedSection: {
+    paddingHorizontal: 12,
+    gap: 16,
   },
 
 

@@ -19,8 +19,7 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({ title, rec, vit
 
   return (
     <>
-      <Pressable 
-        style={styles.touchableWrapper}
+      <Pressable
         onPress={onPress}
       >
         <GlassPanel rounded="lg" hasBorder={true}> 
@@ -36,7 +35,7 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({ title, rec, vit
                 <Feather name="chevron-right" size={24} />
               </View>
             </View>
-            <AppText variant="body2" style={styles.recText}>{rec}</AppText>
+            <AppText variant="body2">{rec}</AppText>
           </View>
         </GlassPanel>
       </Pressable>
@@ -45,11 +44,9 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({ title, rec, vit
 };
 
 const styles = StyleSheet.create({
-  touchableWrapper: { // Renamed from cardContainer, handles margin
-    marginBottom: 16,
-  },
   cardContentWrapper: { // New style for padding inside GlassPanel
     padding: 16,
+    gap: 12,
   },
   cardHeaderContainer: {
     flexDirection: 'row',
@@ -65,15 +62,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
+    gap: 12,
   },
   iconWrapper: {
     padding: 10,
     backgroundColor: '#D9d9d9',
     borderRadius: 9999,
-    marginRight: 12,
-  },
-  recText: {
-    marginTop: 12,
   },
 });
 

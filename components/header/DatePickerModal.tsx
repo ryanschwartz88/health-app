@@ -344,12 +344,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 5,
+    gap: 20,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20,
   },
   closeButton: {
     padding: 8,
@@ -358,7 +358,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20,
   },
   navButton: {
     padding: 8,
@@ -369,7 +368,6 @@ const styles = StyleSheet.create({
   dayNamesContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginBottom: 10,
   },
   dayName: {
     width: '14.28%',
@@ -380,13 +378,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
+    gap: 4,
   },
   dayCell: {
     width: 40,
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 2,
   },
   dayCellWithCircle: {
     // No specific styling needed here, just a marker for cells with days
@@ -431,14 +429,13 @@ const styles = StyleSheet.create({
   actionButtons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20,
+    gap: 10,
   },
   button: {
     flex: 1,
     paddingVertical: 12,
     borderRadius: 8,
     alignItems: 'center',
-    marginHorizontal: 5,
   },
   cancelButton: {
     backgroundColor: '#eee',

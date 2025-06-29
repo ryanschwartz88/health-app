@@ -90,7 +90,7 @@ const Header: React.FC<HeaderProps> = ({
           {showCalendar && (
             <TouchableOpacity onPress={showDatePicker} style={styles.dateContainer}>
               <AppText variant="body1" weight="bold">{getFormattedMonthYear()}</AppText>
-              <View style={styles.calendarButton}>
+              <View>
                 <Ionicons name="calendar-outline" size={24} color="#000" />
               </View>
             </TouchableOpacity>
@@ -124,8 +124,8 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   headerContent: {
-    paddingHorizontal: 20,
-    paddingVertical: 16,
+    paddingHorizontal: 16,
+    paddingBottom: 8,
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
@@ -142,10 +142,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
-  },
-
-  calendarButton: {
-    marginTop: 12,
+    gap: 12,
   },
 });
 

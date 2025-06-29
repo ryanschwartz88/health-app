@@ -73,13 +73,13 @@ export default function LogsScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-
+      <View style={{ gap: 16 }}>
         <SummaryCard
           title="Today's Overview"
           body="Based on your recent activity, your overall health appears to be in excellent shape. Your balanced diet—rich in fruits, vegetables, lean proteins, and whole grains—provides the necessary fuel for your daily activities. Keep up the fantastic work and continue nurturing these healthy habits!"
           tags={['More Protein', 'Great Eating Habits']}
           rounded="lg"
-          style={{ width: '100%', marginBottom: 16 }}
+          style={{ width: '100%' }}
         />
 
       {/* Log Entries Section */}
@@ -107,6 +107,7 @@ export default function LogsScreen() {
           ))}
         </View>
       </View>
+      </View>
       <BottomSpacer />
     </ScrollView>
   );
@@ -121,26 +122,26 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   section: {
-    marginBottom: 16,
+    gap: 12,
   },
   sectionTitle: {
-    marginBottom: 12,
   },
   logsContainer: {
     gap: 12,
   },
   logItem: {
     padding: 12,
+    gap: 8,
   },
   logHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 8,
   },
   logTitleRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 10,
   },
   iconContainer: {
     width: 36,
@@ -148,7 +149,6 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 10,
   },
   logDetails: {
     opacity: 0.8,
