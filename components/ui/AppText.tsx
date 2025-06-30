@@ -70,40 +70,40 @@ const AppText = <T extends FontFamily>({
 // Define the styles for each typographic variant
 const styles = StyleSheet.create({
   h0: {
-    fontSize: 40,
-    lineHeight: 44,
-  },
-  h1: {
     fontSize: 36,
     lineHeight: 40,
   },
-  h2: {
+  h1: {
     fontSize: 32,
     lineHeight: 36,
   },
-  h3: {
+  h2: {
     fontSize: 28,
     lineHeight: 32,
   },
-  h4: {
+  h3: {
     fontSize: 24,
     lineHeight: 28,
   },
-  body1: {
+  h4: {
     fontSize: 20,
     lineHeight: 24,
   },
-  body2: {
+  body1: {
     fontSize: 18,
     lineHeight: 22,
   },
-  body3: {
+  body2: {
     fontSize: 16,
     lineHeight: 20,
   },
-  tagline: {
+  body3: {
     fontSize: 14,
-    lineHeight: 28,
+    lineHeight: 18,
+  },
+  tagline: {
+    fontSize: 12,
+    lineHeight: 16,
   },
 });
 
