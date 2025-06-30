@@ -6,8 +6,8 @@ import HomeGraph from "@/components/nutrition/HomeGraph";
 import TargetedSupportCard from "@/components/nutrition/TargetedSupportCard";
 import { AppText } from "@/components/ui/AppText";
 import BottomSpacer from "@/components/ui/BottomSpacer";
-
 import GlassTabView from "@/components/ui/GlassTabView";
+import TitledSection from '@/components/ui/TitledSection';
 import { getUserId } from "@/utils/secureStorage";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
@@ -67,49 +67,52 @@ export default function Index() {
               key: 'today',
               title: 'Today',
               content: (
-                <View className="space-y-4">
-                  <AppText variant="h3" weight="medium">Nutrition & Health Goals</AppText>
-                  <HomeGraph 
-                    data={nutritionData}
-                  />
-                  <AppText variant="h3" weight="medium">Targeted Support</AppText>
-                  <TargetedSupportCard
-                    iconName="flame"
-                    title="Calories"
-                    overallPercentage={60}
-                    items={[
-                      {
-                        id: '1',
-                        title: 'Calories',
-                        takenAmount: 60,
-                        limitAmount: 100,
-                        unit: 'g',
-                      },
-                      {
-                        id: '2',
-                        title: 'Protein',
-                        takenAmount: 60,
-                        limitAmount: 200,
-                        unit: 'g',
-                      },
-                    ]}
-                    onRemove={() => {}}
-                  />
-                  <AppText variant="h3" weight="medium">Unhealthy Additives</AppText>
-                  <AdditiveItem 
-                    icon={<MaterialCommunityIcons name="candy" size={24} color="black" />}
-                    name="Sugar"
-                    amount={74}
-                    unit="g"
-                    color="#F0686F"
-                  />
-                  <AppText variant="h3" weight="medium">Calories & Macros</AppText>
-                  <HealthCategoryCard 
-                    category="Calories"
-                    completionRate={60}
-                    icon="flame"
-                  />
-                
+                <View>
+                  <TitledSection title="Nutrition & Health Goals">
+                    <HomeGraph 
+                      data={nutritionData}
+                    />
+                  </TitledSection>
+                  <TitledSection title="Targeted Support">
+                    <TargetedSupportCard
+                      iconName="flame"
+                      title="Calories"
+                      overallPercentage={60}
+                      items={[
+                        {
+                          id: '1',
+                          title: 'Calories',
+                          takenAmount: 60,
+                          limitAmount: 100,
+                          unit: 'g',
+                        },
+                        {
+                          id: '2',
+                          title: 'Protein',
+                          takenAmount: 60,
+                          limitAmount: 200,
+                          unit: 'g',
+                        },
+                      ]}
+                      onRemove={() => {}}
+                    />
+                  </TitledSection>
+                  <TitledSection title="Unhealthy Additives">
+                    <AdditiveItem 
+                      icon={<MaterialCommunityIcons name="candy" size={24} color="black" />}
+                      name="Sugar"
+                      amount={74}
+                      unit="g"
+                      color="#F0686F"
+                    />
+                  </TitledSection>
+                  <TitledSection title="Calories & Macros">
+                    <HealthCategoryCard 
+                      category="Calories"
+                      completionRate={60}
+                      icon="flame"
+                    />
+                  </TitledSection>
                 </View>
               ),
             },
