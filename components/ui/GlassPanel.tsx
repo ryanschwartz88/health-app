@@ -1,18 +1,18 @@
-import { LinearGradient } from 'expo-linear-gradient';
+import { BlurView } from 'expo-blur';
 import React from 'react';
 import { StyleSheet, View, ViewStyle } from 'react-native';
 
-type GlassPanelProps = {
+interface GlassPanelProps {
   children: React.ReactNode;
   style?: ViewStyle;
-  contentContainerStyle?: ViewStyle; // Style for the inner content container
-  rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full'; // Different rounding options
+  contentContainerStyle?: ViewStyle;
+  rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
   hasBorder?: boolean;
-  className?: string; // For additional NativeWind styling if needed
-};
+  className?: string;
+}
 
 /**
- * GlassPanel - A reusable semi-transparent panel with gradient effects
+ * GlassPanel - A reusable semi-transparent panel with glassmorphism effects
  * Use this component to create a consistent glass-like UI element across the app
  */
 const GlassPanel: React.FC<GlassPanelProps> = ({
@@ -36,57 +36,49 @@ const GlassPanel: React.FC<GlassPanelProps> = ({
     }
   };
 
+  const borderRadius = getBorderRadius();
+
   return (
-    <View 
-      style={[
-        styles.container, 
-        { borderRadius: getBorderRadius() },
-        hasBorder && styles.border,
-        style
-      ]}
-      className={className}
-    >
-      {/* White background with 40% opacity */}
-      <View style={styles.baseBackground} />
-      
-      {/* First gradient: transparent to white with 10% opacity */}
-      <LinearGradient
-        colors={['transparent', 'rgba(255,255,255,0.1)']}
-        start={{ x: .1, y: .1 }}
-        end={{ x: .75, y: 1.5 }}
-      />
-      
-      {/* Second gradient: white to transparent with 50% opacity */}
-      <LinearGradient
-        colors={['rgba(255,255,255,0.5)', 'transparent']}
-        start={{ x: .1, y: .1 }}
-        end={{ x: .75, y: 1.5 }}
-      />
-      
-      {/* Content container */}
-      <View style={[styles.content, contentContainerStyle]}>
-        {children}
+    <View style={[styles.shadowContainer, style]}>
+      <View style={[{ borderRadius, overflow: 'hidden' }]} className={className}>
+        <BlurView
+          style={StyleSheet.absoluteFill}
+          tint="light"
+          intensity={80}
+        />
+        <View
+          style={[
+            StyleSheet.absoluteFill,
+            styles.overlay,
+            hasBorder && styles.border,
+          ]}
+        />
+        <View style={[styles.content, contentContainerStyle]}>
+          {children}
+        </View>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-    overflow: 'hidden',
+  shadowContainer: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 5, // for Android
+    marginBottom: 0, // Add space for the shadow to render
   },
-  baseBackground: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(255,255,255,0.4)', // White with 40% opacity
-  },
-  content: {
-    position: 'relative',
-    zIndex: 1,
+  overlay: {
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
   },
   border: {
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.6)',
+    borderColor: 'rgba(255, 255, 255, 0.6)',
+  },
+  content: {
+    padding: 0, // Default padding
   },
 });
 

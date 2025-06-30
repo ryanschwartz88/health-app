@@ -6,7 +6,7 @@ import HomeGraph from "@/components/nutrition/HomeGraph";
 import TargetedSupportCard from "@/components/nutrition/TargetedSupportCard";
 import { AppText } from "@/components/ui/AppText";
 import BottomSpacer from "@/components/ui/BottomSpacer";
-import CustomCollapsible from "@/components/ui/CustomCollapsible";
+
 import GlassTabView from "@/components/ui/GlassTabView";
 import { getUserId } from "@/utils/secureStorage";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -68,62 +68,47 @@ export default function Index() {
               title: 'Today',
               content: (
                 <View className="space-y-4">
-                  <CustomCollapsible
-                    header="Nutrition & Health Goals"
-                    >
-                      <HomeGraph 
-                        data={nutritionData}
-                      />
-                  </CustomCollapsible>
-
-                  <CustomCollapsible
-                    header="Targeted Support"
-                    >
-                      <TargetedSupportCard
-                        iconName="flame"
-                        title="Calories"
-                        overallPercentage={60}
-                        items={[
-                          {
-                            id: '1',
-                            title: 'Calories',
-                            takenAmount: 60,
-                            limitAmount: 100,
-                            unit: 'g',
-                          },
-                          {
-                            id: '2',
-                            title: 'Protein',
-                            takenAmount: 60,
-                            limitAmount: 200,
-                            unit: 'g',
-                          },
-                        ]}
-                        onRemove={() => {}}
-                      />
-                  </CustomCollapsible>
-
-                  <CustomCollapsible
-                    header="Unhealthy Additives"
-                    >
-                    <AdditiveItem 
-                      icon={<MaterialCommunityIcons name="candy" size={24} color="black" />}
-                      name="Sugar"
-                      amount={74}
-                      unit="g"
-                      color="#F0686F"
-                    />
-                  </CustomCollapsible>
-                  
-                  <CustomCollapsible
-                    header="Calories & Macros"
-                    >
-                    <HealthCategoryCard 
-                      category="Calories"
-                      completionRate={60}
-                      icon="flame"
-                    />
-                  </CustomCollapsible>
+                  <AppText variant="h3" weight="medium">Nutrition & Health Goals</AppText>
+                  <HomeGraph 
+                    data={nutritionData}
+                  />
+                  <AppText variant="h3" weight="medium">Targeted Support</AppText>
+                  <TargetedSupportCard
+                    iconName="flame"
+                    title="Calories"
+                    overallPercentage={60}
+                    items={[
+                      {
+                        id: '1',
+                        title: 'Calories',
+                        takenAmount: 60,
+                        limitAmount: 100,
+                        unit: 'g',
+                      },
+                      {
+                        id: '2',
+                        title: 'Protein',
+                        takenAmount: 60,
+                        limitAmount: 200,
+                        unit: 'g',
+                      },
+                    ]}
+                    onRemove={() => {}}
+                  />
+                  <AppText variant="h3" weight="medium">Unhealthy Additives</AppText>
+                  <AdditiveItem 
+                    icon={<MaterialCommunityIcons name="candy" size={24} color="black" />}
+                    name="Sugar"
+                    amount={74}
+                    unit="g"
+                    color="#F0686F"
+                  />
+                  <AppText variant="h3" weight="medium">Calories & Macros</AppText>
+                  <HealthCategoryCard 
+                    category="Calories"
+                    completionRate={60}
+                    icon="flame"
+                  />
                 
                 </View>
               ),
