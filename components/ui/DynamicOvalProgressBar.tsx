@@ -1,5 +1,6 @@
+import { LinearGradient } from 'expo-linear-gradient';
 import React, { useMemo, useState } from 'react';
-import { LayoutChangeEvent, useWindowDimensions, View, ViewStyle } from 'react-native';
+import { LayoutChangeEvent, StyleSheet, useWindowDimensions, View, ViewStyle } from 'react-native';
 
 // Default Tailwind class for styling
 const DEFAULT_EMPTY_COLOR_CLASS = 'bg-gray-300';
@@ -19,35 +20,35 @@ const DynamicOvalProgressBar: React.FC<DynamicOvalProgressBarProps> = ({
   const [containerWidth, setContainerWidth] = useState<number | null>(null);
 
   const {
-    ovalHeightClass,
-    ovalWidthClass,
-    ovalWidthPx,
+    barHeightClass,
+    barWidthClass,
+    barWidthPx,
     gap,
   } = useMemo(() => {
     // Define sizes based on screen width breakpoints
     if (screenWidth < 400) {
-      // Smaller ovals for smaller screens
+      // Smaller bars for smaller screens
       return {
-        ovalHeightClass: 'h-[14px]',
-        ovalWidthClass: 'w-[8px]',
-        ovalWidthPx: 8,
-        gap: 2, // Replaces 'mx-[1px]'
+        barHeightClass: 'h-[20px]',
+        barWidthClass: 'w-[3px]',
+        barWidthPx: 3,
+        gap: 3,
       };
     } else {
-      // Larger ovals for larger screens
+      // Larger bars for larger screens
       return {
-        ovalHeightClass: 'h-[16px]',
-        ovalWidthClass: 'w-[10px]',
-        ovalWidthPx: 10,
-        gap: 2.6, // Replaces 'mx-[1.3px]'
+        barHeightClass: 'h-[24px]',
+        barWidthClass: 'w-[4px]',
+        barWidthPx: 4,
+        gap: 3.5,
       };
     }
   }, [screenWidth]);
 
-  const determinedFilledColorClass = useMemo(() => {
-    if (progressPercent <= 33) return 'bg-red-400';
-    if (progressPercent <= 66) return 'bg-yellow-400';
-    return 'bg-green-400';
+  const determinedGradientColors = useMemo((): readonly [string, string] => {
+    if (progressPercent <= 33) return ['#F87171', '#FCA5A5']; // Red gradient
+    if (progressPercent <= 66) return ['#FBBF24', '#FCD34D']; // Yellow gradient
+    return ['#34D399', '#6EE7B7']; // Green gradient
   }, [progressPercent]);
 
   const handleLayout = (event: LayoutChangeEvent) => {
@@ -58,31 +59,38 @@ const DynamicOvalProgressBar: React.FC<DynamicOvalProgressBarProps> = ({
   };
 
   const { numberOfOvals, numberOfFilledOvals } = useMemo(() => {
-    if (containerWidth === null || containerWidth <= 0 || (ovalWidthPx + gap) <= 0) {
+    if (containerWidth === null || containerWidth <= 0 || (barWidthPx + gap) <= 0) {
       return { numberOfOvals: 0, numberOfFilledOvals: 0 };
     }
-    // Calculate the number of ovals that can fit in the container width with the given gap
-    // Formula: N = floor((W + g) / (w + g))
-    const maxOvals = Math.max(0, Math.floor((containerWidth + gap) / (ovalWidthPx + gap)));
+    // Calculate the number of bars that can fit in the container width with the given gap
+    const maxOvals = Math.max(0, Math.floor((containerWidth + gap) / (barWidthPx + gap)));
     const filledCount = Math.min(maxOvals, Math.max(0, Math.round((progressPercent / 100) * maxOvals)));
     return { numberOfOvals: maxOvals, numberOfFilledOvals: filledCount };
-  }, [containerWidth, progressPercent, ovalWidthPx, gap]);
+  }, [containerWidth, progressPercent, barWidthPx, gap]);
 
   // If containerWidth is null, render a view that will trigger onLayout.
-  // This view should be styled to take up the space it's supposed to fill.
-  // minHeight ensures it's visible and layout can be calculated.
   if (containerWidth === null) {
-    return <View onLayout={handleLayout} style={[{ flex: 1, minHeight: 20 }, style]} />;
+    return <View onLayout={handleLayout} style={[{ flex: 1, minHeight: 24 }, style]} />;
   }
 
   return (
     <View style={[{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap }, style]} onLayout={handleLayout}>
       {Array.from({ length: numberOfOvals }).map((_, index) => {
         const isFilled = index < numberOfFilledOvals;
+        if (isFilled) {
+          return (
+            <View key={index} className={`rounded-full ${barHeightClass} ${barWidthClass} overflow-hidden`}>
+              <LinearGradient
+                colors={determinedGradientColors}
+                style={StyleSheet.absoluteFill}
+              />
+            </View>
+          );
+        }
         return (
           <View
             key={index}
-            className={`rounded-full ${ovalHeightClass} ${ovalWidthClass} ${isFilled ? determinedFilledColorClass : emptyColorClass}`}
+            className={`rounded-full ${barHeightClass} ${barWidthClass} ${emptyColorClass}`}
           />
         );
       })}
